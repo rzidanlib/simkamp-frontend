@@ -58,4 +58,25 @@ export const data = {
       },
     ],
   },
+  relawan: {
+    TABLE_ROWS: [
+      {
+        relawan_id: '123456789',
+        relawan_kode: 'relawan123',
+        relawan_nama: 'Rendy Pratama',
+        relawan_email: 'rendy@creative-tim.com',
+        relawan_password: 'password123',
+        relawan_no_telp: '081234567890',
+        relawan_usia: '20',
+        relawan_jenis_kelamin: 'Laki-laki',
+        relawan_foto:
+          'https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg',
+        relawan_kandidat_kode: 'aniesbaswedan',
+        relawan_provinsi: 'Jawa Barat',
+        relawan_kab_kota: 'Kuningan',
+        relawan_kecamatan_desa: 'Banjar Kuningan',
+        relawan_status: true,
+      },
+    ],
+  },
 };

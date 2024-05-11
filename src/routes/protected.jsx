@@ -55,8 +55,8 @@ const authRole = {
 export const protectedRoute = [
   { path: '/dashboard', element: <Dashboard />, roles: authRole.all },
   { path: '/aruskas/*', element: <ArusKasRoutes />, roles: authRole.kandidat },
-  { path: '/logistik', element: <LogistikRoutes />, roles: authRole.all },
-  { path: '/relawan', element: <RelawanRoutes />, roles: authRole.kandidat },
+  { path: '/logistik/*', element: <LogistikRoutes />, roles: authRole.all },
+  { path: '/relawan/*', element: <RelawanRoutes />, roles: authRole.kandidat },
   { path: '/calon-pemilih/*', element: <CalonPemilihRoutes /> },
 
   { path: '/auth/*', element: <Navigate to="/dashboard" /> },
