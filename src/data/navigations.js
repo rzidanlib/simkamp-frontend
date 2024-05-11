@@ -14,13 +14,6 @@ export const navigations = [
     path: './dashboard',
     icon: HomeIcon,
   },
-
-  {
-    id: 2,
-    title: 'Arus Kas',
-    path: './aruskas',
-    icon: ArrowsRightLeftIcon,
-  },
   {
     id: 3,
     title: 'Relawan',
@@ -32,6 +25,12 @@ export const navigations = [
     title: 'Calon Pemilih',
     path: './calon-pemilih',
     icon: UsersIcon,
+  },
+  {
+    id: 2,
+    title: 'Arus Kas',
+    path: './aruskas',
+    icon: ArrowsRightLeftIcon,
   },
   // {
   //   id: 3,

@@ -30,5 +30,32 @@ export const data = {
         { waktu: 20, penanggalan: 'Detik' },
       ],
     },
+    members: [
+      {
+        img: 'https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg',
+        name: 'John Michael',
+        date: '23/04/18',
+      },
+      {
+        img: 'https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-2.jpg',
+        name: 'Alexa Liras',
+        date: '23/04/18',
+      },
+      {
+        img: 'https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-1.jpg',
+        name: 'Laurent Perrier',
+        date: '19/09/17',
+      },
+      {
+        img: 'https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-4.jpg',
+        name: 'Michael Levi',
+        date: '24/12/08',
+      },
+      {
+        img: 'https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-5.jpg',
+        name: 'Richard Gran',
+        date: '04/10/21',
+      },
+    ],
   },
 };

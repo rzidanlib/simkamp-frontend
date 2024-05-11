@@ -1,7 +1,5 @@
-import { Card, CardBody, CardFooter, CardHeader, Typography } from '@material-tailwind/react';
 import Chart from 'react-apexcharts';
 import PropTypes from 'prop-types';
-import { ChartBarIcon } from '@heroicons/react/24/outline';
 
 const chartConfig = (data, settings) => ({
   type: 'line',
@@ -82,40 +80,12 @@ const chartConfig = (data, settings) => ({
   },
 });
 
-export const LineChart = ({ title = '', settings = {}, footer }) => {
+export const LineChart = ({ settings = {} }) => {
   const data = [50, 40, 300, 320, 500, 350, 200, 230, 500];
 
-  return (
-    <Card className=" overflow-hidden">
-      <CardHeader
-        floated={false}
-        shadow={false}
-        color="transparent"
-        className="flex gap-4 rounded-none items-center"
-      >
-        <div className={`w-max rounded-lg bg-[${settings.color}] p-2 text-white`}>
-          <ChartBarIcon className="h-5 w-5" />
-        </div>
-        <div>
-          <Typography variant="h4" color="blue-gray">
-            {title}
-          </Typography>
-        </div>
-      </CardHeader>
-      <CardBody className="px-2 pt-0 pb-0">
-        <Chart {...chartConfig(data, settings)} />
-      </CardBody>
-      {footer && (
-        <CardFooter divider className="p-4">
-          {footer}
-        </CardFooter>
-      )}
-    </Card>
-  );
+  return <Chart {...chartConfig(data, settings)} />;
 };
 
 LineChart.propTypes = {
-  title: PropTypes.string,
-  footer: PropTypes.node,
   settings: PropTypes.object,
 };
