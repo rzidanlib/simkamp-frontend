@@ -75,7 +75,7 @@ export const data = {
         relawan_provinsi: 'Jawa Barat',
         relawan_kab_kota: 'Kuningan',
         relawan_kecamatan_desa: 'Banjar Kuningan',
-        relawan_status: true,
+        relawan_status: 'Aktif',
       },
     ],
   },

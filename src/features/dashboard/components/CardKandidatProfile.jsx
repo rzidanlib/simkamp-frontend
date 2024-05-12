@@ -16,11 +16,11 @@ export const CardKandidatProfile = ({ profile }) => {
         </Typography>
 
         <div className="mt-4 grid grid-cols-2 gap-4 cursor-pointer">
-          <Typography className="p-2 font-semibold rounded-lg text-white bg-gradient-to-tr from-gray-900 to-gray-800 shadow-md shadow-gray-900/10">
+          <Typography className="p-2 font-semibold rounded-lg text-white bg-blue-gray-900 shadow-md shadow-gray-900/10">
             No. {profile.no_urut}
           </Typography>
           <Typography
-            className={`p-2 font-semibold rounded-lg text-white bg-gradient-to-tr from-${profile.partai.warna_partai}-900 to-${profile.partai.warna_partai}-800 shadow-md shadow-gray-900/10 uppercase`}
+            className={`p-2 font-semibold rounded-lg text-white bg-indigo-900 shadow-md shadow-gray-900/10 uppercase`}
           >
             {profile.partai.nama_partai}
           </Typography>

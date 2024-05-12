@@ -17,7 +17,7 @@ export const ContentLayout = ({ children, title }) => {
       <div key={segment}>
         {isLast ? (
           <Typography variant="small" color="blue-gray" className="font-normal">
-            {title}
+            {segment}
           </Typography>
         ) : (
           <Link to={path}>
