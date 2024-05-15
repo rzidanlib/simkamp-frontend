@@ -4,6 +4,7 @@ import { Navigate } from 'react-router-dom';
 import { Relawan } from './Relawan';
 import { TambahRelawan } from './TambahRelawan';
 import { EditRelawan } from './EditRelawan';
+import { DetailRelawan } from './DetailRelawan';
 
 export const RelawanRoutes = () => {
   return (
@@ -13,7 +14,7 @@ export const RelawanRoutes = () => {
       <Route path="/edit" element={<Navigate to={'/relawan'} />} />
       <Route path="/edit/:id" element={<EditRelawan />} />
       <Route path="/detail" element={<Navigate to={'/relawan'} />} />
-      <Route path="/detail/:id" element={<EditRelawan />} />
+      <Route path="/detail/:id" element={<DetailRelawan />} />
     </Routes>
   );
 };

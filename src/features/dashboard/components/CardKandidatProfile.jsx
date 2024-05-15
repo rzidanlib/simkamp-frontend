@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 export const CardKandidatProfile = ({ profile }) => {
   return (
     <Card className="h-fit">
-      <CardHeader className="place-self-center w-fit p-0">
+      <CardHeader className="place-self-center w-fit p-0" floated={false} shadow={false}>
         <img src={profile.foto} alt="Foto Kandidat" className="h-80 object-cover object-top" />
       </CardHeader>
       <CardBody className="text-center">

@@ -27,7 +27,7 @@ export const CardTable = ({ children, handleModal }) => {
           </div>
           <div className="flex shrink-0 flex-col sm:flex-row">
             <Link to={'/relawan/tambah'}>
-              <Button className="flex items-center gap-3" size="lg">
+              <Button className="flex items-center gap-3">
                 <UserPlusIcon strokeWidth={2} className="h-5 w-5" /> Tambah Relawan
               </Button>
             </Link>

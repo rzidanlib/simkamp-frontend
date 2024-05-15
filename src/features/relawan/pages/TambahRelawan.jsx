@@ -1,38 +1,112 @@
 import { ContentLayout } from '@/components/Layout';
-import { CloudArrowUpIcon } from '@heroicons/react/24/outline';
-import { Button } from '@material-tailwind/react';
-import { Card, CardBody } from '@material-tailwind/react';
+import { Typography, Card, CardBody, CardHeader } from '@material-tailwind/react';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import {
+  getKabupaten,
+  getKecamatan,
+  getProvinsi,
+} from '@/features/wilayah-administrasi/api/get-wilayah';
+import { FormTambahRelawan } from '../components';
 
 export const TambahRelawan = () => {
+  const [wilayah, setWilayah] = useState({
+    provinsi: [],
+    kabupaten: [],
+    kecamatan: [],
+  });
+
+  const [form, setForm] = useState({
+    relawan_kandidat_kode: 'kandiat123',
+    relawan_nama: '',
+    relawan_no_telepon: '',
+    relawan_usia: '',
+    relawan_foto: null,
+    relawan_jenis_kelamin: '',
+    relawan_status: 'aktif',
+    relawan_provinsi: '',
+    relawan_kab_kota: '',
+    relawan_kecamatan_desa: '',
+  });
+
+  useEffect(() => {
+    const fetchWilayah = async () => {
+      const provinsi = await getProvinsi();
+      setWilayah({ provinsi: provinsi.value });
+
+      if (form.relawan_provinsi !== '') {
+        const kabupaten = await getKabupaten(form.relawan_provinsi);
+        setWilayah((prevstate) => ({
+          ...prevstate,
+          kabupaten: kabupaten.value,
+        }));
+
+        if (form.relawan_kab_kota !== '') {
+          const kecamatan = await getKecamatan(form.relawan_kab_kota);
+          setWilayah((prevstate) => ({
+            ...prevstate,
+            kecamatan: kecamatan.value,
+          }));
+        }
+      }
+    };
+
+    fetchWilayah();
+  }, [form.relawan_provinsi, form.relawan_kab_kota]);
+
+  const handleImageChange = (relawan_foto) => {
+    setForm((prevstate) => ({
+      ...prevstate,
+      relawan_foto,
+    }));
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prevstate) => ({
+      ...prevstate,
+      [name]: value,
+    }));
+  };
+
+  const handleSelectChange = (name, value) => {
+    setForm((prevstate) => ({
+      ...prevstate,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(form);
+  };
+
   return (
     <ContentLayout title={'Tambah Relawan'}>
       <Card className="mt-12">
-        <CardBody>
-          <form className="grid md:grid-cols-3">
-            <div className="flex flex-col items-center justify-center">
-              <label
-                htmlFor="dropzone-file"
-                className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
-              >
-                <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                  <CloudArrowUpIcon className="w-10 h-10 mb-3 text-gray-400" />
-                  <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                    <span className="font-semibold">Click to upload</span> or drag and drop
-                  </p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">
-                    SVG, PNG, JPG or GIF (MAX. 800x400px)
-                  </p>
-                </div>
-                <input id="dropzone-file" type="file" className="hidden" />
-              </label>
-            </div>
+        <CardHeader
+          floated={false}
+          shadow={false}
+          color="transparent"
+          className="border-b rounded-none"
+        >
+          <Typography variant="h4" color="blue-gray">
+            Form Data Relawan
+          </Typography>
+          <Typography variant="small" color="blue-gray">
+            Lengkapi dan isi form data relawan dibawah ini dengan lengkap.
+          </Typography>
+        </CardHeader>
 
-            <div className="md:col-span-2">
-              {/* <Button type="submit" className="w-full">
-                Tambah Relawan
-              </Button> */}
-            </div>
-          </form>
+        <CardBody>
+          <FormTambahRelawan
+            form={form}
+            imageChange={handleImageChange}
+            inputChange={handleInputChange}
+            selectChange={handleSelectChange}
+            wilayah={wilayah}
+            submit={handleSubmit}
+          />
         </CardBody>
       </Card>
     </ContentLayout>

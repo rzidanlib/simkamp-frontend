@@ -17,7 +17,7 @@ export const CardKandidatBio = ({ profile }) => {
 
   return (
     <Card className="h-full">
-      <CardHeader className="w-fit" color="gray">
+      <CardHeader className="w-fit" color="gray" floated={false} shadow={false}>
         <Typography variant="h5" color="white" className="p-3">
           Profil Kandidat
         </Typography>

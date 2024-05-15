@@ -1,6 +1,8 @@
+import { Login } from '@/features/auth/pages/login';
+
 export const publicRoute = [
   {
-    path: '/auth/*',
-    element: <div>auth</div>,
+    path: '/auth/login',
+    element: <Login />,
   },
 ];

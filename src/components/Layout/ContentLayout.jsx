@@ -40,7 +40,7 @@ export const ContentLayout = ({ children, title }) => {
 
       <main className="p-8">
         <div className="capitalize">
-          <Breadcrumbs className={`bg-transparent p-0 transition-all `}>{breadcrumb}</Breadcrumbs>
+          {/* <Breadcrumbs className={`bg-transparent p-0 transition-all `}>{breadcrumb}</Breadcrumbs> */}
 
           <Typography variant="h2" color="blue-gray" className="uppercase">
             {title}
