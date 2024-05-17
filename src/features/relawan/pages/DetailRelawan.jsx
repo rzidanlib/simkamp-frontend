@@ -16,7 +16,7 @@ export const DetailRelawan = () => {
     kecamatan: [],
   });
 
-  const [form, setForm] = useState({
+  const form = {
     relawan_kandidat_kode: 'kandiat123',
     relawan_nama: 'Fahri Ramadhan',
     relawan_no_telepon: '0987654321',
@@ -27,7 +27,7 @@ export const DetailRelawan = () => {
     relawan_provinsi: '11',
     relawan_kab_kota: '11.01',
     relawan_kecamatan_desa: '11.01.01',
-  });
+  };
 
   useEffect(() => {
     const fetchWilayah = async () => {

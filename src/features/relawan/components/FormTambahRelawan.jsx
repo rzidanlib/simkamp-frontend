@@ -20,6 +20,7 @@ export const FormTambahRelawan = ({
           onImageChange={imageChange}
           imagePath={form.relawan_foto ?? ''}
           className="p-4 h-80 w-full"
+          disabled={disabled}
         />
       </div>
 

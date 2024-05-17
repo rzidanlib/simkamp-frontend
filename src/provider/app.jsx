@@ -1,15 +1,24 @@
-import * as React from "react";
+import * as React from 'react';
 
-import { LayoutControllerProvider } from "@/context/LayoutContext";
-import { ThemeProvider } from "@material-tailwind/react";
-import { HelmetProvider } from "react-helmet-async";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 
-import { LoadingSpinner } from "@/components/Elements/Spinner";
+import { LayoutControllerProvider } from '@/context/LayoutContext';
+import { ThemeProvider } from '@material-tailwind/react';
+import { LoadingSpinner } from '@/components/Elements/Spinner';
 
-import PropTypes from "prop-types";
+import { queryConfig } from '@/lib/react-query';
+
+import PropTypes from 'prop-types';
 
 export const AppProvider = ({ children }) => {
+  const [queryClient] = React.useState(() => {
+    return new QueryClient({
+      defaultOptions: queryConfig,
+    });
+  });
+
   return (
     <React.Suspense
       fallback={
@@ -19,11 +28,13 @@ export const AppProvider = ({ children }) => {
       }
     >
       <HelmetProvider>
-        <ThemeProvider>
-          <LayoutControllerProvider>
-            <Router>{children}</Router>
-          </LayoutControllerProvider>
-        </ThemeProvider>
+        <QueryClientProvider client={queryClient}>
+          <ThemeProvider>
+            <LayoutControllerProvider>
+              <Router>{children}</Router>
+            </LayoutControllerProvider>
+          </ThemeProvider>
+        </QueryClientProvider>
       </HelmetProvider>
     </React.Suspense>
   );

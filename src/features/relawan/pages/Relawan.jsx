@@ -1,21 +1,11 @@
 import { useState } from 'react';
 import { ContentLayout } from '@/components/Layout';
-import { Table } from '@/components/Elements/Table';
+import { MenuActions, Table } from '@/components/Elements/Table';
 import { CardTable, ModalFilter } from '../components';
 
 import { data } from '@/data/data-example';
-
-const TABLE_HEAD = ['nama relawan', 'usia', 'kabupaten/kota', 'status'];
-const dataRelawan = data.relawan.TABLE_ROWS;
-const TABLE_ROWS = dataRelawan.map((data) => {
-  return {
-    kode: data.relawan_kode,
-    'nama relawan': data.relawan_nama,
-    usia: data.relawan_usia,
-    'kabupaten/kota': data.relawan_kab_kota,
-    status: data.relawan_status,
-  };
-});
+import PropTypes from 'prop-types';
+import { ChipElement, getStatusColor } from '@/components/Elements/Chip';
 
 export const Relawan = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -29,17 +19,47 @@ export const Relawan = () => {
     <ContentLayout title={'Relawan'}>
       <CardTable handleModal={handleOpenModal}>
         <Table
-          TABLE_HEAD={TABLE_HEAD}
-          TABLE_ROWS={TABLE_ROWS}
-          actions={{
-            onDelete: handleDelete,
-            detailPath: '/relawan/detail',
-            editPath: '/relawan/edit',
-          }}
+          data={data.relawan.TABLE_ROWS}
+          columns={[
+            { title: 'Nama Relawan', field: 'relawan_nama' },
+            { title: 'Usia', field: 'relawan_usia' },
+            { title: 'Kabupaten/Kota', field: 'relawan_kab_kota' },
+            {
+              title: 'Status',
+              field: 'relawan_status',
+              Cell({ entry: { relawan_status } }) {
+                return (
+                  <ChipElement
+                    variant="ghost"
+                    size="sm"
+                    color={getStatusColor(relawan_status)}
+                    value={relawan_status}
+                  />
+                );
+              },
+            },
+            {
+              title: 'Aksi',
+              field: 'relawan_kode',
+              Cell({ entry: { relawan_kode } }) {
+                return (
+                  <MenuActions
+                    detailPath={`/relawan/detail/${relawan_kode}`}
+                    onDelete={handleDelete}
+                  />
+                );
+              },
+            },
+          ]}
         />
       </CardTable>
 
       <ModalFilter openModal={openModal} handleOpenModal={handleOpenModal} />
     </ContentLayout>
   );
+};
+
+Relawan.propTypes = {
+  title: PropTypes.string,
+  entry: PropTypes.object,
 };
