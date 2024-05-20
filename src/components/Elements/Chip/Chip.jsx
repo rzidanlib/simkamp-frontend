@@ -11,7 +11,7 @@ const ChipElement = forwardRef(({ className, ...props }, ref) => (
 ));
 ChipElement.displayName = 'ChipElement';
 
-export { ChipElement };
+export { ChipElement as Chip };
 
 ChipElement.propTypes = {
   className: PropTypes.string,

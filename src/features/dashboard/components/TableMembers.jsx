@@ -20,7 +20,7 @@ export const TableMembers = ({ title, icon, data }) => {
           {icon}
         </div>
         <div>
-          <Typography variant="h4" color="blue-gray">
+          <Typography variant="h5" color="blue-gray">
             {title}
           </Typography>
           <Typography variant="small" color="blue-gray">

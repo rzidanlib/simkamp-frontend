@@ -4,7 +4,7 @@ import { generateStaticAccount } from '@/utils/generateStaticAccount';
 
 import PropTypes from 'prop-types';
 
-export const FormTambahRelawan = ({
+export const FormTambah = ({
   submit,
   imageChange,
   inputChange,
@@ -32,6 +32,7 @@ export const FormTambahRelawan = ({
             onChange={inputChange}
             value={form.relawan_nama}
             disabled={disabled}
+            className="col-span-2"
           />
           <InputText
             label="Email"
@@ -163,6 +164,20 @@ export const FormTambahRelawan = ({
               )}
             </Select>
           </div>
+          <div className="w-full flex flex-col">
+            <Select
+              label="Jenis Kelamin"
+              name="relawan_status"
+              id="relawan_status"
+              value={form.relawan_status}
+              onChange={(event) => selectChange('relawan_status', event)}
+              disabled={disabled}
+            >
+              <Option value="aktif">Aktif</Option>
+              <Option value="tidak aktif">Tidak aktif</Option>
+            </Select>
+            {/* {error ? <span className="text-red-500 text-sm ">{error}</span> : null} */}
+          </div>
         </div>
 
         <div className={`mt-4 flex justify-end ${disabled ? 'hidden' : ''}`}>
@@ -175,7 +190,7 @@ export const FormTambahRelawan = ({
   );
 };
 
-FormTambahRelawan.propTypes = {
+FormTambah.propTypes = {
   submit: PropTypes.func,
   inputChange: PropTypes.func,
   selectChange: PropTypes.func,

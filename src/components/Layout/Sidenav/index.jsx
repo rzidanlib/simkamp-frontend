@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
-import { setOpenSidenav, useLayoutContoller } from "@/context/LayoutContext";
+import { useState } from 'react';
+import { Link, NavLink } from 'react-router-dom';
+import { setOpenSidenav, useLayoutContoller } from '@/context/LayoutContext';
 
-import { ChevronDownIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { ChevronDownIcon, XMarkIcon } from '@heroicons/react/24/outline';
 
 import {
   List,
@@ -15,8 +15,8 @@ import {
   AccordionBody,
   IconButton,
   Typography,
-} from "@material-tailwind/react";
-import { navigations } from "@/data/navigations";
+} from '@material-tailwind/react';
+import { navigations } from '@/data/navigations';
 
 const Sidenav = () => {
   const [controller, dispatch] = useLayoutContoller();
@@ -25,7 +25,7 @@ const Sidenav = () => {
 
   const activeNav = {
     active:
-      "text-white bg-gradient-to-tr from-gray-900 to-gray-800 shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 hover:text-white active:opacity-[0.85] focus:text-white",
+      'text-white bg-gradient-to-tr from-gray-900 to-gray-800 shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 hover:text-white active:opacity-[0.85] focus:text-white',
   };
 
   const handleOpen = (value) => {
@@ -35,7 +35,7 @@ const Sidenav = () => {
   return (
     <aside
       className={`${
-        openSidenav ? "translate-x-0" : "-translate-x-80"
+        openSidenav ? 'translate-x-0' : '-translate-x-80'
       } bg-white shadow-sm fixed inset-0 z-50 h-screen w-72 transition-transform duration-300 xl:translate-x-0 border-r border-blue-gray-100`}
     >
       <div className={`relative`}>
@@ -66,16 +66,13 @@ const Sidenav = () => {
                   <ChevronDownIcon
                     strokeWidth={2.5}
                     className={`mx-auto h-4 w-4 transition-transform ${
-                      open === item.id ? "rotate-180" : ""
+                      open === item.id ? 'rotate-180' : ''
                     }`}
                   />
                 }
               >
                 <ListItem className="p-0" selected={open === item.id}>
-                  <AccordionHeader
-                    onClick={() => handleOpen(item.id)}
-                    className="border-b-0 p-3 "
-                  >
+                  <AccordionHeader onClick={() => handleOpen(item.id)} className="border-b-0 p-3 ">
                     <ListItemPrefix>
                       <item.icon className="h-5 w-5" />
                     </ListItemPrefix>
@@ -93,9 +90,7 @@ const Sidenav = () => {
                       <NavLink key={subItem.id} to={subItem.path}>
                         {({ isActive }) => (
                           <ListItem
-                            className={`${
-                              isActive ? activeNav.active : ""
-                            } ml-auto w-[90%]`}
+                            className={`${isActive ? activeNav.active : ''} ml-auto w-[90%]`}
                           >
                             <ListItemPrefix>
                               <subItem.icon className="h-5 w-5" />
@@ -111,7 +106,7 @@ const Sidenav = () => {
             ) : (
               <NavLink to={item.path}>
                 {({ isActive }) => (
-                  <ListItem className={`${isActive ? activeNav.active : ""}`}>
+                  <ListItem className={`${isActive ? activeNav.active : ''} mb-2`}>
                     <ListItemPrefix>
                       <item.icon className="h-5 w-5" />
                     </ListItemPrefix>

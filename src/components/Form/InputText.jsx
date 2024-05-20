@@ -13,7 +13,7 @@ export const InputText = ({
   hidden,
 }) => {
   return (
-    <div className="w-full flex flex-col">
+    <div className={`w-full flex flex-col ${className}`}>
       <Input
         type={type}
         label={label}
@@ -21,7 +21,7 @@ export const InputText = ({
         onChange={onChange}
         value={value}
         error={error}
-        className={className}
+        // className={className}
         hidden={hidden}
         disabled={disabled}
       />

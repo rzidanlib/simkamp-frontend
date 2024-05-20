@@ -7,7 +7,7 @@ import {
   getKecamatan,
   getProvinsi,
 } from '@/features/wilayah-administrasi/api/get-wilayah';
-import { FormTambahRelawan } from '../components';
+import { FormTambah } from '../components';
 
 export const DetailRelawan = () => {
   const [wilayah, setWilayah] = useState({
@@ -32,23 +32,13 @@ export const DetailRelawan = () => {
   useEffect(() => {
     const fetchWilayah = async () => {
       const provinsi = await getProvinsi();
-      setWilayah({ provinsi: provinsi.value });
-
-      if (form.relawan_provinsi !== '') {
-        const kabupaten = await getKabupaten(form.relawan_provinsi);
-        setWilayah((prevstate) => ({
-          ...prevstate,
-          kabupaten: kabupaten.value,
-        }));
-
-        if (form.relawan_kab_kota !== '') {
-          const kecamatan = await getKecamatan(form.relawan_kab_kota);
-          setWilayah((prevstate) => ({
-            ...prevstate,
-            kecamatan: kecamatan.value,
-          }));
-        }
-      }
+      const kabupaten = await getKabupaten(form.relawan_provinsi);
+      const kecamatan = await getKecamatan(form.relawan_kab_kota);
+      setWilayah({
+        provinsi: provinsi.value,
+        kabupaten: kabupaten.value,
+        kecamatan: kecamatan.value,
+      });
     };
 
     fetchWilayah();
@@ -63,7 +53,7 @@ export const DetailRelawan = () => {
           color="transparent"
           className="border-b rounded-none"
         >
-          <Typography variant="h4" color="blue-gray">
+          <Typography variant="h5" color="blue-gray">
             Detail Relawan
           </Typography>
           <Typography variant="small" color="blue-gray">
@@ -72,7 +62,7 @@ export const DetailRelawan = () => {
         </CardHeader>
 
         <CardBody>
-          <FormTambahRelawan form={form} disabled={true} wilayah={wilayah} />
+          <FormTambah form={form} disabled={true} wilayah={wilayah} />
         </CardBody>
       </Card>
     </ContentLayout>

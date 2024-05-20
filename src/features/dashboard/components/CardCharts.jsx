@@ -22,7 +22,7 @@ export const CardCharts = ({ title, color, children }) => {
           <ChartBarIcon className="h-5 w-5" />
         </div>
         <div>
-          <Typography variant="h4" color="blue-gray">
+          <Typography variant="h5" color="blue-gray">
             {title}
           </Typography>
         </div>

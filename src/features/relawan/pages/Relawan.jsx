@@ -5,7 +5,7 @@ import { CardTable, ModalFilter } from '../components';
 
 import { data } from '@/data/data-example';
 import PropTypes from 'prop-types';
-import { ChipElement, getStatusColor } from '@/components/Elements/Chip';
+import { Chip, getStatusColor } from '@/components/Elements/Chip';
 
 export const Relawan = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -29,7 +29,7 @@ export const Relawan = () => {
               field: 'relawan_status',
               Cell({ entry: { relawan_status } }) {
                 return (
-                  <ChipElement
+                  <Chip
                     variant="ghost"
                     size="sm"
                     color={getStatusColor(relawan_status)}

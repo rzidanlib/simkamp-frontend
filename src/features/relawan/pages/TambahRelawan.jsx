@@ -1,13 +1,12 @@
+import { useState, useEffect } from 'react';
 import { ContentLayout } from '@/components/Layout';
 import { Typography, Card, CardBody, CardHeader } from '@material-tailwind/react';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { FormTambah } from '../components';
 import {
   getKabupaten,
   getKecamatan,
   getProvinsi,
 } from '@/features/wilayah-administrasi/api/get-wilayah';
-import { FormTambahRelawan } from '../components';
 
 export const TambahRelawan = () => {
   const [wilayah, setWilayah] = useState({
@@ -90,7 +89,7 @@ export const TambahRelawan = () => {
           color="transparent"
           className="border-b rounded-none"
         >
-          <Typography variant="h4" color="blue-gray">
+          <Typography variant="h5" color="blue-gray">
             Form Data Relawan
           </Typography>
           <Typography variant="small" color="blue-gray">
@@ -99,7 +98,7 @@ export const TambahRelawan = () => {
         </CardHeader>
 
         <CardBody>
-          <FormTambahRelawan
+          <FormTambah
             form={form}
             imageChange={handleImageChange}
             inputChange={handleInputChange}

@@ -35,7 +35,11 @@ export const CardTable = ({ children, handleModal }) => {
         </div>
         <div className="flex flex-row xl:items-center gap-4">
           <div className="w-full md:w-72">
-            <Input size="lg" label="Search" icon={<MagnifyingGlassIcon className="h-5 w-5" />} />
+            <Input
+              size="lg"
+              label="Cari Relawan"
+              icon={<MagnifyingGlassIcon className="h-5 w-5" />}
+            />
           </div>
           <Button className="flex items-center gap-3" size="md" onClick={handleModal}>
             <MagnifyingGlassPlusIcon strokeWidth={2} className="h-5 w-5" />{' '}

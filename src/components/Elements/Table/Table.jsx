@@ -1,43 +1,36 @@
 import { Typography } from '@material-tailwind/react';
 import PropTypes from 'prop-types';
 import { forwardRef } from 'react';
-import { commonProptypes } from '.';
 
 const TableElement = forwardRef(({ className, ...props }, ref) => (
   <table className={className} ref={ref} {...props} />
 ));
 TableElement.displayName = 'TableElemen';
-TableElement.propTypes = commonProptypes;
 
 const TableHeader = forwardRef(({ className, ...props }, ref) => (
   <thead className={className} ref={ref} {...props} />
 ));
 TableHeader.displayName = 'TableHeader';
-TableHeader.propTypes = commonProptypes;
 
 const TableRow = forwardRef(({ className, ...props }, ref) => (
   <tr ref={ref} className={className} {...props} />
 ));
 TableRow.displayName = 'TableRow';
-TableRow.propTypes = commonProptypes;
 
 const TableHead = forwardRef(({ className, ...props }, ref) => (
   <th className={className} ref={ref} {...props} />
 ));
 TableHead.displayName = 'TableHead';
-TableHead.propTypes = commonProptypes;
 
 const TableBody = forwardRef(({ className, ...props }, ref) => (
   <tbody className={className} ref={ref} {...props} />
 ));
 TableBody.displayName = 'TableBody';
-TableBody.propTypes = commonProptypes;
 
 const TableCell = forwardRef(({ className, ...props }, ref) => (
   <td className={className} ref={ref} {...props} />
 ));
 TableCell.displayName = 'TableCell';
-TableCell.propTypes = commonProptypes;
 
 const RowText = forwardRef(({ className, ...props }, ref) => (
   <Typography
@@ -49,7 +42,6 @@ const RowText = forwardRef(({ className, ...props }, ref) => (
   />
 ));
 RowText.displayName = 'RowText';
-RowText.propTypes = commonProptypes;
 
 export const Table = ({ columns, data }) => {
   return (
@@ -97,4 +89,32 @@ export const Table = ({ columns, data }) => {
 Table.propTypes = {
   columns: PropTypes.array,
   data: PropTypes.array,
+};
+
+TableElement.propTypes = {
+  className: PropTypes.string,
+};
+
+TableHeader.propTypes = {
+  className: PropTypes.string,
+};
+
+TableRow.propTypes = {
+  className: PropTypes.string,
+};
+
+TableHead.propTypes = {
+  className: PropTypes.string,
+};
+
+TableBody.propTypes = {
+  className: PropTypes.string,
+};
+
+TableCell.propTypes = {
+  className: PropTypes.string,
+};
+
+RowText.propTypes = {
+  className: PropTypes.string,
 };
