@@ -1,14 +1,15 @@
 import { Suspense } from 'react';
 import { useRoutes, Outlet } from 'react-router-dom';
 
-import { protectedRoute } from './protected';
-import { publicRoute } from './public';
+import { ProtectedRoutes } from './ProtectedRoutes';
+import { PublicRoutes } from './PublicRoutes';
 import { lazyImport } from '@/utils/lazyImport';
 
 import { MainLayout } from '@/components/Layout';
 import { LoadingSpinner } from '@/components/Elements/Spinner';
 
 import { NotFound } from '@/features/misc/ErrorPage';
+import { useAuth } from '@/provider/auth';
 
 const { Landing } = lazyImport(() => import('@/features/misc/Landing'), 'Landing');
 
@@ -28,30 +29,17 @@ const App = () => {
   );
 };
 
-// const authorizedRoutes = (userRole) => {
-//   return protectedRoute.filter((route) => {
-//     if (!route.authorize) {
-//       return true;
-//     }
-
-//     return route.authorize.some((role) => role.includes(userRole));
-//   });
-// };
-
 export const AppRoutes = () => {
-  const user = {
-    isAuthenticated: true,
-    roles: 'relawan',
-  };
+  const { user } = useAuth();
 
   const commonRoutes = [
     { path: '/', element: <Landing /> },
     { path: '/session/404', element: <NotFound /> },
   ];
 
-  const protectedAppRoute = [{ element: <App />, children: protectedRoute }];
+  const ProtectedAppRoute = [{ element: <App />, children: ProtectedRoutes }];
 
-  const routes = user ? protectedAppRoute : publicRoute;
+  const routes = user ? ProtectedAppRoute : PublicRoutes;
 
   const element = useRoutes([...routes, ...commonRoutes]);
 

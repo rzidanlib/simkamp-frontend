@@ -11,6 +11,7 @@ import { LoadingSpinner } from '@/components/Elements/Spinner';
 import { queryConfig } from '@/lib/react-query';
 
 import PropTypes from 'prop-types';
+import { AuthProvider } from './auth';
 
 export const AppProvider = ({ children }) => {
   const [queryClient] = React.useState(() => {
@@ -31,7 +32,9 @@ export const AppProvider = ({ children }) => {
         <QueryClientProvider client={queryClient}>
           <ThemeProvider>
             <LayoutControllerProvider>
-              <Router>{children}</Router>
+              <AuthProvider>
+                <Router>{children}</Router>
+              </AuthProvider>
             </LayoutControllerProvider>
           </ThemeProvider>
         </QueryClientProvider>
