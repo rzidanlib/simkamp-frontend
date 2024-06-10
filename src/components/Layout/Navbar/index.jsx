@@ -1,4 +1,5 @@
 import { setOpenSidenav, useLayoutContoller } from '@/context/LayoutContext';
+import { useLogout } from '@/features/auth/api/auth';
 import { ArrowLeftEndOnRectangleIcon, Bars3Icon, UserIcon } from '@heroicons/react/24/outline';
 import { Avatar } from '@material-tailwind/react';
 import {
@@ -14,6 +15,11 @@ import {
 const MainNavbar = () => {
   const [controller, dispatch] = useLayoutContoller();
   const { openSidenav } = controller;
+  const logout = useLogout();
+
+  const handleLogout = async () => {
+    await logout.mutate();
+  };
 
   return (
     <Navbar
@@ -52,7 +58,7 @@ const MainNavbar = () => {
                 <UserIcon className="h-5 w-5" />
                 <Typography>Profile</Typography>
               </MenuItem>
-              <MenuItem className="flex items-center gap-3">
+              <MenuItem className="flex items-center gap-3" onClick={handleLogout}>
                 <ArrowLeftEndOnRectangleIcon className="h-5 w-5" />
                 <Typography>Logout</Typography>
               </MenuItem>

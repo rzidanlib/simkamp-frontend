@@ -1,33 +1,30 @@
-import { useAuth } from '@/provider/auth';
-import { Outlet, Navigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-// export const AuthGuard = ({ roles, children }) => {
-//   const { user } = useAuth();
+import { useUser } from '@/features/auth/api/get-user';
+import { ProtectedRoute } from './ProtectedRoutes';
 
-//   if (!user.isAuthenticated) {
-//     return <Navigate to="/auth/login" />;
-//   }
+const AuthGuard = ({ redirectPath = '/auth/login', guardType = 'authenticated', ...props }) => {
+  const { data, isLoading } = useUser();
+  const isAllowed = guardType === 'authenticated' ? !!data : !data;
+  const userRole = data && data.user ? data.user.role : null;
 
-//   if (roles && !roles.includes(user.roles)) {
-//     return <Navigate to="/unauthorized" />;
-//   }
-
-//   return children ?? <Outlet />;
-// };
-
-export const AuthGuard = ({ element, roles }) => {
-  const { user } = useAuth(); // Ambil status autentikasi dan informasi pengguna
-
-  // Jika pengguna belum terautentikasi, arahkan ke halaman login
-  if (!user.isAuthenticated) {
-    return <Navigate to="/auth/login" />;
+  if (isLoading) {
+    return <div>Loading...</div>;
   }
 
-  // Jika roles tidak didefinisikan atau pengguna memiliki peran yang sesuai, kembalikan elemen rute
-  if (!roles || roles.includes(user.roles)) {
-    return element;
-  }
+  return (
+    <ProtectedRoute
+      redirectPath={redirectPath}
+      isAllowed={isAllowed}
+      userRole={userRole}
+      {...props}
+    />
+  );
+};
 
-  // Jika pengguna tidak memiliki peran yang diperlukan, arahkan ke halaman tanpa izin
-  return <Navigate to="/dashboard" />;
+export { AuthGuard };
+
+AuthGuard.propTypes = {
+  redirectPath: PropTypes.string,
+  guardType: PropTypes.oneOf(['authenticated', 'unauthenticated']),
 };

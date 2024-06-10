@@ -1,22 +1,22 @@
-import { Suspense } from 'react';
-import { useRoutes, Outlet } from 'react-router-dom';
+import * as React from 'react';
+import { Outlet, createBrowserRouter, createRoutesFromElements, Route } from 'react-router-dom';
+import { AuthGuard } from './AuthGuard';
 
-import { ProtectedRoutes } from './ProtectedRoutes';
-import { PublicRoutes } from './PublicRoutes';
 import { lazyImport } from '@/utils/lazyImport';
 
 import { MainLayout } from '@/components/Layout';
 import { LoadingSpinner } from '@/components/Elements/Spinner';
 
 import { NotFound } from '@/features/misc/ErrorPage';
-import { useAuth } from '@/provider/auth';
+import { Login } from '@/features/auth/pages/Login';
+import { MainRoutes } from './Routes';
 
 const { Landing } = lazyImport(() => import('@/features/misc/Landing'), 'Landing');
 
 const App = () => {
   return (
     <MainLayout>
-      <Suspense
+      <React.Suspense
         fallback={
           <div className="flex h-[calc(100vh-81px)] w-full items-center justify-center">
             <LoadingSpinner size="lg" />
@@ -24,24 +24,23 @@ const App = () => {
         }
       >
         <Outlet />
-      </Suspense>
+      </React.Suspense>
     </MainLayout>
   );
 };
 
-export const AppRoutes = () => {
-  const { user } = useAuth();
+const routes = createRoutesFromElements(
+  <React.Fragment>
+    <Route index element={<Landing />} />
+    <Route path="/session/404" element={<NotFound />} />
 
-  const commonRoutes = [
-    { path: '/', element: <Landing /> },
-    { path: '/session/404', element: <NotFound /> },
-  ];
+    <Route element={<App />}>{MainRoutes}</Route>
 
-  const ProtectedAppRoute = [{ element: <App />, children: ProtectedRoutes }];
+    <Route element={<AuthGuard guardType="unauthenticated" />}>
+      <Route path="/auth/login" element={<Login />} />
+    </Route>
+    {/* <Route path="/auth/login" element={<Login />} /> */}
+  </React.Fragment>
+);
 
-  const routes = user ? ProtectedAppRoute : PublicRoutes;
-
-  const element = useRoutes([...routes, ...commonRoutes]);
-
-  return <>{element}</>;
-};
+export const AppRoutes = createBrowserRouter(routes);

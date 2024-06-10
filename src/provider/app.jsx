@@ -1,25 +1,17 @@
 import * as React from 'react';
 
-import { BrowserRouter as Router } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
+import { QueryClientProvider } from '@tanstack/react-query';
+
+import { queryClient } from '@/config/react-query-config';
 
 import { LayoutControllerProvider } from '@/context/LayoutContext';
 import { ThemeProvider } from '@material-tailwind/react';
 import { LoadingSpinner } from '@/components/Elements/Spinner';
 
-import { queryConfig } from '@/lib/react-query';
-
 import PropTypes from 'prop-types';
-import { AuthProvider } from './auth';
 
 export const AppProvider = ({ children }) => {
-  const [queryClient] = React.useState(() => {
-    return new QueryClient({
-      defaultOptions: queryConfig,
-    });
-  });
-
   return (
     <React.Suspense
       fallback={
@@ -32,9 +24,8 @@ export const AppProvider = ({ children }) => {
         <QueryClientProvider client={queryClient}>
           <ThemeProvider>
             <LayoutControllerProvider>
-              <AuthProvider>
-                <Router>{children}</Router>
-              </AuthProvider>
+              {/* <AuthProvider>{children}</AuthProvider> */}
+              {children}
             </LayoutControllerProvider>
           </ThemeProvider>
         </QueryClientProvider>

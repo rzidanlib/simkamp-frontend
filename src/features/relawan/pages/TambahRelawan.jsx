@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { ContentLayout } from '@/components/Layout';
 import { Typography, Card, CardBody, CardHeader } from '@material-tailwind/react';
-import { FormTambah } from '../components';
+// import { FormTambah } from '../components';
 import {
   getKabupaten,
   getKecamatan,
@@ -97,7 +97,7 @@ export const TambahRelawan = () => {
           </Typography>
         </CardHeader>
 
-        <CardBody>
+        {/* <CardBody>
           <FormTambah
             form={form}
             imageChange={handleImageChange}
@@ -106,7 +106,7 @@ export const TambahRelawan = () => {
             wilayah={wilayah}
             submit={handleSubmit}
           />
-        </CardBody>
+        </CardBody> */}
       </Card>
     </ContentLayout>
   );

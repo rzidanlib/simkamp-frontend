@@ -7,7 +7,7 @@ import {
   getKecamatan,
   getProvinsi,
 } from '@/features/wilayah-administrasi/api/get-wilayah';
-import { FormTambah } from '../components';
+// import { FormTambah } from '../components';
 
 export const DetailRelawan = () => {
   const [wilayah, setWilayah] = useState({
@@ -61,9 +61,9 @@ export const DetailRelawan = () => {
           </Typography>
         </CardHeader>
 
-        <CardBody>
+        {/* <CardBody>
           <FormTambah form={form} disabled={true} wilayah={wilayah} />
-        </CardBody>
+        </CardBody> */}
       </Card>
     </ContentLayout>
   );

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { ContentLayout } from '@/components/Layout';
 import { MenuActions, Table } from '@/components/Elements/Table';
-import { CardTable, ModalFilter } from '../components';
+import { CardTable } from '../components';
 
 import { data } from '@/data/data-example';
 import PropTypes from 'prop-types';
@@ -54,7 +54,7 @@ export const Relawan = () => {
         />
       </CardTable>
 
-      <ModalFilter openModal={openModal} handleOpenModal={handleOpenModal} />
+      {/* <ModalFilter openModal={openModal} handleOpenModal={handleOpenModal} /> */}
     </ContentLayout>
   );
 };

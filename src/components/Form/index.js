@@ -1,2 +1,2 @@
 export * from './InputImage';
-export * from './InputText';
+export * from './Input';
