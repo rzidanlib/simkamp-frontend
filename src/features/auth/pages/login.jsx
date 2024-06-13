@@ -11,10 +11,6 @@ export const Login = () => {
   });
   const loginMutation = useLogin();
 
-  const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || '/dashboard';
-
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -24,10 +20,9 @@ export const Login = () => {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    await loginMutation.mutate(form);
-    navigate(from, { replace: true });
+    loginMutation.mutate(form);
   };
 
   return (

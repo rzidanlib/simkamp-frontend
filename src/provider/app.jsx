@@ -23,10 +23,7 @@ export const AppProvider = ({ children }) => {
       <HelmetProvider>
         <QueryClientProvider client={queryClient}>
           <ThemeProvider>
-            <LayoutControllerProvider>
-              {/* <AuthProvider>{children}</AuthProvider> */}
-              {children}
-            </LayoutControllerProvider>
+            <LayoutControllerProvider>{children}</LayoutControllerProvider>
           </ThemeProvider>
         </QueryClientProvider>
       </HelmetProvider>

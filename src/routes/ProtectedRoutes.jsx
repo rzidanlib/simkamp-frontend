@@ -4,6 +4,10 @@ import PropTypes from 'prop-types';
 export const ProtectedRoute = ({ isAllowed, children, redirectPath, requiredRoles, userRole }) => {
   const location = useLocation();
 
+  if (!isAllowed && location.pathname === '/auth/login') {
+    return <Navigate to="/dashboard" replace />;
+  }
+
   if (!isAllowed) {
     return <Navigate to={redirectPath} state={{ from: location }} replace />;
   }

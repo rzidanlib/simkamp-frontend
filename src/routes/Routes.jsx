@@ -5,12 +5,15 @@ import { lazyImport } from '@/utils/lazyImport';
 const authRole = {
   all: ['administrator', 'kandidat', 'relawan'],
   admin: ['administrator'],
+  adminPartai: ['admin partai'],
   kandidat: ['kandidat'],
   relawan: ['relawan'],
 };
 
 const { Dashboard } = lazyImport(() => import('@/features/dashboard'), 'Dashboard');
 const { RelawanRoutes } = lazyImport(() => import('@/features/relawan'), 'RelawanRoutes');
+const { ProfileRoutes } = lazyImport(() => import('@/features/profile'), 'ProfileRoutes');
+const { UsersRoutes } = lazyImport(() => import('@/features/admin'), 'UsersRoutes');
 // const { ArusKasRoutes } = lazyImport(() => import('@/features/aruskas'), 'ArusKasRoutes');
 // const { LogistikRoutes } = lazyImport(() => import('@/features/logistik'), 'LogistikRoutes');
 // const { CalonPemilihRoutes } = lazyImport(
@@ -42,8 +45,14 @@ const { RelawanRoutes } = lazyImport(() => import('@/features/relawan'), 'Relawa
 // ];
 
 export const MainRoutes = (
-  <Route element={<AuthGuard requiredRoles={authRole.all} />}>
-    <Route path="/dashboard" element={<Dashboard />} />
-    <Route path="/relawan/*" element={<RelawanRoutes />} />
-  </Route>
+  <>
+    <Route element={<AuthGuard requiredRoles={authRole.all} />}>
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/relawan/*" element={<RelawanRoutes />} />
+      <Route path="/profile/*" element={<ProfileRoutes />} />
+    </Route>
+    <Route element={<AuthGuard requiredRoles={authRole.admin} />}>
+      <Route path="/manage-users/*" element={<UsersRoutes />} />
+    </Route>
+  </>
 );

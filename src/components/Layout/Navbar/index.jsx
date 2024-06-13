@@ -1,5 +1,6 @@
 import { setOpenSidenav, useLayoutContoller } from '@/context/LayoutContext';
 import { useLogout } from '@/features/auth/api/auth';
+import { useUser } from '@/features/auth/api/get-user';
 import { ArrowLeftEndOnRectangleIcon, Bars3Icon, UserIcon } from '@heroicons/react/24/outline';
 import { Avatar } from '@material-tailwind/react';
 import {
@@ -11,10 +12,12 @@ import {
   Typography,
   Navbar,
 } from '@material-tailwind/react';
+import { Link } from 'react-router-dom';
 
 const MainNavbar = () => {
   const [controller, dispatch] = useLayoutContoller();
   const { openSidenav } = controller;
+  const { data, isPending } = useUser();
   const logout = useLogout();
 
   const handleLogout = async () => {
@@ -38,10 +41,14 @@ const MainNavbar = () => {
         </IconButton>
 
         <div className="flex items-center ml-auto">
-          <div className="flex flex-col font-bold text-black items-end mr-4">
-            <h1 className="text-sm">Muhammad Rizki Zidan</h1>
-            <p className="text-sm text-blue-gray-500">Caleg DPR RI</p>
-          </div>
+          {isPending ? (
+            <Typography>Loading...</Typography>
+          ) : (
+            <div className="flex flex-col font-bold text-black items-end mr-4">
+              <h1 className="text-sm">{data.user.nama_user}</h1>
+              <p className="text-sm text-blue-gray-500 capitalize">{data.user.role}</p>
+            </div>
+          )}
 
           <Menu placement="bottom-end">
             <MenuHandler>
@@ -54,9 +61,11 @@ const MainNavbar = () => {
               />
             </MenuHandler>
             <MenuList className="w-max border-0 p-2">
-              <MenuItem className="flex items-center gap-3">
-                <UserIcon className="h-5 w-5" />
-                <Typography>Profile</Typography>
+              <MenuItem>
+                <Link to={'/profile'} className="flex items-center gap-3">
+                  <UserIcon className="h-5 w-5" />
+                  <Typography>Profile</Typography>
+                </Link>
               </MenuItem>
               <MenuItem className="flex items-center gap-3" onClick={handleLogout}>
                 <ArrowLeftEndOnRectangleIcon className="h-5 w-5" />

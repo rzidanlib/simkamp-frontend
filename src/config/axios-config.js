@@ -6,10 +6,10 @@ export const baseURL = `${env.API_URL}`;
 
 const API = axios.create({});
 
-API.defaults.timeout = 120000;
+API.defaults.timeout = 120000; // 2 minutes;
 API.interceptors.request.use(
   async function (config) {
-    const token = localStorageHandler.getItem('token');
+    const token = await localStorageHandler.getItem('accessToken');
 
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;

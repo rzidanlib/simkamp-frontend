@@ -13,10 +13,13 @@ importers:
         version: 2.1.3(react@18.3.1)
       '@material-tailwind/react':
         specifier: ^2.1.9
-        version: 2.1.9(react-dom@18.3.1)(react@18.3.1)
+        version: 2.1.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@tanstack/react-query':
         specifier: ^5.36.0
         version: 5.36.0(react@18.3.1)
+      '@tanstack/react-table':
+        specifier: ^8.17.3
+        version: 8.17.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       apexcharts:
         specifier: ^3.49.0
         version: 3.49.0
@@ -40,10 +43,10 @@ importers:
         version: 18.3.1(react@18.3.1)
       react-helmet-async:
         specifier: ^2.0.4
-        version: 2.0.4(react-dom@18.3.1)(react@18.3.1)
+        version: 2.0.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-router-dom:
         specifier: ^6.23.0
-        version: 6.23.0(react-dom@18.3.1)(react@18.3.1)
+        version: 6.23.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     devDependencies:
       '@types/react':
         specifier: ^18.2.66
@@ -544,6 +547,17 @@ packages:
     resolution: {integrity: sha512-BATvtM0rohwg7pRHUnxgeDiwLWRGZ8OM/4y8LImHVpecQWoH6Uhytu3Z8YV6V7hQ1sMQBFcUrGE1/e4MxR6YiA==}
     peerDependencies:
       react: ^18.0.0
+
+  '@tanstack/react-table@8.17.3':
+    resolution: {integrity: sha512-5gwg5SvPD3lNAXPuJJz1fOCEZYk9/GeBFH3w/hCgnfyszOIzwkwgp5I7Q4MJtn0WECp84b5STQUDdmvGi8m3nA==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      react: '>=16.8'
+      react-dom: '>=16.8'
+
+  '@tanstack/table-core@8.17.3':
+    resolution: {integrity: sha512-mPBodDGVL+fl6d90wUREepHa/7lhsghg2A3vFpakEhrhtbIlgNAZiMr7ccTgak5qbHqF14Fwy+W1yFWQt+WmYQ==}
+    engines: {node: '>=12'}
 
   '@types/babel__core@7.20.5':
     resolution: {integrity: sha512-qoQprZvz5wQFJwMDqeseRXWv3rqMvhgpbXFfVyWhbx9X47POIA6i/+dXefEmZKoAgOaTdaIgNSMqMIU61yRyzA==}
@@ -2152,15 +2166,15 @@ snapshots:
       '@floating-ui/core': 1.6.1
       '@floating-ui/utils': 0.2.2
 
-  '@floating-ui/react-dom@1.3.0(react-dom@18.3.1)(react@18.3.1)':
+  '@floating-ui/react-dom@1.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@floating-ui/dom': 1.6.5
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@floating-ui/react@0.19.0(react-dom@18.3.1)(react@18.3.1)':
+  '@floating-ui/react@0.19.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@floating-ui/react-dom': 1.3.0(react-dom@18.3.1)(react@18.3.1)
+      '@floating-ui/react-dom': 1.3.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       aria-hidden: 1.2.4
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
@@ -2210,12 +2224,12 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.4.15
 
-  '@material-tailwind/react@2.1.9(react-dom@18.3.1)(react@18.3.1)':
+  '@material-tailwind/react@2.1.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@floating-ui/react': 0.19.0(react-dom@18.3.1)(react@18.3.1)
+      '@floating-ui/react': 0.19.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       classnames: 2.3.2
       deepmerge: 4.2.2
-      framer-motion: 6.5.1(react-dom@18.3.1)(react@18.3.1)
+      framer-motion: 6.5.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       material-ripple-effects: 2.0.1
       prop-types: 15.8.1
       react: 18.3.1
@@ -2328,6 +2342,14 @@ snapshots:
     dependencies:
       '@tanstack/query-core': 5.36.0
       react: 18.3.1
+
+  '@tanstack/react-table@8.17.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@tanstack/table-core': 8.17.3
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+
+  '@tanstack/table-core@8.17.3': {}
 
   '@types/babel__core@7.20.5':
     dependencies:
@@ -2954,7 +2976,7 @@ snapshots:
 
   fraction.js@4.3.7: {}
 
-  framer-motion@6.5.1(react-dom@18.3.1)(react@18.3.1):
+  framer-motion@6.5.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@motionone/dom': 10.12.0
       framesync: 6.0.1
@@ -3420,8 +3442,9 @@ snapshots:
   postcss-load-config@4.0.2(postcss@8.4.38):
     dependencies:
       lilconfig: 3.1.1
-      postcss: 8.4.38
       yaml: 2.4.2
+    optionalDependencies:
+      postcss: 8.4.38
 
   postcss-nested@6.0.1(postcss@8.4.38):
     dependencies:
@@ -3469,7 +3492,7 @@ snapshots:
 
   react-fast-compare@3.2.2: {}
 
-  react-helmet-async@2.0.4(react-dom@18.3.1)(react@18.3.1):
+  react-helmet-async@2.0.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       invariant: 2.2.4
       react: 18.3.1
@@ -3481,7 +3504,7 @@ snapshots:
 
   react-refresh@0.14.2: {}
 
-  react-router-dom@6.23.0(react-dom@18.3.1)(react@18.3.1):
+  react-router-dom@6.23.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@remix-run/router': 1.16.0
       react: 18.3.1
