@@ -1,20 +1,13 @@
-import React from "react";
-import {
-  Navbar,
-  Collapse,
-  Button,
-  IconButton,
-  Typography,
-  Input,
-} from "@material-tailwind/react";
+import React from 'react';
+import { Navbar, Collapse, Button, IconButton, Typography, Input } from '@material-tailwind/react';
 import {
   RectangleStackIcon,
   UserCircleIcon,
   CommandLineIcon,
   Squares2X2Icon,
-} from "@heroicons/react/24/solid";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { Head } from "@/components/Head";
+} from '@heroicons/react/24/solid';
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
+import { Head } from '@/components/Head';
 
 // eslint-disable-next-line react/prop-types
 const NavItem = ({ children }) => {
@@ -38,10 +31,7 @@ export const Landing = () => {
   const handleOpen = () => setOpen((cur) => !cur);
 
   React.useEffect(() => {
-    window.addEventListener(
-      "resize",
-      () => window.innerWidth >= 960 && setOpen(false)
-    );
+    window.addEventListener('resize', () => window.innerWidth >= 960 && setOpen(false));
   }, []);
 
   return (
@@ -126,18 +116,16 @@ export const Landing = () => {
               color="blue-gray"
               className="mx-auto my-6 w-full leading-snug  !text-2xl lg:max-w-3xl lg:!text-5xl"
             >
-              Get ready to experience a new level of{" "}
-              <span className="text-green-500 leading-snug ">performance</span>{" "}
-              and{" "}
-              <span className="leading-snug text-green-500">functionality</span>
-              .
+              Get ready to experience a new level of{' '}
+              <span className="text-green-500 leading-snug ">performance</span> and{' '}
+              <span className="leading-snug text-green-500">functionality</span>.
             </Typography>
             <Typography
               variant="lead"
               className="mx-auto w-full !text-gray-500 lg:text-lg text-base"
             >
-              The time is now for it to be okay to be great. For being a bright
-              color. For standing out.
+              The time is now for it to be okay to be great. For being a bright color. For standing
+              out.
             </Typography>
             <div className="mt-8 grid w-full place-items-start md:justify-center">
               <div className="mb-2 flex w-full flex-col gap-4 md:flex-row">

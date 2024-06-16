@@ -41,7 +41,7 @@ API.interceptors.response.use(
       // Handle unauthorized error (e.g., log out the user)
       // alert('Session expired. Please log in again.');
       // Perform logout logic (e.g., remove token, redirect to login page)
-      localStorage.removeItem('token'); // Remove token from storage
+      localStorage.removeItem('accessToken'); // Remove token from storage
       window.location.href = '/auth/login'; // Redirect to login page
     }
     throw error; // Propagate the error

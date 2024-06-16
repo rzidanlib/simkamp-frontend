@@ -6,9 +6,8 @@ import { LoadingSpinner } from '@/components/Elements/Spinner';
 
 const AuthGuard = ({ redirectPath = '/auth/login', guardType = 'authenticated', ...props }) => {
   const { data, isLoading } = useUser();
-
   const isAllowed = guardType === 'authenticated' ? !!data : !data;
-  const userRole = data && data.user ? data.user.role : null;
+  const userRole = data && data?.user ? data?.user?.role : null;
 
   if (isLoading) {
     return (
@@ -17,6 +16,7 @@ const AuthGuard = ({ redirectPath = '/auth/login', guardType = 'authenticated', 
       </div>
     );
   }
+
   return (
     <ProtectedRoute
       redirectPath={redirectPath}

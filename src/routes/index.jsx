@@ -34,12 +34,13 @@ const routes = createRoutesFromElements(
     <Route index element={<Landing />} />
     <Route path="/session/404" element={<NotFound />} />
 
-    <Route element={<App />}>{MainRoutes}</Route>
+    <Route element={<AuthGuard />}>
+      <Route element={<App />}>{MainRoutes}</Route>
+    </Route>
 
     <Route element={<AuthGuard guardType="unauthenticated" />}>
       <Route path="/auth/login" element={<Login />} />
     </Route>
-    {/* <Route path="/auth/login" element={<Login />} /> */}
   </React.Fragment>
 );
 

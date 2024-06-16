@@ -45,8 +45,8 @@ const MainNavbar = () => {
             <Typography>Loading...</Typography>
           ) : (
             <div className="flex flex-col font-bold text-black items-end mr-4">
-              <h1 className="text-sm">{data.user.nama_user}</h1>
-              <p className="text-sm text-blue-gray-500 capitalize">{data.user.role}</p>
+              <h1 className="text-sm">{data?.user?.nama_user}</h1>
+              <p className="text-sm text-blue-gray-500 capitalize">{data?.user?.role}</p>
             </div>
           )}
 

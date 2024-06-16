@@ -2,6 +2,7 @@ import API from '@/config/axios-config';
 import { queryClient } from '@/config/react-query-config';
 import localStorageHandler from '@/utils/localStorage';
 import { useMutation } from '@tanstack/react-query';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 export const login = async (credentials) => {
   try {
@@ -31,13 +32,17 @@ export const logout = async () => {
 };
 
 export const useLogin = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || '/dashboard';
+
   return useMutation({
     mutationFn: login,
     onSuccess: (data) => {
-      console.log(data);
       localStorageHandler.setItem('accessToken', data.user.accessToken);
       // Invalidate user query to refetch data
       queryClient.invalidateQueries('user');
+      navigate(from, { replace: true });
     },
     onError: (error) => {
       console.error(error);

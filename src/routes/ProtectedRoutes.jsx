@@ -1,7 +1,13 @@
 import { Navigate, useLocation, Outlet } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-export const ProtectedRoute = ({ isAllowed, children, redirectPath, requiredRoles, userRole }) => {
+export const ProtectedRoute = ({
+  isAllowed,
+  children,
+  redirectPath = '/dashboard',
+  requiredRoles,
+  userRole,
+}) => {
   const location = useLocation();
 
   if (!isAllowed && location.pathname === '/auth/login') {
@@ -13,7 +19,6 @@ export const ProtectedRoute = ({ isAllowed, children, redirectPath, requiredRole
   }
 
   if (requiredRoles && !requiredRoles.some((role) => userRole.includes(role))) {
-    // User does not have any of the required roles
     return <Navigate to="/session/404" replace />;
   }
 

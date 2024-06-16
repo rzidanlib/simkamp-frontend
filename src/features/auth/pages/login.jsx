@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Input } from '@/components/Form';
 import { Card, Checkbox, Button, Typography } from '@material-tailwind/react';
-import { useNavigate, useLocation } from 'react-router-dom';
 import { useLogin } from '../api/auth';
 
 export const Login = () => {
