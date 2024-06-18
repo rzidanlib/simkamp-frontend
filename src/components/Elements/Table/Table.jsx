@@ -53,66 +53,52 @@ export const Table = ({ columns, data }) => {
   return (
     <TableElement className="mt-4 w-full min-w-max table-auto text-left">
       <TableHeader>
-        {/* <TableRow>
-          <TableHead className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4">
-            <RowText>No</RowText>
-          </TableHead>
-          {columns.map((column, index) => (
-            <TableHead
-              key={column.title + index}
-              className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4"
-            >
-              <RowText>{column.title}</RowText>
-            </TableHead>
-          ))}
-        </TableRow> */}
-        {table.getHeaderGroups().map((headerGroup) => (
-          <TableRow key={headerGroup.id}>
-            {headerGroup.headers.map((header) => (
+        <TableRow>
+          {table.getHeaderGroups().map((headerGroup) =>
+            headerGroup.headers.map((header) => (
               <TableHead
                 key={header.id}
-                className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4"
+                className={`border-y border-blue-gray-100 bg-blue-gray-50/50 p-4 ${
+                  header.id === 'no' ? 'w-12' : ''
+                }`}
               >
                 <RowText>{flexRender(header.column.columnDef.header, header.getContext())}</RowText>
               </TableHead>
-            ))}
-          </TableRow>
-        ))}
+            ))
+          )}
+        </TableRow>
       </TableHeader>
       <TableBody>
-        {/* {data.map((entry, entryIndex) => {
-          const classes = 'px-4 py-2 border-b border-blue-gray-50/50';
-          return (
-            <TableRow key={entry?.id || entryIndex} className={classes}>
-              <TableCell className={classes}>
-                <RowText variant="paragraph">{entryIndex + 1}</RowText>
-              </TableCell>
-              {columns.map(({ Cell, field, title }, colIndex) => (
-                <TableCell className={classes} key={title + colIndex}>
-                  {Cell ? (
-                    <Cell entry={entry} />
-                  ) : (
-                    <RowText variant="paragraph">{entry[field]}</RowText>
-                  )}
-                </TableCell>
-              ))}
-            </TableRow>
-          );
-        })} */}
-        {table.getRowModel().rows.map((row) => {
-          const classes = 'px-4 py-2 border-b border-blue-gray-50/50';
-          return (
-            <TableRow key={row.id} className={classes}>
-              {row.getVisibleCells().map((cell) => {
-                return (
-                  <TableCell key={cell.id} className={classes}>
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                );
-              })}
-            </TableRow>
-          );
-        })}
+        {table.getRowModel().rows.length > 0 ? (
+          table.getRowModel().rows.map((row, index) => {
+            const classes = 'px-4 py-2 border-b border-blue-gray-50/50';
+            return (
+              <TableRow key={row.id} className={classes}>
+                {row.getVisibleCells().map((cell) => {
+                  return (
+                    <TableCell
+                      key={cell.id}
+                      className={`${classes} ${cell.column.id === 'no' ? 'w-12' : ''}`}
+                    >
+                      {cell.column.id === 'no'
+                        ? index + 1
+                        : flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </TableCell>
+                  );
+                })}
+              </TableRow>
+            );
+          })
+        ) : (
+          <TableRow>
+            <TableCell
+              colSpan={columns.length}
+              className="px-4 py-2 border-b border-blue-gray-50/50 text-center"
+            >
+              Data kosong
+            </TableCell>
+          </TableRow>
+        )}
       </TableBody>
     </TableElement>
   );

@@ -6,6 +6,11 @@ export const TableUsers = ({ tableData }) => {
   const columns = React.useMemo(
     () => [
       {
+        id: 'no',
+        cell: ({ row }) => row.index + 1,
+        header: () => 'No',
+      },
+      {
         accessorFn: (row) => row.username,
         id: 'username',
         cell: (info) => info.getValue(),

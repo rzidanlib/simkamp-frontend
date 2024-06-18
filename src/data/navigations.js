@@ -2,8 +2,10 @@ import {
   ArchiveBoxIcon,
   ArrowsRightLeftIcon,
   HomeIcon,
+  SwatchIcon,
   UserGroupIcon,
   UserIcon,
+  UserPlusIcon,
   UsersIcon,
 } from '@heroicons/react/24/solid';
 
@@ -21,16 +23,42 @@ export const navigations = [
     path: null,
     subNav: [
       {
-        id: 3,
+        id: 21,
         title: 'User',
-        icon: UserIcon,
+        icon: UsersIcon,
         path: './manage-users/users',
       },
       {
-        id: 4,
+        id: 22,
         title: 'Role User',
-        icon: UsersIcon,
+        icon: UserPlusIcon,
         path: './manage-users/roles',
+      },
+    ],
+  },
+  {
+    id: 3,
+    icon: SwatchIcon,
+    title: 'Data Master Pemilu',
+    path: null,
+    subNav: [
+      {
+        id: 31,
+        title: 'Partai Politik',
+        icon: UserIcon,
+        path: './data-master/partai',
+      },
+      {
+        id: 32,
+        title: 'Jenis Pemilihan',
+        icon: UsersIcon,
+        path: './data-master/pemilu',
+      },
+      {
+        id: 33,
+        title: 'Calon Tetap',
+        icon: UsersIcon,
+        path: './data-master/calon-tetap',
       },
     ],
   },
