@@ -2,26 +2,26 @@ import * as React from 'react';
 import { Input } from '@/components/Form';
 import { Card, Checkbox, Button, Typography } from '@material-tailwind/react';
 import { useLogin } from '../api/auth';
+import { Controller, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { loginSchema } from '../schema/login-schema';
 
 export const Login = () => {
-  const [form, setForm] = React.useState({
-    username: '',
-    password: '',
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      username: '',
+      password: '',
+    },
+    resolver: zodResolver(loginSchema),
   });
   const loginMutation = useLogin();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    setForm((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    loginMutation.mutate(form);
+  const onSubmit = (data) => {
+    loginMutation.mutate(data);
   };
 
   return (
@@ -34,21 +34,35 @@ export const Login = () => {
           Nice to meet you! Enter your details to register.
         </Typography>
 
-        <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96" onSubmit={handleSubmit}>
+        <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96" onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-1 flex flex-col gap-6">
-            <Input
-              labelName="Username"
-              type="text"
-              placeholder="Username"
+            <Controller
               name="username"
-              onChange={handleChange}
+              control={control}
+              render={({ field }) => (
+                <Input
+                  id="username"
+                  label="Username"
+                  type="text"
+                  error={errors.username?.message}
+                  placeholder="Username"
+                  {...field}
+                />
+              )}
             />
-            <Input
-              labelName="Password"
-              type="password"
-              placeholder="*******"
+            <Controller
               name="password"
-              onChange={handleChange}
+              control={control}
+              render={({ field }) => (
+                <Input
+                  id="password"
+                  label="Password"
+                  type="password"
+                  error={errors.password?.message}
+                  placeholder="Password"
+                  {...field}
+                />
+              )}
             />
           </div>
 

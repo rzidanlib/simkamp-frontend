@@ -1,8 +1,14 @@
-import { Typography, Button } from "@material-tailwind/react";
-import { FlagIcon } from "@heroicons/react/24/solid";
-import { Link } from "react-router-dom";
+import { Typography, Button } from '@material-tailwind/react';
+import { FlagIcon } from '@heroicons/react/24/solid';
+import { Link } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 export const NotFound = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || '/dashboard';
+
   return (
     <div className="h-screen mx-auto grid place-items-center text-center px-8">
       <div>
@@ -15,12 +21,12 @@ export const NotFound = () => {
           Error 404 <br /> It looks like something went wrong.
         </Typography>
         <Typography className="mt-8 mb-14 text-[18px] font-normal text-gray-500 mx-auto md:max-w-sm">
-          Don&apos;t worry, our team is already on it.Please try refreshing the
-          page or come back later.
+          Don&apos;t worry, our team is already on it.Please try refreshing the page or come back
+          later.
         </Typography>
-        <Link to="/">
+        <Link to={navigate(from, { replace: true })}>
           <Button color="gray" className="w-full px-4 md:w-[8rem]">
-            back home
+            back
           </Button>
         </Link>
       </div>
