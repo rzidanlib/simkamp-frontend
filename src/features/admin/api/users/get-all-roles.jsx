@@ -1,5 +1,3 @@
-// fetch data untuk mendapatkan semua role dan gunakan hook useQuery
-
 import API from '@/config/axios-config';
 import { useQuery } from '@tanstack/react-query';
 

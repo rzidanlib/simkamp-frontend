@@ -15,7 +15,9 @@ API.interceptors.request.use(
       config.headers['Authorization'] = `Bearer ${token}`;
       config.headers['Access-Control-Allow-Credentials'] = true;
     }
-    config.headers['Content-Type'] = 'application/json';
+    if (!config.headers['Content-Type']) {
+      config.headers['Content-Type'] = 'application/json';
+    }
     config.credentials = 'same-origin';
     config.baseURL = baseURL;
 
@@ -41,7 +43,8 @@ API.interceptors.response.use(
       // Handle unauthorized error (e.g., log out the user)
       // alert('Session expired. Please log in again.');
       // Perform logout logic (e.g., remove token, redirect to login page)
-      localStorage.removeItem('accessToken'); // Remove token from storage
+      localStorageHandler.removeItem('accessToken'); // Remove token from storage
+      localStorageHandler.removeItem('currentUser'); // Remove token from storage
       window.location.href = '/auth/login'; // Redirect to login page
     }
     throw error; // Propagate the error

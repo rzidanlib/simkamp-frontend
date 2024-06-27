@@ -14,6 +14,7 @@ const { Dashboard } = lazyImport(() => import('@/features/dashboard'), 'Dashboar
 const { RelawanRoutes } = lazyImport(() => import('@/features/relawan'), 'RelawanRoutes');
 const { ProfileRoutes } = lazyImport(() => import('@/features/profile'), 'ProfileRoutes');
 const { UsersRoutes } = lazyImport(() => import('@/features/admin'), 'UsersRoutes');
+const { DataMasterRoutes } = lazyImport(() => import('@/features/admin'), 'DataMasterRoutes');
 // const { ArusKasRoutes } = lazyImport(() => import('@/features/aruskas'), 'ArusKasRoutes');
 // const { LogistikRoutes } = lazyImport(() => import('@/features/logistik'), 'LogistikRoutes');
 // const { CalonPemilihRoutes } = lazyImport(
@@ -53,6 +54,7 @@ export const MainRoutes = (
     </Route>
     <Route element={<AuthGuard requiredRoles={authRole.admin} />}>
       <Route path="/manage-users/*" element={<UsersRoutes />} />
+      <Route path="/data-master/*" element={<DataMasterRoutes />} />
     </Route>
   </>
 );

@@ -1,13 +1,18 @@
 import PropTypes from 'prop-types';
 
-import { useUser } from '@/features/auth/api/get-user';
 import { ProtectedRoute } from './ProtectedRoutes';
 import { LoadingSpinner } from '@/components/Elements/Spinner';
 
-const AuthGuard = ({ redirectPath = '/auth/login', guardType = 'authenticated', ...props }) => {
-  const { data, isLoading } = useUser();
+import { useCurrentUser } from '@/features/auth/api/get-current-user';
+
+export const AuthGuard = ({
+  redirectPath = '/auth/login',
+  guardType = 'authenticated',
+  ...props
+}) => {
+  const { data, isLoading } = useCurrentUser();
+  const userRole = data ? data.role : null;
   const isAllowed = guardType === 'authenticated' ? !!data : !data;
-  const userRole = data && data?.user ? data?.user?.role : null;
 
   if (isLoading) {
     return (
@@ -26,8 +31,6 @@ const AuthGuard = ({ redirectPath = '/auth/login', guardType = 'authenticated', 
     />
   );
 };
-
-export { AuthGuard };
 
 AuthGuard.propTypes = {
   redirectPath: PropTypes.string,

@@ -1,10 +1,10 @@
-import * as React from 'react';
-import { Input } from '@/components/Form';
-import { Card, Checkbox, Button, Typography } from '@material-tailwind/react';
-import { useLogin } from '../api/auth';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useLogin } from '../api/auth';
 import { loginSchema } from '../schema/login-schema';
+
+import { Card, Typography } from '@material-tailwind/react';
+import { FormLogin } from '../components/FormLogin';
 
 export const Login = () => {
   const {
@@ -13,71 +13,35 @@ export const Login = () => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      username: '',
+      email: '',
       password: '',
+      role: '',
     },
     resolver: zodResolver(loginSchema),
   });
   const loginMutation = useLogin();
 
   const onSubmit = (data) => {
+    // console.log(data);
     loginMutation.mutate(data);
   };
 
   return (
-    <div className="bg-blue-gray-200 h-screen flex justify-center items-center">
-      <Card shadow={true} className="p-4">
-        <Typography variant="h4" color="blue-gray">
-          Log In
+    <div className="h-screen flex justify-center items-center">
+      <Card className="p-6 border-2 border-black shadow-lg">
+        <Typography variant="h4" color="blue-gray" className="text-center">
+          Sign In
         </Typography>
-        <Typography color="gray" className="mt-1 font-normal">
-          Nice to meet you! Enter your details to register.
+        <Typography color="gray" className="mt-1 font-normal text-center">
+          Selamat Datang! Silahkan masukan Email dan Password
         </Typography>
 
-        <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96" onSubmit={handleSubmit(onSubmit)}>
-          <div className="mb-1 flex flex-col gap-6">
-            <Controller
-              name="username"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  id="username"
-                  label="Username"
-                  type="text"
-                  error={errors.username?.message}
-                  placeholder="Username"
-                  {...field}
-                />
-              )}
-            />
-            <Controller
-              name="password"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  id="password"
-                  label="Password"
-                  type="password"
-                  error={errors.password?.message}
-                  placeholder="Password"
-                  {...field}
-                />
-              )}
-            />
-          </div>
-
-          <Checkbox
-            label={
-              <Typography variant="small" color="gray" className="flex items-center font-normal">
-                Ingat Saya!
-              </Typography>
-            }
-            containerProps={{ className: '-ml-2.5' }}
-          />
-          <Button className="mt-6" fullWidth type="submit">
-            Log In
-          </Button>
-        </form>
+        <FormLogin
+          control={control}
+          errors={errors}
+          handleSubmit={handleSubmit}
+          onSubmit={onSubmit}
+        />
       </Card>
     </div>
   );

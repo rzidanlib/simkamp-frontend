@@ -1,35 +1,10 @@
-import API from '@/config/axios-config';
-import { queryClient } from '@/config/react-query-config';
-import localStorageHandler from '@/utils/localStorage';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-export const login = async (credentials) => {
-  try {
-    const response = await API.post('/auth/login', credentials);
+import { queryClient } from '@/config/react-query-config';
+import { postRequest } from '@/lib/apiHelper';
 
-    if (response.status !== 200) {
-      throw new Error('Login failed');
-    }
-
-    return response.data.data;
-  } catch (error) {
-    // Log the error for debugging purposes
-    console.error('Login error:', error);
-    // Throw a custom error or return a default error message
-    throw new Error('An unexpected error occurred during login. Please try again later.');
-  }
-};
-
-export const logout = async () => {
-  const response = await API.post('/auth/logout');
-
-  if (response.status !== 200) {
-    throw new Error('Logout failed');
-  }
-
-  return response.data.data;
-};
+import localStorageHandler from '@/utils/localStorage';
 
 export const useLogin = () => {
   const navigate = useNavigate();
@@ -37,11 +12,16 @@ export const useLogin = () => {
   const from = location.state?.from?.pathname || '/dashboard';
 
   return useMutation({
-    mutationFn: login,
+    mutationFn: (credentials) =>
+      postRequest({
+        url: '/auth/login',
+        data: credentials,
+      }),
     onSuccess: (data) => {
-      localStorageHandler.setItem('accessToken', data.user.accessToken);
+      localStorageHandler.setItem('accessToken', data.accessToken);
+      localStorageHandler.setItem('currentUser', data.user);
       // Invalidate user query to refetch data
-      queryClient.invalidateQueries('user');
+      queryClient.invalidateQueries('current-user');
       navigate(from, { replace: true });
     },
     onError: (error) => {
@@ -52,13 +32,14 @@ export const useLogin = () => {
 
 export const useLogout = () => {
   return useMutation({
-    mutationFn: logout,
+    mutationFn: () => postRequest({ url: '/auth/logout' }),
     onSuccess: () => {
       localStorageHandler.removeItem('accessToken');
       window.location.href = '/auth/login';
     },
     onError: (error) => {
       console.error(error);
+      throw new Error('An unexpected error occurred during logout. Please try again later.');
     },
   });
 };
