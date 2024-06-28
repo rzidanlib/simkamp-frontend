@@ -9,6 +9,19 @@ const jenisPemilihanSchema = z.object({
   jenis_pemilihan: z.string().min(1, { message: 'Jenis pemilihan harus di isi' }),
 });
 
+const agamaSchema = z.object({
+  agama: z.string().min(1, { message: 'Jenis pemilihan harus di isi' }),
+});
+
+const posisiCalonSchema = z.object({
+  posisi_calon_tetap: z.string().min(1, { message: 'Jenis pemilihan harus di isi' }),
+});
+
+const dapilSchema = z.object({
+  dapil_nama: z.string().min(1, { message: 'Jenis pemilihan harus di isi' }),
+  dapil_provinsi: z.number().min(1, { message: 'Jenis pemilihan harus di isi' }),
+});
+
 const partaiSchema = z.object({
   partai_label: z.string().min(1, { message: 'Partai harus di isi' }),
   partai_nama: z.string().min(1, { message: 'Nama Partai harus di isi' }),
@@ -19,4 +32,11 @@ const partaiSchema = z.object({
   partai_logo: z.any().refine((file) => file?.length !== 0, 'Logo harus di sertakan'),
 });
 
-export { rolesSchema, partaiSchema, jenisPemilihanSchema };
+export {
+  rolesSchema,
+  partaiSchema,
+  jenisPemilihanSchema,
+  posisiCalonSchema,
+  dapilSchema,
+  agamaSchema,
+};

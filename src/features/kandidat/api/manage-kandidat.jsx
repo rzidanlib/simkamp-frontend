@@ -1,11 +1,11 @@
 import { deleteRequest, postFormDataRequest, putFormDataRequest } from '@/lib/apiHelper';
 import { useMutation } from '@tanstack/react-query';
 
-export const useCreatePartai = () => {
+export const useCreateKandidat = () => {
   return useMutation({
-    mutationFn: (formData) => postFormDataRequest({ url: '/partai/create', data: formData }),
+    mutationFn: (formData) => postFormDataRequest({ url: '/kandidat/create', data: formData }),
     onSuccess: () => {
-      window.location.href = '/data-master/partai';
+      window.location.href = '/kandidat';
     },
     onError: (error) => {
       alert(error.message);
@@ -14,12 +14,12 @@ export const useCreatePartai = () => {
   });
 };
 
-export const useUpdatePartai = () => {
+export const useUpdateKandidat = () => {
   return useMutation({
-    mutationFn: ({ partaiId, formData }) =>
-      putFormDataRequest({ url: `/partai/update/${partaiId}`, data: formData }),
+    mutationFn: ({ kandidatId, formData }) =>
+      putFormDataRequest({ url: `/kandidat/update/${kandidatId}`, data: formData }),
     onSuccess: () => {
-      window.location.href = '/data-master/partai';
+      window.location.href = '/kandidat';
     },
     onError: (error) => {
       alert(error.message);
@@ -28,12 +28,12 @@ export const useUpdatePartai = () => {
   });
 };
 
-export const useDeletePartai = () => {
+export const useDeleteKandidat = () => {
   return useMutation({
-    mutationFn: (partaiId) => deleteRequest({ url: `/partai/delete/${partaiId}` }),
+    mutationFn: (kandidatId) => deleteRequest({ url: `/kandidat/delete/${kandidatId}` }),
     onSuccess: () => {
       alert('Berhasil Dihapus');
-      window.location.href = '/data-master/partai';
+      window.location.href = '/kandidat';
     },
     onError: (error) => {
       alert(error.message);

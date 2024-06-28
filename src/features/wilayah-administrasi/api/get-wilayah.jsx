@@ -1,33 +1,40 @@
+import { useQuery } from '@tanstack/react-query';
+
+import API from '@/config/axios-config';
 import { env } from '@/config/env';
-import { wilayahAPI } from '@/lib/api-client';
 
-export const getProvinsi = async () => {
-  const response = await wilayahAPI.get(`/provinsi?api_key=${env.WILAYAH_KEY}`);
+const wilayahURL = `${env.API_WILAYAH_URL}`;
+
+const handlePublicApiResponse = (response) => {
+  if (response.status !== 200) {
+    throw new Error('Failed to fetch data');
+  }
   return response.data;
 };
 
-export const getProvinsiById = async (id) => {
-  const response = await wilayahAPI.get(`/provinsi?api_key=${env.WILAYAH_KEY}&id=${id}`);
-  const provinsi = response.data.value.find((provinsi) => provinsi.id === id);
-  return provinsi ? { id: provinsi.id, name: provinsi.name } : null;
+const handleError = (error) => {
+  console.error('API request error:', error);
+  throw new Error(error.response?.data?.errors || 'An error occurred');
 };
 
-export const getKabupaten = async (provinsiId) => {
-  const response = await wilayahAPI.get(`/kabupaten`, {
-    params: {
-      api_key: env.WILAYAH_KEY,
-      id_provinsi: provinsiId,
+const makeApiRequest = async (method, { url, data = {}, params = {}, headers = {} }) => {
+  try {
+    const response = await API[method](url, method === 'get' ? { params } : data, {
+      params,
+      headers,
+    });
+    return handlePublicApiResponse(response);
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+export const useProvinsi = () => {
+  return useQuery({
+    queryKey: ['provinsi'],
+    queryFn: async () => makeApiRequest('get', { url: `${wilayahURL}/provinces.json` }),
+    onError: (error) => {
+      console.error(error);
     },
   });
-  return response.data;
-};
-
-export const getKecamatan = async (kabupatenId) => {
-  const response = await wilayahAPI.get(`/kecamatan`, {
-    params: {
-      api_key: env.WILAYAH_KEY,
-      id_kabupaten: kabupatenId,
-    },
-  });
-  return response.data;
 };

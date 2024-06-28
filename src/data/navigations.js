@@ -9,9 +9,10 @@ import {
 
 const userRoles = {
   all: ['admin-partai', 'administrator', 'kandidat', 'relawan'],
+  userSimkamp: ['admin-partai', 'kandidat', 'relawan'],
   admin: ['admin-partai', 'administrator'],
   adminSistem: ['administrator'],
-  partai: ['admin-partai'],
+  adminPartai: ['admin-partai'],
   kandidat: ['kandidat'],
   relawan: ['relawan'],
 };
@@ -59,7 +60,7 @@ export const navigations = [
         id: 34,
         title: 'Posisi Calon Tetap',
         icon: UsersIcon,
-        path: './data-master/calon-tetap',
+        path: './data-master/posisi-calon',
       },
       {
         id: 35,
@@ -67,7 +68,27 @@ export const navigations = [
         icon: UsersIcon,
         path: './data-master/dapil',
       },
+      {
+        id: 36,
+        title: 'Agama',
+        icon: UsersIcon,
+        path: './data-master/agama',
+      },
     ],
+  },
+  {
+    id: 4,
+    icon: UserGroupIcon,
+    title: 'Kandidat',
+    path: './kandidat',
+    roles: userRoles.adminPartai,
+  },
+  {
+    id: 5,
+    icon: UserGroupIcon,
+    title: 'Relawan',
+    path: './relawn',
+    roles: userRoles.userSimkamp,
   },
 ];
 

@@ -3,10 +3,11 @@ import { AuthGuard } from './AuthGuard';
 import { lazyImport } from '@/utils/lazyImport';
 
 const authRole = {
-  all: ['administrator', 'admin-partai', 'kandidat', 'relawan'],
-  admin: ['administrator', 'admin-partai'],
+  all: ['admin-partai', 'administrator', 'kandidat', 'relawan'],
+  userSimkamp: ['admin-partai', 'kandidat', 'relawan'],
+  admin: ['admin-partai', 'administrator'],
   adminSistem: ['administrator'],
-  partai: ['admin-partai'],
+  adminPartai: ['admin-partai'],
   kandidat: ['kandidat'],
   relawan: ['relawan'],
 };
@@ -16,35 +17,7 @@ const { RelawanRoutes } = lazyImport(() => import('@/features/relawan'), 'Relawa
 const { ProfileRoutes } = lazyImport(() => import('@/features/profile'), 'ProfileRoutes');
 const { UsersRoutes } = lazyImport(() => import('@/features/admin'), 'UsersRoutes');
 const { DataMasterRoutes } = lazyImport(() => import('@/features/admin'), 'DataMasterRoutes');
-// const { ArusKasRoutes } = lazyImport(() => import('@/features/aruskas'), 'ArusKasRoutes');
-// const { LogistikRoutes } = lazyImport(() => import('@/features/logistik'), 'LogistikRoutes');
-// const { CalonPemilihRoutes } = lazyImport(
-//   () => import('@/features/calon_pemilih'),
-//   'CalonPemilihRoutes'
-// );
-
-// export const ProtectedRoutes = [
-//   { path: '/dashboard', element: <AuthGuard element={<Dashboard />} roles={authRole.all} /> },
-//   {
-//     path: '/aruskas/*',
-//     element: <AuthGuard element={<ArusKasRoutes />} roles={authRole.kandidat} />,
-//   },
-//   {
-//     path: '/logistik/*',
-//     element: <AuthGuard element={<LogistikRoutes />} roles={authRole.relawan} />,
-//   },
-//   {
-//     path: '/relawan/*',
-//     element: <AuthGuard element={<RelawanRoutes />} roles={authRole.kandidat} />,
-//   },
-//   {
-//     path: '/calon-pemilih/*',
-//     element: <AuthGuard element={<CalonPemilihRoutes />} roles={authRole.kandidat} />,
-//   },
-
-//   { path: '/auth/*', element: <Navigate to="/dashboard" /> },
-//   { path: '*', element: <Navigate to="/session/404" /> },
-// ];
+const { KandidatRoutes } = lazyImport(() => import('@/features/kandidat'), 'KandidatRoutes');
 
 export const MainRoutes = (
   <>
@@ -56,6 +29,9 @@ export const MainRoutes = (
     <Route element={<AuthGuard requiredRoles={authRole.adminSistem} />}>
       <Route path="/manage-users/*" element={<UsersRoutes />} />
       <Route path="/data-master/*" element={<DataMasterRoutes />} />
+    </Route>
+    <Route element={<AuthGuard requiredRoles={authRole.adminPartai} />}>
+      <Route path="/kandidat/*" element={<KandidatRoutes />} />
     </Route>
   </>
 );

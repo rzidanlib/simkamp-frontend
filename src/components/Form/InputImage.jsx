@@ -70,6 +70,13 @@ export const InputImage = React.forwardRef(
       };
     }, [selectedImage]);
 
+    useEffect(() => {
+      // Ini akan memperbarui imageURL jika imagePath berubah atau pada saat komponen dimuat
+      if (imagePath) {
+        setImageURL(imagePath);
+      }
+    }, [imagePath]);
+
     return (
       <div className="flex flex-col">
         {label && <Label label={label} />}
