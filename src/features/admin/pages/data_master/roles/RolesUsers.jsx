@@ -1,25 +1,24 @@
 import * as React from 'react';
+
+import { Link } from 'react-router-dom';
+
+import { useRoles } from '@/features/admin/api/data_master/roles/get-roles';
+
 import { ContentLayout } from '@/components/Layout';
 import { Card, CardBody, CardHeader, Typography, Button } from '@material-tailwind/react';
-import { Link } from 'react-router-dom';
-import { TableRoles } from '../../components/TableRoles';
-import { useRoles } from '../../api/users/get-all-roles';
-import { useDeleteRole } from '../../api/users/delete-role';
+import { TableRoles } from '@/features/admin/components/TableRoles';
+import { useDeleteRole } from '@/features/admin/api/data_master/roles/delete-role';
 
-export const RolesUsersPage = () => {
-  const { data, isLoading, isError } = useRoles();
-  const deleteRoleMutation = useDeleteRole();
+export const RolesPage = () => {
+  const { data: roles, isLoading, isError } = useRoles();
+  const { mutate: deleteRole } = useDeleteRole();
 
   const handleDelete = React.useCallback(
     (id) => {
-      deleteRoleMutation.mutate(id);
+      deleteRole(id);
     },
-    [deleteRoleMutation]
+    [deleteRole]
   );
-
-  if (isLoading || deleteRoleMutation.isLoading) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <ContentLayout title="Roles">
@@ -32,14 +31,18 @@ export const RolesUsersPage = () => {
           <Typography variant="h4" color="blue-gray">
             Table Roles
           </Typography>
-          <Link to={'/manage-users/roles/tambah'}>
+          <Link to={'/data-master/roles/tambah'}>
             <Button color="blue" size="md">
               Tambah Roles
             </Button>
           </Link>
         </CardHeader>
         <CardBody className="p-0">
-          <TableRoles tableData={data} handleDelete={handleDelete} />
+          {!isError ? (
+            <TableRoles tableData={roles} handleDelete={handleDelete} isLoading={isLoading} />
+          ) : (
+            <div className="h-10 flex justify-center items-center">{isError}</div>
+          )}
         </CardBody>
       </Card>
     </ContentLayout>

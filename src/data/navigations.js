@@ -1,6 +1,4 @@
 import {
-  ArchiveBoxIcon,
-  ArrowsRightLeftIcon,
   HomeIcon,
   SwatchIcon,
   UserGroupIcon,
@@ -9,81 +7,80 @@ import {
   UsersIcon,
 } from '@heroicons/react/24/solid';
 
+const userRoles = {
+  all: ['admin-partai', 'administrator', 'kandidat', 'relawan'],
+  admin: ['admin-partai', 'administrator'],
+  adminSistem: ['administrator'],
+  partai: ['admin-partai'],
+  kandidat: ['kandidat'],
+  relawan: ['relawan'],
+};
+
 export const navigations = [
   {
     id: 1,
     title: 'Dashboard',
     path: './dashboard',
     icon: HomeIcon,
+    roles: userRoles.all,
   },
   {
     id: 2,
     icon: UserGroupIcon,
     title: 'Manage Users',
-    path: null,
-    subNav: [
-      {
-        id: 21,
-        title: 'User',
-        icon: UsersIcon,
-        path: './manage-users/users',
-      },
-      {
-        id: 22,
-        title: 'Role User',
-        icon: UserPlusIcon,
-        path: './manage-users/roles',
-      },
-    ],
+    path: './manage-users/users',
+    roles: userRoles.adminSistem,
   },
   {
     id: 3,
     icon: SwatchIcon,
-    title: 'Data Master Pemilu',
-    path: null,
+    title: 'Data Master',
+    roles: userRoles.adminSistem,
     subNav: [
       {
         id: 31,
+        title: 'Role User',
+        icon: UserPlusIcon,
+        path: './data-master/roles',
+      },
+      {
+        id: 32,
         title: 'Partai Politik',
         icon: UserIcon,
         path: './data-master/partai',
       },
       {
-        id: 32,
+        id: 33,
         title: 'Jenis Pemilihan',
         icon: UsersIcon,
-        path: './data-master/pemilu',
+        path: './data-master/jenis-pemilihan',
       },
       {
-        id: 33,
-        title: 'Calon Tetap',
+        id: 34,
+        title: 'Posisi Calon Tetap',
         icon: UsersIcon,
         path: './data-master/calon-tetap',
       },
+      {
+        id: 35,
+        title: 'Daerah Pemilihan',
+        icon: UsersIcon,
+        path: './data-master/dapil',
+      },
     ],
   },
-  // {
-  //   id: 3,
-  //   title: 'Relawan',
-  //   icon: UserIcon,
-  //   path: './relawan',
-  // },
-  // {
-  //   id: 4,
-  //   title: 'Calon Pemilih',
-  //   path: './calon-pemilih',
-  //   icon: UsersIcon,
-  // },
-  // {
-  //   id: 2,
-  //   title: 'Arus Kas',
-  //   path: './aruskas',
-  //   icon: ArrowsRightLeftIcon,
-  // },
-  // {
-  //   id: 5,
-  //   title: 'Logistik',
-  //   path: './logistik',
-  //   icon: ArchiveBoxIcon,
-  // },
 ];
+
+export const protectedNavigation = (userRole) => {
+  const hasAccess = (navRoles) => navRoles.includes(userRole);
+
+  return navigations
+    .filter((nav) => hasAccess(nav.roles))
+    .map((nav) => {
+      if (nav.subNav) {
+        const filteredSubNav = nav.subNav.filter(() => hasAccess(nav.roles));
+        return { ...nav, subNav: filteredSubNav };
+      }
+      return nav;
+    });
+};

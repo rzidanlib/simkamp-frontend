@@ -1,8 +1,9 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { MenuActions, Table } from '@/components/Elements/Table';
+import { Img } from '@/components/Elements/Image';
 
-export const TablePartai = ({ tableData, handleDelete }) => {
+export const TablePartai = ({ tableData, handleDelete, isLoading }) => {
   const columns = React.useMemo(
     () => [
       {
@@ -11,43 +12,51 @@ export const TablePartai = ({ tableData, handleDelete }) => {
         header: () => 'No',
       },
       {
-        accessorFn: (row) => row.logo,
-        id: 'logo',
-        cell: (info) => info.getValue(),
+        accessorFn: (row) => row.partai_logo,
+        id: 'partai_logo',
+        cell: (info) => (
+          <Img src={info.getValue()} alt="Logo Partai" className="w-10 h-10 rounded-full" />
+        ),
         header: () => 'Logo Partai',
       },
       {
-        accessorFn: (row) => row.partai,
-        id: 'partai',
+        accessorFn: (row) => row.partai_label,
+        id: 'partai_label',
         cell: (info) => info.getValue(),
         header: () => 'Partai',
       },
       {
-        accessorFn: (row) => row.nama_partai,
-        id: 'nama_partai',
+        accessorFn: (row) => row.partai_nama,
+        id: 'partai_nama',
         cell: (info) => info.getValue(),
         header: () => 'Nama Partai',
       },
       {
-        accessorFn: (row) => row.jumlah_anggota,
-        id: 'jumlah_anggota',
+        accessorFn: (row) => row.partai_nomor,
+        id: 'partai_nomor',
         cell: (info) => info.getValue(),
-        header: () => 'Jumlah Anggota',
+        header: () => 'No Partai',
       },
       {
         id: 'action',
         cell: ({ row }) => {
-          return <MenuActions onDelete={() => handleDelete(row.original.id)} />;
+          return (
+            <MenuActions
+              editPath={`/data-master/partai/edit/${row.original.partai_id}`}
+              onDelete={() => handleDelete(row.original.partai_id)}
+            />
+          );
         },
       },
     ],
     [handleDelete]
   );
 
-  return <Table columns={columns} data={tableData} />;
+  return <Table columns={columns} data={tableData} loading={isLoading} />;
 };
 
 TablePartai.propTypes = {
   tableData: PropTypes.array,
   handleDelete: PropTypes.func,
+  isLoading: PropTypes.bool,
 };

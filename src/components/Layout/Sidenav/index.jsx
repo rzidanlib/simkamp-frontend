@@ -16,12 +16,16 @@ import {
   IconButton,
   Typography,
 } from '@material-tailwind/react';
-import { navigations } from '@/data/navigations';
+import { protectedNavigation } from '@/data/navigations';
+import localStorageHandler from '@/utils/localStorage';
 
 const Sidenav = () => {
+  const user = localStorageHandler.getItem('currentUser');
   const [controller, dispatch] = useLayoutContoller();
   const { openSidenav } = controller;
   const [open, setOpen] = useState(0);
+
+  const navigations = protectedNavigation(user.role);
 
   const activeNav = {
     active:

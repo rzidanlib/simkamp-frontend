@@ -1,5 +1,5 @@
 import API from '@/config/axios-config';
-import { useUser } from './get-user';
+import { useUser } from './get-current-user';
 import { useMutation } from '@tanstack/react-query';
 import { queryClient } from '@/config/react-query-config';
 

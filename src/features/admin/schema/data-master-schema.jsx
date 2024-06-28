@@ -1,18 +1,22 @@
 import * as z from 'zod';
 
-const fileSchema = z.object({
-  name: z.string(),
-  size: z.number(),
-  type: z.string(),
-  lastModified: z.number(),
+const rolesSchema = z.object({
+  role: z.string().min(1, { message: 'Role harus di isi' }),
+  role_deskripsi: z.string().min(1, { message: 'Deskripsi Role harus di isi' }),
 });
 
-const createPartaiSchema = z.object({
-  partai: z.string().min(1, { message: 'Partai harus di isi' }),
-  partai_name: z.string().min(1, { message: 'Nama Partai harus di isi' }),
-  logo_partai: fileSchema.nullable().refine((file) => file !== null, {
-    message: 'Logo Partai harus diisi',
-  }),
+const jenisPemilihanSchema = z.object({
+  jenis_pemilihan: z.string().min(1, { message: 'Jenis pemilihan harus di isi' }),
 });
 
-export { createPartaiSchema };
+const partaiSchema = z.object({
+  partai_label: z.string().min(1, { message: 'Partai harus di isi' }),
+  partai_nama: z.string().min(1, { message: 'Nama Partai harus di isi' }),
+  partai_nomor: z
+    .string()
+    .min(1, { message: 'Nomor partai harus di isi' })
+    .refine((val) => /^[0-9]+$/.test(val), { message: 'Nomor partai hanya boleh berisi angka' }),
+  partai_logo: z.any().refine((file) => file?.length !== 0, 'Logo harus di sertakan'),
+});
+
+export { rolesSchema, partaiSchema, jenisPemilihanSchema };

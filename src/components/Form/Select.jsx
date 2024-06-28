@@ -43,11 +43,16 @@ Select.displayName = 'Select';
 export { Select };
 
 Select.propTypes = {
-  id: PropTypes.string,
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   label: PropTypes.string,
   size: PropTypes.string,
-  options: PropTypes.array,
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      label: PropTypes.string,
+    })
+  ),
   error: PropTypes.string,
-  value: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   placeholder: PropTypes.string,
 };

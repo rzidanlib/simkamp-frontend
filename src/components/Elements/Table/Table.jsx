@@ -47,7 +47,55 @@ const RowText = React.forwardRef(({ className, ...props }, ref) => (
 ));
 RowText.displayName = 'RowText';
 
-export const Table = ({ columns, data }) => {
+const renderLoadingState = (columns) => {
+  return (
+    <TableRow>
+      <TableCell
+        colSpan={columns.length}
+        className="px-4 py-2 border-b border-blue-gray-50/50 text-center"
+      >
+        Loading...
+      </TableCell>
+    </TableRow>
+  );
+};
+
+const renderEmptyState = (columns) => {
+  return (
+    <TableRow>
+      <TableCell
+        colSpan={columns.length}
+        className="px-4 py-2 border-b border-blue-gray-50/50 text-center"
+      >
+        Data kosong
+      </TableCell>
+    </TableRow>
+  );
+};
+
+const renderRows = (rows) => {
+  return rows.map((row, index) => {
+    const classes = 'px-4 py-2 border-b border-blue-gray-50/50';
+    return (
+      <TableRow key={row.id} className={classes}>
+        {row.getVisibleCells().map((cell) => {
+          return (
+            <TableCell
+              key={cell.id}
+              className={`${classes} ${cell.column.id === 'no' ? 'w-12' : ''}`}
+            >
+              {cell.column.id === 'no'
+                ? index + 1
+                : flexRender(cell.column.columnDef.cell, cell.getContext())}
+            </TableCell>
+          );
+        })}
+      </TableRow>
+    );
+  });
+};
+
+export const Table = ({ columns, data, loading }) => {
   const table = useReactTable({ columns, data, getCoreRowModel: getCoreRowModel() });
 
   return (
@@ -69,36 +117,11 @@ export const Table = ({ columns, data }) => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {table.getRowModel().rows.length > 0 ? (
-          table.getRowModel().rows.map((row, index) => {
-            const classes = 'px-4 py-2 border-b border-blue-gray-50/50';
-            return (
-              <TableRow key={row.id} className={classes}>
-                {row.getVisibleCells().map((cell) => {
-                  return (
-                    <TableCell
-                      key={cell.id}
-                      className={`${classes} ${cell.column.id === 'no' ? 'w-12' : ''}`}
-                    >
-                      {cell.column.id === 'no'
-                        ? index + 1
-                        : flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </TableCell>
-                  );
-                })}
-              </TableRow>
-            );
-          })
-        ) : (
-          <TableRow>
-            <TableCell
-              colSpan={columns.length}
-              className="px-4 py-2 border-b border-blue-gray-50/50 text-center"
-            >
-              Data kosong
-            </TableCell>
-          </TableRow>
-        )}
+        {loading
+          ? renderLoadingState(columns)
+          : table.getRowModel().rows.length > 0
+          ? renderRows(table.getRowModel().rows)
+          : renderEmptyState(columns)}
       </TableBody>
     </TableElement>
   );
@@ -107,6 +130,7 @@ export const Table = ({ columns, data }) => {
 Table.propTypes = {
   columns: PropTypes.array,
   data: PropTypes.array,
+  loading: PropTypes.bool,
 };
 
 TableElement.propTypes = {

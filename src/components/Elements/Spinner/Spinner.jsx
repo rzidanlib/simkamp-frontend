@@ -14,11 +14,12 @@ const variants = {
   secondary: 'text-gray-900/50',
 };
 
-export const LoadingSpinner = ({ size = 'md', variant = 'primary' }) => {
-  return <Spinner className={`${sizes[size]} ${variants[variant]}`} />;
+export const LoadingSpinner = ({ size = 'md', variant = 'primary', className }) => {
+  return <Spinner className={`${sizes[size]} ${variants[variant]} ${className}`} />;
 };
 
 LoadingSpinner.propTypes = {
   size: PropTypes.oneOf(['sm', 'md', 'lg', 'xl']),
   variant: PropTypes.oneOf(['light', 'primary', 'secondary']),
+  className: PropTypes.string,
 };

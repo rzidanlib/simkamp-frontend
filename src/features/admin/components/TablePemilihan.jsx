@@ -2,7 +2,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { MenuActions, Table } from '@/components/Elements/Table';
 
-export const TableRoles = ({ tableData, handleDelete, isLoading }) => {
+export const TablePemilihan = ({ tableData, handleDelete, isLoading }) => {
   const columns = React.useMemo(
     () => [
       {
@@ -11,24 +11,18 @@ export const TableRoles = ({ tableData, handleDelete, isLoading }) => {
         header: () => 'No',
       },
       {
-        accessorFn: (row) => row.role,
-        id: 'role',
+        accessorFn: (row) => row.jenis_pemilihan,
+        id: 'jenis_pemilihan',
         cell: (info) => info.getValue(),
-        header: () => 'Role',
-      },
-      {
-        accessorFn: (row) => row.role_deskripsi,
-        id: 'role_deskripsi',
-        cell: (info) => info.getValue(),
-        header: () => 'Deskripsi Role',
+        header: () => 'Jenis Pemilihan',
       },
       {
         id: 'action',
         cell: ({ row }) => {
           return (
             <MenuActions
-              editPath={`/data-master/roles/edit/${row.original.role_id}`}
-              onDelete={() => handleDelete(row.original.role_id)}
+              editPath={`/data-master/jenis-pemilihan/edit/${row.original.jenis_pemilihan_id}`}
+              onDelete={() => handleDelete(row.original.jenis_pemilihan_id)}
             />
           );
         },
@@ -40,7 +34,7 @@ export const TableRoles = ({ tableData, handleDelete, isLoading }) => {
   return <Table columns={columns} data={tableData} loading={isLoading} />;
 };
 
-TableRoles.propTypes = {
+TablePemilihan.propTypes = {
   tableData: PropTypes.array,
   handleDelete: PropTypes.func,
   isLoading: PropTypes.bool,

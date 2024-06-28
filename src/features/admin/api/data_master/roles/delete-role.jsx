@@ -1,12 +1,12 @@
 import { deleteRequest } from '@/lib/apiHelper';
 import { useMutation } from '@tanstack/react-query';
 
-export const useDeleteUser = () => {
+export const useDeleteRole = () => {
   return useMutation({
-    mutationFn: (userId) => deleteRequest({ url: `/users/delete/${userId}` }),
-    onSuccess: (data) => {
-      alert(data.message);
-      window.location.href = '/manage-users/users';
+    mutationFn: (roleId) => deleteRequest({ url: `/roles/delete/${roleId}` }),
+    onSuccess: () => {
+      alert('Berhasil Dihapus');
+      window.location.href = '/data-master/roles';
     },
     onError: (error) => {
       alert(error.message);

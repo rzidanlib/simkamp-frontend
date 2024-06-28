@@ -3,9 +3,10 @@ import { AuthGuard } from './AuthGuard';
 import { lazyImport } from '@/utils/lazyImport';
 
 const authRole = {
-  all: ['administrator', 'kandidat', 'relawan'],
-  admin: ['administrator'],
-  adminPartai: ['admin partai'],
+  all: ['administrator', 'admin-partai', 'kandidat', 'relawan'],
+  admin: ['administrator', 'admin-partai'],
+  adminSistem: ['administrator'],
+  partai: ['admin-partai'],
   kandidat: ['kandidat'],
   relawan: ['relawan'],
 };
@@ -52,7 +53,7 @@ export const MainRoutes = (
       <Route path="/relawan/*" element={<RelawanRoutes />} />
       <Route path="/profile/*" element={<ProfileRoutes />} />
     </Route>
-    <Route element={<AuthGuard requiredRoles={authRole.admin} />}>
+    <Route element={<AuthGuard requiredRoles={authRole.adminSistem} />}>
       <Route path="/manage-users/*" element={<UsersRoutes />} />
       <Route path="/data-master/*" element={<DataMasterRoutes />} />
     </Route>

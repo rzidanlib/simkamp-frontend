@@ -3,9 +3,10 @@ import { CloudArrowUpIcon, ExclamationTriangleIcon } from '@heroicons/react/24/o
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useImperativeHandle } from 'react';
+import { Label } from '.';
 
 export const InputImage = React.forwardRef(
-  ({ onChange, className, disabled = false, imagePath, errorMessage }, ref) => {
+  ({ onChange, className, disabled = false, imagePath, errorMessage, width, label }, ref) => {
     const [selectedImage, setSelectedImage] = useState(null);
     const [imageURL, setImageURL] = useState(imagePath || null);
     const [error, setError] = useState(null);
@@ -71,11 +72,12 @@ export const InputImage = React.forwardRef(
 
     return (
       <div className="flex flex-col">
+        {label && <Label label={label} />}
         <label
           htmlFor="dropzone-file"
           className={`flex flex-col items-center justify-center border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 ${
-            className ? className : 'h-full w-full'
-          }`}
+            width ? width : 'h-full w-full'
+          } ${className}`}
         >
           {error ? (
             <div className="flex flex-col items-center justify-center pt-5 pb-6">
@@ -124,4 +126,6 @@ InputImage.propTypes = {
   disabled: PropTypes.bool,
   imagePath: PropTypes.string,
   errorMessage: PropTypes.string,
+  width: PropTypes.string,
+  label: PropTypes.string,
 };

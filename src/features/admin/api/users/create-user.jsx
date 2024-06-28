@@ -1,21 +1,11 @@
-import API from '@/config/axios-config';
+import { postRequest } from '@/lib/apiHelper';
 import { useMutation } from '@tanstack/react-query';
-
-export const createUser = async (data) => {
-  try {
-    const response = await API.post('/users/create', data);
-    return response.data;
-  } catch (error) {
-    // console.log(error.response.data.errors);
-    throw new Error(error.response.data.errors);
-  }
-};
 
 export const useCreateUser = () => {
   return useMutation({
-    mutationFn: createUser,
+    mutationFn: (data) => postRequest({ url: '/users/create', data }),
     onSuccess: () => {
-      window.location.href = '/dashboard';
+      window.location.href = '/manage-users/users';
     },
     onError: (error) => {
       alert(error.message);
