@@ -2,16 +2,57 @@ import * as React from 'react';
 
 import { Link } from 'react-router-dom';
 
-import { usePemilihRelawan } from '../api/get-calon-pemilih';
+import { usePemilihAdmin, usePemilihKandidat, usePemilihRelawan } from '../api/get-calon-pemilih';
 import { useDeletePemilih } from '../api/manage-calon-pemilih';
 
 import { Card, CardBody, CardHeader, Typography, Button } from '@material-tailwind/react';
 import { ContentLayout } from '@/components/Layout';
 import { TablePemilih } from '../components/TablePemilih';
 import { useProvinsi } from '@/features/wilayah-administrasi/api/get-wilayah';
+import localStorageHandler from '@/utils/localStorage';
 
 export const CalonPemilihPage = () => {
-  const { data: pemilih, isLoading, isError } = usePemilihRelawan();
+  const { role } = localStorageHandler.getItem('currentUser');
+
+  const {
+    data: pemilihRelawan,
+    isLoading: loadingPemilihRelawan,
+    isError: errorPemilihRelawan,
+  } = usePemilihRelawan();
+  const {
+    data: pemilihKandidat,
+    isLoading: loadingPemilihKandidat,
+    isError: errorPemilihKandidat,
+  } = usePemilihKandidat();
+  const {
+    data: pemilihAdmin,
+    isLoading: loadingPemilihAdmin,
+    isError: errorPemilihAdmin,
+  } = usePemilihAdmin();
+
+  let tableData, isLoading, isError;
+  switch (role) {
+    case 'relawan':
+      tableData = pemilihRelawan;
+      isLoading = loadingPemilihRelawan;
+      isError = errorPemilihRelawan;
+      break;
+    case 'kandidat':
+      tableData = pemilihKandidat;
+      isLoading = loadingPemilihKandidat;
+      isError = errorPemilihKandidat;
+      break;
+    case 'admin-partai':
+      tableData = pemilihAdmin;
+      isLoading = loadingPemilihAdmin;
+      isError = errorPemilihAdmin;
+      break;
+    default:
+      tableData = [];
+      isLoading = false;
+      isError = 'Role tidak dikenali';
+  }
+
   const { mutate: deletePemilih } = useDeletePemilih();
   const { data: provinsi } = useProvinsi();
 
@@ -49,7 +90,7 @@ export const CalonPemilihPage = () => {
         <CardBody className="p-0">
           {!isError ? (
             <TablePemilih
-              tableData={pemilih}
+              tableData={tableData}
               handleDelete={handleDelete}
               isLoading={isLoading}
               lookup={{

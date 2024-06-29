@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import * as React from 'react';
 import { UserIcon } from '@heroicons/react/24/solid';
 import { LineChart } from '@/components/Elements/Chart';
 import {
@@ -11,22 +11,23 @@ import {
 import { Tab, Tabs, TabPanel, TabsBody, TabsHeader } from '@material-tailwind/react';
 
 import PropTypes from 'prop-types';
+import { useCurrentUser } from '@/features/auth/api/get-current-user';
 
-export const DashboardKandidat = ({ data }) => {
-  const [activeTab, setActiveTab] = useState('relawan');
+export const DashboardKandidat = ({ currentKandidat }) => {
+  const [activeTab, setActiveTab] = React.useState('relawan');
 
   return (
     <>
       {/* Profile Kandidat */}
       <div className="mb-6 grid grid-cols-1 gap-6 xl:grid-cols-3">
-        <CardKandidatProfile profile={data.profile} />
+        <CardKandidatProfile profile={currentKandidat} />
         <div className="h-full xl:col-span-2">
-          <CardKandidatBio profile={data.profile} />
+          <CardKandidatBio profile={currentKandidat} />
         </div>
       </div>
 
       {/* Chart Statistik Pendukung */}
-      <div className="mb-6 space-y-6">
+      {/* <div className="mb-6 space-y-6">
         <Tabs value={activeTab}>
           <TabsHeader className="z-0 xl:w-1/2 mb-4 bg-blue-gray-200">
             <Tab value={'relawan'} onClick={() => setActiveTab('relawan')}>
@@ -84,7 +85,7 @@ export const DashboardKandidat = ({ data }) => {
             </TabPanel>
           </TabsBody>
         </Tabs>
-      </div>
+      </div> */}
     </>
   );
 };

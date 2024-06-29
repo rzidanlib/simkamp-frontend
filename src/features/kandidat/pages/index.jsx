@@ -8,7 +8,7 @@ export const KandidatRoutes = () => {
     <Routes>
       <Route path="" element={<KandidatPage />} />
       <Route path="/tambah" element={<ManageKandidatPage />} />
-      <Route path="/edit/:kandidatId" element={<ManageKandidatPage />} />
+      <Route path="/detail/:kandidatId" element={<ManageKandidatPage />} />
 
       <Route path="*" element={<Navigate to="/session/404" />} />
     </Routes>

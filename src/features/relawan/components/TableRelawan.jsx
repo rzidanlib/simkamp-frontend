@@ -2,7 +2,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { MenuActions, Table } from '@/components/Elements/Table';
 
-export const TableRelawan = ({ tableData, handleDelete, isLoading, lookup }) => {
+export const TableRelawan = ({ tableData, handleDelete, isLoading }) => {
   const columns = React.useMemo(
     () => [
       {
@@ -23,12 +23,6 @@ export const TableRelawan = ({ tableData, handleDelete, isLoading, lookup }) => 
         header: () => 'No. Telepon',
       },
       {
-        accessorFn: (row) => row.relawan_provinsi_kode,
-        id: 'relawan_provinsi_kode',
-        cell: (info) => lookup.provinsiLookup[info.getValue()] || '-',
-        header: () => 'Provinsi',
-      },
-      {
         accessorFn: (row) => row.relawan_usia,
         id: 'relawan_usia',
         cell: (info) => info.getValue(),
@@ -44,21 +38,21 @@ export const TableRelawan = ({ tableData, handleDelete, isLoading, lookup }) => 
         id: 'action',
         cell: ({ row }) => (
           <MenuActions
-            editPath={`/relawan/edit/${row.original.relawan_id}`}
+            detailPath={`/relawan/detail/${row.original.relawan_id}`}
             onDelete={() => handleDelete(row.original.relawan_id)}
           />
         ),
       },
     ],
-    [handleDelete, lookup]
+    [handleDelete]
   );
 
   return <Table columns={columns} data={tableData} loading={isLoading} />;
 };
 
 TableRelawan.propTypes = {
-  tableData: PropTypes.array.isRequired,
-  handleDelete: PropTypes.func.isRequired,
+  tableData: PropTypes.array,
+  handleDelete: PropTypes.func,
   isLoading: PropTypes.bool,
-  lookup: PropTypes.object.isRequired,
+  lookup: PropTypes.object,
 };

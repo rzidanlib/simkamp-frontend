@@ -8,7 +8,7 @@ export const RelawanRoutes = () => {
     <Routes>
       <Route path="" element={<RelawanPage />} />
       <Route path="/tambah" element={<ManageRelawanPage />} />
-      <Route path="/edit/:relawanId" element={<ManageRelawanPage />} />
+      <Route path="/detail/:relawanId" element={<ManageRelawanPage />} />
 
       <Route path="*" element={<Navigate to="/session/404" />} />
     </Routes>

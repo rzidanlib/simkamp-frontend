@@ -2,15 +2,56 @@ import * as React from 'react';
 
 import { Link } from 'react-router-dom';
 
-import { useLogistikRelawan } from '../api/get-logistik';
+import { useLogistikAdmin, useLogistikKandidat, useLogistikRelawan } from '../api/get-logistik';
 import { useDeleteLogistik } from '../api/manage-logistik';
 
 import { Card, CardBody, CardHeader, Typography, Button } from '@material-tailwind/react';
 import { ContentLayout } from '@/components/Layout';
 import { TableLogistik } from '../components/TableLogistik';
+import localStorageHandler from '@/utils/localStorage';
 
 export const LogistikPage = () => {
-  const { data: logistik, isLoading, isError } = useLogistikRelawan();
+  const { role } = localStorageHandler.getItem('currentUser');
+
+  const {
+    data: logistikRelawan,
+    isLoading: loadingLogistikRelawan,
+    isError: errorLogistikRelawan,
+  } = useLogistikRelawan();
+  const {
+    data: logistikKandidat,
+    isLoading: loadingLogistikKandidat,
+    isError: errorLogistikKandidat,
+  } = useLogistikKandidat();
+  const {
+    data: logistikAdmin,
+    isLoading: loadingLogistikAdmin,
+    isError: errorLogistikAdmin,
+  } = useLogistikAdmin();
+
+  let tableData, isLoading, isError;
+  switch (role) {
+    case 'relawan':
+      tableData = logistikRelawan;
+      isLoading = loadingLogistikRelawan;
+      isError = errorLogistikRelawan;
+      break;
+    case 'kandidat':
+      tableData = logistikKandidat;
+      isLoading = loadingLogistikKandidat;
+      isError = errorLogistikKandidat;
+      break;
+    case 'admin-partai':
+      tableData = logistikAdmin;
+      isLoading = loadingLogistikAdmin;
+      isError = errorLogistikAdmin;
+      break;
+    default:
+      tableData = [];
+      isLoading = false;
+      isError = 'Role tidak dikenali';
+  }
+
   const { mutate: deleteLogistik } = useDeleteLogistik();
 
   const handleDelete = React.useCallback(
@@ -39,7 +80,11 @@ export const LogistikPage = () => {
         </CardHeader>
         <CardBody className="p-0">
           {!isError ? (
-            <TableLogistik tableData={logistik} handleDelete={handleDelete} isLoading={isLoading} />
+            <TableLogistik
+              tableData={tableData}
+              handleDelete={handleDelete}
+              isLoading={isLoading}
+            />
           ) : (
             <div className="h-10 flex justify-center items-center">{isError}</div>
           )}

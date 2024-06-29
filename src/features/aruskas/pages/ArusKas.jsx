@@ -2,15 +2,56 @@ import * as React from 'react';
 
 import { Link } from 'react-router-dom';
 
-import { useArusKasRelawan } from '../api/get-arus-kas';
+import { useArusKasAdmin, useArusKasKandidat, useArusKasRelawan } from '../api/get-arus-kas';
 import { useDeleteArusKas } from '../api/manage-arus-kas';
 
 import { Card, CardBody, CardHeader, Typography, Button } from '@material-tailwind/react';
 import { ContentLayout } from '@/components/Layout';
 import { TableArusKas } from '../components/TableArusKas';
+import localStorageHandler from '@/utils/localStorage';
 
 export const ArusKasPage = () => {
-  const { data: arusKas, isLoading, isError } = useArusKasRelawan();
+  const { role } = localStorageHandler.getItem('currentUser');
+
+  const {
+    data: arusKasRelawan,
+    isLoading: loadingArusKasRelawan,
+    isError: errorArusKasRelawan,
+  } = useArusKasRelawan();
+  const {
+    data: arusKasKandidat,
+    isLoading: loadingArusKasKandidat,
+    isError: errorArusKasKandidat,
+  } = useArusKasKandidat();
+  const {
+    data: arusKasAdmin,
+    isLoading: loadingArusKasAdmin,
+    isError: errorArusKasAdmin,
+  } = useArusKasAdmin();
+
+  let tableData, isLoading, isError;
+  switch (role) {
+    case 'relawan':
+      tableData = arusKasRelawan;
+      isLoading = loadingArusKasRelawan;
+      isError = errorArusKasRelawan;
+      break;
+    case 'kandidat':
+      tableData = arusKasKandidat;
+      isLoading = loadingArusKasKandidat;
+      isError = errorArusKasKandidat;
+      break;
+    case 'admin-partai':
+      tableData = arusKasAdmin;
+      isLoading = loadingArusKasAdmin;
+      isError = errorArusKasAdmin;
+      break;
+    default:
+      tableData = [];
+      isLoading = false;
+      isError = 'Role tidak dikenali';
+  }
+
   const { mutate: deleteArusKas } = useDeleteArusKas();
 
   const handleDelete = React.useCallback(
@@ -39,7 +80,7 @@ export const ArusKasPage = () => {
         </CardHeader>
         <CardBody className="p-0">
           {!isError ? (
-            <TableArusKas tableData={arusKas} handleDelete={handleDelete} isLoading={isLoading} />
+            <TableArusKas tableData={tableData} handleDelete={handleDelete} isLoading={isLoading} />
           ) : (
             <div className="h-10 flex justify-center items-center">{isError}</div>
           )}

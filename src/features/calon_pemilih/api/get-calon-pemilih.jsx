@@ -28,3 +28,31 @@ export const usePemilihRelawan = (relawanId = '') => {
     },
   });
 };
+
+export const usePemilihKandidat = (kandidatId = '') => {
+  const queryKey = kandidatId ? ['pemilih-kandidat', kandidatId] : ['all-pemilih-kandidat'];
+  const url = kandidatId
+    ? `/calon-pemilih/get-by-kandidat/${kandidatId}`
+    : `/calon-pemilih/get-by-kandidat`;
+
+  return useQuery({
+    queryKey,
+    queryFn: () => getRequest({ url }),
+    onError: (error) => {
+      console.error(error);
+    },
+  });
+};
+
+export const usePemilihAdmin = (adminId = '') => {
+  const queryKey = adminId ? ['pemilih-admin', adminId] : ['all-pemilih-admin'];
+  const url = adminId ? `/calon-pemilih/get-by-admin/${adminId}` : `/calon-pemilih/get-by-admin`;
+
+  return useQuery({
+    queryKey,
+    queryFn: () => getRequest({ url }),
+    onError: (error) => {
+      console.error(error);
+    },
+  });
+};

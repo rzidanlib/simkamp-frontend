@@ -19,7 +19,7 @@ export const useUpdateKandidat = () => {
     mutationFn: ({ kandidatId, formData }) =>
       putFormDataRequest({ url: `/kandidat/update/${kandidatId}`, data: formData }),
     onSuccess: () => {
-      window.location.href = '/kandidat';
+      window.location.href = '/dashboard';
     },
     onError: (error) => {
       alert(error.message);

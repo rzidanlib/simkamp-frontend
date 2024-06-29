@@ -2,15 +2,59 @@ import * as React from 'react';
 
 import { Link } from 'react-router-dom';
 
-import { useQuickCountRelawan } from '../api/get-quick-count';
+import {
+  useQuickCountAdmin,
+  useQuickCountKandidat,
+  useQuickCountRelawan,
+} from '../api/get-quick-count';
 import { useDeleteQuickCount } from '../api/manage-quick-count';
 
 import { Card, CardBody, CardHeader, Typography, Button } from '@material-tailwind/react';
 import { ContentLayout } from '@/components/Layout';
 import { TableQuickCount } from '../components/TableQuickCount';
+import localStorageHandler from '@/utils/localStorage';
 
 export const QuickCountPage = () => {
-  const { data: quickCount, isLoading, isError } = useQuickCountRelawan();
+  const { role } = localStorageHandler.getItem('currentUser');
+
+  const {
+    data: quickCountRelawan,
+    isLoading: loadingQuickCountRelawan,
+    isError: errorQuickCountRelawan,
+  } = useQuickCountRelawan();
+  const {
+    data: quickCountKandidat,
+    isLoading: loadingQuickCountKandidat,
+    isError: errorQuickCountKandidat,
+  } = useQuickCountKandidat();
+  const {
+    data: quickCountAdmin,
+    isLoading: loadingQuickCountAdmin,
+    isError: errorQuickCountAdmin,
+  } = useQuickCountAdmin();
+
+  let tableData, isLoading, isError;
+  switch (role) {
+    case 'relawan':
+      tableData = quickCountRelawan;
+      isLoading = loadingQuickCountRelawan;
+      isError = errorQuickCountRelawan;
+      break;
+    case 'kandidat':
+      tableData = quickCountKandidat;
+      isLoading = loadingQuickCountKandidat;
+      isError = errorQuickCountKandidat;
+      break;
+    case 'admin-partai':
+      tableData = quickCountAdmin;
+      isLoading = loadingQuickCountAdmin;
+      isError = errorQuickCountAdmin;
+      break;
+    default:
+      tableData = [];
+      isLoading = false;
+      isError = 'Role tidak dikenali';
+  }
   const { mutate: deleteQuickCount } = useDeleteQuickCount();
 
   const handleDelete = React.useCallback(
@@ -40,7 +84,7 @@ export const QuickCountPage = () => {
         <CardBody className="p-0">
           {!isError ? (
             <TableQuickCount
-              tableData={quickCount}
+              tableData={tableData}
               handleDelete={handleDelete}
               isLoading={isLoading}
             />

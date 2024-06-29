@@ -26,3 +26,16 @@ export const useRelawanKandidat = (kandidatId = '') => {
     },
   });
 };
+
+export const useRelawanAdmin = (adminId = '') => {
+  const queryKey = adminId ? ['relawan-admin', adminId] : ['all-relawan-admin'];
+  const url = adminId ? `/relawan/get-by-admin/${adminId}` : `/relawan/get-by-admin`;
+
+  return useQuery({
+    queryKey,
+    queryFn: () => getRequest({ url }),
+    onError: (error) => {
+      console.error(error);
+    },
+  });
+};

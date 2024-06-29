@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Button } from '@material-tailwind/react';
 
-export const EditButton = ({ setDisabled, handleSubmit, onSubmit, reset }) => {
+export const EditButton = ({ setDisabled, reset }) => {
   const handleCancel = () => {
     setDisabled(true);
     reset();
@@ -12,7 +12,7 @@ export const EditButton = ({ setDisabled, handleSubmit, onSubmit, reset }) => {
       <Button color="red" size="md" onClick={handleCancel}>
         Batal
       </Button>
-      <Button color="green" size="md" onClick={handleSubmit(onSubmit)}>
+      <Button color="green" size="md" type="submit">
         Simpan
       </Button>
     </div>

@@ -10,6 +10,7 @@ import { EllipsisVerticalIcon, EyeIcon, TrashIcon } from '@heroicons/react/24/ou
 import { useNavigate } from 'react-router-dom';
 import { PencilIcon } from '@heroicons/react/24/solid';
 import PropTypes from 'prop-types';
+import Authorization from '@/lib/authorization';
 
 const styles = {
   default: 'flex items-center gap-4',

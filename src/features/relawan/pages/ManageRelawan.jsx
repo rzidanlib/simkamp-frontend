@@ -72,8 +72,6 @@ export const ManageRelawanPage = () => {
   }, [relawan, reset, isEdit]);
 
   const onSubmit = (data) => {
-    console.log(data);
-
     const formData = new FormData();
     formData.append('relawan_nama', data.relawan_nama);
     formData.append('relawan_email', data.relawan_email);

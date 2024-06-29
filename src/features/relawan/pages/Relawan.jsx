@@ -2,25 +2,35 @@ import * as React from 'react';
 
 import { Link } from 'react-router-dom';
 
-import { useRelawanKandidat } from '../api/get-relawan';
+import { useRelawanAdmin, useRelawanKandidat } from '../api/get-relawan';
 import { useDeleteRelawan } from '../api/manage-relawan';
 
 import { Card, CardBody, CardHeader, Typography, Button } from '@material-tailwind/react';
 import { ContentLayout } from '@/components/Layout';
 import { TableRelawan } from '../components/TableRelawan';
-import { useProvinsi } from '@/features/wilayah-administrasi/api/get-wilayah';
 
 export const RelawanPage = () => {
-  const { data: relawan, isLoading, isError } = useRelawanKandidat();
-  const { mutate: deleteRelawan } = useDeleteRelawan();
-  const { data: provinsi } = useProvinsi();
+  // Mengurai currentUser dari localStorage
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  const { role } = currentUser;
 
-  const provinsiLookup = React.useMemo(() => {
-    return (provinsi || []).reduce((acc, provinsi) => {
-      acc[provinsi.id] = provinsi.name;
-      return acc;
-    }, {});
-  }, [provinsi]);
+  const {
+    data: relawanKandidat,
+    isLoading: loadingRelawanKandidat,
+    isError: errorRelawanKandidat,
+  } = useRelawanKandidat();
+  const {
+    data: relawanAdmin,
+    isLoading: loadingRelawanAdmin,
+    isError: errorRelawanAdmin,
+  } = useRelawanAdmin();
+
+  // Menentukan data relawan berdasarkan role
+  const relawanData = role === 'kandidat' ? relawanKandidat : relawanAdmin;
+  const isLoading = role === 'kandidat' ? loadingRelawanKandidat : loadingRelawanAdmin;
+  const isError = role === 'kandidat' ? errorRelawanKandidat : errorRelawanAdmin;
+
+  const { mutate: deleteRelawan } = useDeleteRelawan();
 
   const handleDelete = React.useCallback(
     (id) => {
@@ -49,12 +59,9 @@ export const RelawanPage = () => {
         <CardBody className="p-0">
           {!isError ? (
             <TableRelawan
-              tableData={relawan}
+              tableData={relawanData}
               handleDelete={handleDelete}
               isLoading={isLoading}
-              lookup={{
-                provinsiLookup,
-              }}
             />
           ) : (
             <div className="h-10 flex justify-center items-center">{isError}</div>

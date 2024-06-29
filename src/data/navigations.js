@@ -92,34 +92,34 @@ export const navigations = [
     roles: userRoles.userSimkamp,
   },
   {
-    id: 5,
+    id: 6,
     icon: UserGroupIcon,
     title: 'Calon Pemilih',
     path: './calon-pemilih',
     roles: userRoles.allUserSimkamp,
   },
   {
-    id: 6,
+    id: 7,
     icon: UserGroupIcon,
     title: 'Arus Kas',
     path: './aruskas',
     roles: userRoles.allUserSimkamp,
   },
   {
-    id: 7,
+    id: 8,
     icon: SwatchIcon,
     title: 'Manage Logistik',
     roles: userRoles.allUserSimkamp,
     subNav: [
       {
-        id: 71,
+        id: 81,
         icon: UserGroupIcon,
         title: 'Logistik Stok',
         path: './logistik/stok',
         roles: userRoles.allUserSimkamp,
       },
       {
-        id: 72,
+        id: 82,
         icon: UserGroupIcon,
         title: 'Pemakaian Logistik',
         path: './logistik/pemakaian',
@@ -128,7 +128,7 @@ export const navigations = [
     ],
   },
   {
-    id: 8,
+    id: 9,
     icon: UserGroupIcon,
     title: 'Quick Count',
     path: './quick-count',

@@ -25,7 +25,7 @@ const pemakaianSchema = z.object({
     .refine((val) => !isNaN(parseFloat(val)) && isFinite(val) && parseInt(val, 10) > 0, {
       message: 'Jumlah pemakaian harus berupa angka dan lebih dari 0',
     }),
-  pemakaian_logistik_id: z.number().min(1, { message: 'ID Logistik harus diisi' }),
+  pemakaian_logistik_id: z.string().min(1, { message: 'ID Logistik harus diisi' }),
 });
 
 export { logistikSchema, pemakaianSchema };

@@ -30,3 +30,33 @@ export const usePemakaianRelawan = (relawanId = '') => {
     },
   });
 };
+
+export const usePemakaianKandidat = (kandidatId = '') => {
+  const queryKey = kandidatId ? ['pemakaian-kandidat', kandidatId] : ['all-pemakaian-kandidat'];
+  const url = kandidatId
+    ? `/pemakaian-logistik/get-by-kandidat/${kandidatId}`
+    : `/pemakaian-logistik/get-by-kandidat`;
+
+  return useQuery({
+    queryKey,
+    queryFn: () => getRequest({ url }),
+    onError: (error) => {
+      console.error(error);
+    },
+  });
+};
+
+export const usePemakaianAdmin = (adminId = '') => {
+  const queryKey = adminId ? ['pemakaian-admin', adminId] : ['all-pemakaian-admin'];
+  const url = adminId
+    ? `/pemakaian-logistik/get-by-admin/${adminId}`
+    : `/pemakaian-logistik/get-by-admin`;
+
+  return useQuery({
+    queryKey,
+    queryFn: () => getRequest({ url }),
+    onError: (error) => {
+      console.error(error);
+    },
+  });
+};

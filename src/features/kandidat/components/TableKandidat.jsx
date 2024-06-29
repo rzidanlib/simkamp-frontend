@@ -2,7 +2,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { MenuActions, Table } from '@/components/Elements/Table';
 
-export const TableKandidat = ({ tableData, handleDelete, isLoading, lookup }) => {
+export const TableKandidat = ({ tableData, handleDelete, isLoading }) => {
   const columns = React.useMemo(
     () => [
       {
@@ -17,21 +17,21 @@ export const TableKandidat = ({ tableData, handleDelete, isLoading, lookup }) =>
         header: () => 'Nama',
       },
       {
-        accessorFn: (row) => row.kandidat_dapil_id,
-        id: 'kandidat_dapil_id',
-        cell: (info) => lookup.dapilLookup[info.getValue()],
+        accessorFn: (row) => row.dapil_nama,
+        id: 'dapil_nama',
+        cell: (info) => info.getValue(),
         header: () => 'Dapil',
       },
       {
-        accessorFn: (row) => row.kandidat_jenis_pemilihan_id,
-        id: 'kandidat_jenis_pemilihan_id',
-        cell: (info) => lookup.jenisPemilihanLookup[info.getValue()],
+        accessorFn: (row) => row.jenis_pemilihan,
+        id: 'jenis_pemilihan',
+        cell: (info) => info.getValue(),
         header: () => 'Jenis Pemilihan',
       },
       {
-        accessorFn: (row) => row.kandidat_posisi_calon_tetap_id,
-        id: 'kandidat_posisi_calon_tetap_id',
-        cell: (info) => lookup.posisiCalonLookup[info.getValue()],
+        accessorFn: (row) => row.posisi_calon_tetap,
+        id: 'posisi_calon_tetap',
+        cell: (info) => info.getValue(),
         header: () => 'Posisi Calon Tetap',
       },
       {
@@ -45,14 +45,14 @@ export const TableKandidat = ({ tableData, handleDelete, isLoading, lookup }) =>
         cell: ({ row }) => {
           return (
             <MenuActions
-              editPath={`/kandidat/edit/${row.original.kandidat_id}`}
+              detailPath={`/kandidat/detail/${row.original.kandidat_id}`}
               onDelete={() => handleDelete(row.original.kandidat_id)}
             />
           );
         },
       },
     ],
-    [handleDelete, lookup]
+    [handleDelete]
   );
 
   return <Table columns={columns} data={tableData} loading={isLoading} />;

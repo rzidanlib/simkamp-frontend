@@ -21,7 +21,7 @@ export const FormPemilih = ({ handleSubmit, onSubmit, control, errors, disabled,
       {disabled ? null : (
         <div className="flex justify-end w-full">
           <Button color="green" size="md" type="submit" className="mb-6">
-            Simpan Relawan
+            Simpan Calon Pemilih
           </Button>
         </div>
       )}
