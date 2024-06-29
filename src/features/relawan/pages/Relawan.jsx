@@ -2,17 +2,17 @@ import * as React from 'react';
 
 import { Link } from 'react-router-dom';
 
-import { usePemilihRelawan } from '../api/get-calon-pemilih';
-import { useDeletePemilih } from '../api/manage-calon-pemilih';
+import { useRelawanKandidat } from '../api/get-relawan';
+import { useDeleteRelawan } from '../api/manage-relawan';
 
 import { Card, CardBody, CardHeader, Typography, Button } from '@material-tailwind/react';
 import { ContentLayout } from '@/components/Layout';
-import { TablePemilih } from '../components/TablePemilih';
+import { TableRelawan } from '../components/TableRelawan';
 import { useProvinsi } from '@/features/wilayah-administrasi/api/get-wilayah';
 
-export const CalonPemilihPage = () => {
-  const { data: pemilih, isLoading, isError } = usePemilihRelawan();
-  const { mutate: deletePemilih } = useDeletePemilih();
+export const RelawanPage = () => {
+  const { data: relawan, isLoading, isError } = useRelawanKandidat();
+  const { mutate: deleteRelawan } = useDeleteRelawan();
   const { data: provinsi } = useProvinsi();
 
   const provinsiLookup = React.useMemo(() => {
@@ -24,13 +24,13 @@ export const CalonPemilihPage = () => {
 
   const handleDelete = React.useCallback(
     (id) => {
-      deletePemilih(id);
+      deleteRelawan(id);
     },
-    [deletePemilih]
+    [deleteRelawan]
   );
 
   return (
-    <ContentLayout title="Calon Pemilih">
+    <ContentLayout title="Relawan">
       <Card className="mt-12 p-4">
         <CardHeader
           floated={false}
@@ -38,18 +38,18 @@ export const CalonPemilihPage = () => {
           className="mx-0 mt-0 mb-4 rounded-none flex justify-between items-center"
         >
           <Typography variant="h4" color="blue-gray">
-            Table Calon Pemilih
+            Table Relawan
           </Typography>
-          <Link to={'/calon-pemilih/tambah'}>
+          <Link to={'/relawan/tambah'}>
             <Button color="blue" size="md">
-              Tambah Calon Pemilih
+              Tambah Relawan
             </Button>
           </Link>
         </CardHeader>
         <CardBody className="p-0">
           {!isError ? (
-            <TablePemilih
-              tableData={pemilih}
+            <TableRelawan
+              tableData={relawan}
               handleDelete={handleDelete}
               isLoading={isLoading}
               lookup={{

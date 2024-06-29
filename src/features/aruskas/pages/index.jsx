@@ -1,15 +1,15 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Navigate, Routes, Route } from 'react-router-dom';
 
-import { ArusKas } from "./ArusKas";
-import { EditArusKas } from "./EditArusKas";
-import { TambahArusKas } from "./TambahArusKas";
+import { ArusKasPage } from './ArusKas';
+import { ManageArusKas } from './ManageArusKas';
 
 export const ArusKasRoutes = () => {
   return (
     <Routes>
-      <Route path="" element={<ArusKas />} />
-      <Route path="/add" element={<TambahArusKas />} />
-      <Route path="/:id" element={<EditArusKas />} />
+      <Route path="" element={<ArusKasPage />} />
+      <Route path="/tambah" element={<ManageArusKas />} />
+      <Route path="/edit/:arusKasId" element={<ManageArusKas />} />
+
       <Route path="*" element={<Navigate to="/session/404" />} />
     </Routes>
   );

@@ -13,7 +13,7 @@ import { useJenisPemilihan } from '@/features/admin/api/data_master/jenis_pemili
 import { usePosisiCalon } from '@/features/admin/api/data_master/posisi_calon_tetap/get-posisi-calon';
 
 export const KandidatPage = () => {
-  const { data: partai, isLoading, isError } = useKandidatAdmin();
+  const { data: kandidat, isLoading, isError } = useKandidatAdmin();
   const { mutate: deleteKandidat } = useDeleteKandidat();
   const { data: dapil } = useDapil();
   const { data: jenisPemilihan } = useJenisPemilihan();
@@ -67,7 +67,7 @@ export const KandidatPage = () => {
         <CardBody className="p-0">
           {!isError ? (
             <TableKandidat
-              tableData={partai}
+              tableData={kandidat}
               handleDelete={handleDelete}
               isLoading={isLoading}
               lookup={{

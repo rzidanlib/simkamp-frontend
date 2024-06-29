@@ -9,10 +9,11 @@ import {
 
 const userRoles = {
   all: ['admin-partai', 'administrator', 'kandidat', 'relawan'],
-  userSimkamp: ['admin-partai', 'kandidat', 'relawan'],
   admin: ['admin-partai', 'administrator'],
   adminSistem: ['administrator'],
   adminPartai: ['admin-partai'],
+  userSimkamp: ['admin-partai', 'kandidat'],
+  allUserSimkamp: ['admin-partai', 'kandidat', 'relawan'],
   kandidat: ['kandidat'],
   relawan: ['relawan'],
 };
@@ -87,8 +88,51 @@ export const navigations = [
     id: 5,
     icon: UserGroupIcon,
     title: 'Relawan',
-    path: './relawn',
+    path: './relawan',
     roles: userRoles.userSimkamp,
+  },
+  {
+    id: 5,
+    icon: UserGroupIcon,
+    title: 'Calon Pemilih',
+    path: './calon-pemilih',
+    roles: userRoles.allUserSimkamp,
+  },
+  {
+    id: 6,
+    icon: UserGroupIcon,
+    title: 'Arus Kas',
+    path: './aruskas',
+    roles: userRoles.allUserSimkamp,
+  },
+  {
+    id: 7,
+    icon: SwatchIcon,
+    title: 'Manage Logistik',
+    roles: userRoles.allUserSimkamp,
+    subNav: [
+      {
+        id: 71,
+        icon: UserGroupIcon,
+        title: 'Logistik Stok',
+        path: './logistik/stok',
+        roles: userRoles.allUserSimkamp,
+      },
+      {
+        id: 72,
+        icon: UserGroupIcon,
+        title: 'Pemakaian Logistik',
+        path: './logistik/pemakaian',
+        roles: userRoles.allUserSimkamp,
+      },
+    ],
+  },
+  {
+    id: 8,
+    icon: UserGroupIcon,
+    title: 'Quick Count',
+    path: './quick-count',
+    roles: userRoles.allUserSimkamp,
   },
 ];
 

@@ -2,35 +2,26 @@ import * as React from 'react';
 
 import { Link } from 'react-router-dom';
 
-import { usePemilihRelawan } from '../api/get-calon-pemilih';
-import { useDeletePemilih } from '../api/manage-calon-pemilih';
+import { useQuickCountRelawan } from '../api/get-quick-count';
+import { useDeleteQuickCount } from '../api/manage-quick-count';
 
 import { Card, CardBody, CardHeader, Typography, Button } from '@material-tailwind/react';
 import { ContentLayout } from '@/components/Layout';
-import { TablePemilih } from '../components/TablePemilih';
-import { useProvinsi } from '@/features/wilayah-administrasi/api/get-wilayah';
+import { TableQuickCount } from '../components/TableQuickCount';
 
-export const CalonPemilihPage = () => {
-  const { data: pemilih, isLoading, isError } = usePemilihRelawan();
-  const { mutate: deletePemilih } = useDeletePemilih();
-  const { data: provinsi } = useProvinsi();
-
-  const provinsiLookup = React.useMemo(() => {
-    return (provinsi || []).reduce((acc, provinsi) => {
-      acc[provinsi.id] = provinsi.name;
-      return acc;
-    }, {});
-  }, [provinsi]);
+export const QuickCountPage = () => {
+  const { data: quickCount, isLoading, isError } = useQuickCountRelawan();
+  const { mutate: deleteQuickCount } = useDeleteQuickCount();
 
   const handleDelete = React.useCallback(
     (id) => {
-      deletePemilih(id);
+      deleteQuickCount(id);
     },
-    [deletePemilih]
+    [deleteQuickCount]
   );
 
   return (
-    <ContentLayout title="Calon Pemilih">
+    <ContentLayout title="Quick Count">
       <Card className="mt-12 p-4">
         <CardHeader
           floated={false}
@@ -38,23 +29,20 @@ export const CalonPemilihPage = () => {
           className="mx-0 mt-0 mb-4 rounded-none flex justify-between items-center"
         >
           <Typography variant="h4" color="blue-gray">
-            Table Calon Pemilih
+            Table Quick Count
           </Typography>
-          <Link to={'/calon-pemilih/tambah'}>
+          <Link to={'/quick-count/tambah'}>
             <Button color="blue" size="md">
-              Tambah Calon Pemilih
+              Tambah Quick Count
             </Button>
           </Link>
         </CardHeader>
         <CardBody className="p-0">
           {!isError ? (
-            <TablePemilih
-              tableData={pemilih}
+            <TableQuickCount
+              tableData={quickCount}
               handleDelete={handleDelete}
               isLoading={isLoading}
-              lookup={{
-                provinsiLookup,
-              }}
             />
           ) : (
             <div className="h-10 flex justify-center items-center">{isError}</div>

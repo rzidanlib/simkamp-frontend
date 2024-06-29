@@ -6,7 +6,7 @@ import { useImperativeHandle } from 'react';
 import { Label } from '.';
 
 export const InputImage = React.forwardRef(
-  ({ onChange, className, disabled = false, imagePath, errorMessage, width, label }, ref) => {
+  ({ id, onChange, className, disabled = false, imagePath, errorMessage, width, label }, ref) => {
     const [selectedImage, setSelectedImage] = useState(null);
     const [imageURL, setImageURL] = useState(imagePath || null);
     const [error, setError] = useState(null);
@@ -81,7 +81,7 @@ export const InputImage = React.forwardRef(
       <div className="flex flex-col">
         {label && <Label label={label} />}
         <label
-          htmlFor="dropzone-file"
+          htmlFor={id || 'input-image'}
           className={`flex flex-col items-center justify-center border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100 ${
             width ? width : 'h-full w-full'
           } ${className}`}
@@ -111,7 +111,7 @@ export const InputImage = React.forwardRef(
             )}
           </div>
           <input
-            id="dropzone-file"
+            id={id || 'input-image'}
             type="file"
             className="hidden"
             onChange={imageHandler}
@@ -128,6 +128,7 @@ export const InputImage = React.forwardRef(
 InputImage.displayName = 'InputImage';
 
 InputImage.propTypes = {
+  id: PropTypes.string,
   onChange: PropTypes.func,
   className: PropTypes.string,
   disabled: PropTypes.bool,
