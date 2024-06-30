@@ -80,8 +80,6 @@ export const ManageQuickCount = () => {
   }, [quickCount, reset, isEdit]);
 
   const onSubmit = (data) => {
-    console.log(data);
-
     const formData = new FormData();
     formData.append('quick_count_provinsi', data.quick_count_provinsi);
     formData.append('quick_count_kab_kota', data.quick_count_kab_kota);

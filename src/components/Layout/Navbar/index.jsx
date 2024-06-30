@@ -1,5 +1,3 @@
-import localStorageHandler from '@/utils/localStorage';
-
 import { setOpenSidenav, useLayoutContoller } from '@/context/LayoutContext';
 import { useLogout } from '@/features/auth/api/auth';
 import { ArrowLeftEndOnRectangleIcon, Bars3Icon, UserIcon } from '@heroicons/react/24/outline';
@@ -14,11 +12,25 @@ import {
   Avatar,
 } from '@material-tailwind/react';
 import { Link } from 'react-router-dom';
+import { useCurrentUser } from '@/features/auth/api/get-current-user';
 
 const MainNavbar = () => {
   const [controller, dispatch] = useLayoutContoller();
   const { openSidenav } = controller;
-  const user = localStorageHandler.getItem('currentUser');
+  const { data: user, isLoading } = useCurrentUser();
+
+  let name;
+  switch (user.role) {
+    case 'kandidat':
+      name = user.kandidat_nama;
+      break;
+    case 'relawan':
+      name = user.relawan_nama;
+      break;
+    default:
+      name = user.user_nama;
+  }
+
   const logout = useLogout();
 
   const handleLogout = async () => {
@@ -42,11 +54,11 @@ const MainNavbar = () => {
         </IconButton>
 
         <div className="flex items-center ml-auto">
-          {!user ? (
+          {isLoading ? (
             <Typography>Loading...</Typography>
           ) : (
             <div className="flex flex-col font-bold text-black items-end mr-4">
-              <h1 className="text-sm">{user.name}</h1>
+              <h1 className="text-sm">{name}</h1>
               <p className="text-sm text-blue-gray-500 capitalize">{user.role}</p>
             </div>
           )}

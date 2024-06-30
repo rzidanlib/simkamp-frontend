@@ -19,7 +19,7 @@ export const useUpdateRelawan = () => {
     mutationFn: ({ relawanId, formData }) =>
       putFormDataRequest({ url: `/relawan/update/${relawanId}`, data: formData }),
     onSuccess: () => {
-      window.location.href = '/relawan';
+      window.location.href = '/dashboard';
     },
     onError: (error) => {
       alert(error.message);

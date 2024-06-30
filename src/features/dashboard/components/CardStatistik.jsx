@@ -3,7 +3,7 @@ import { Card, CardHeader, CardBody, CardFooter, Typography } from '@material-ta
 
 import PropTypes from 'prop-types';
 
-export const CardStatistik = ({ color, title, value }) => {
+export const CardStatistik = ({ color, value, title, loading, prefix = '', sufix = '' }) => {
   return (
     <Card>
       <CardHeader
@@ -20,15 +20,20 @@ export const CardStatistik = ({ color, title, value }) => {
           {title}
         </Typography>
         <Typography variant="h4" color={color}>
-          {value} <span className="text-blue-gray-400 text-sm">Orang</span>
+          {loading ? 'Loading...' : value.currentvalue}
         </Typography>
       </CardBody>
-      <CardFooter className="border-t border-blue-gray-50 p-4">
-        <Typography color={color} className="font-normal">
-          <strong>
-            +{value} <span className="text-blue-gray-400 text-sm">Orang dalam seminggu.</span>
-          </strong>
+      <CardFooter className="flex border-t border-blue-gray-50 p-4 capitalize">
+        <Typography color={color} className="font-bold ">
+          {loading
+            ? 'Loading...'
+            : value && value.newvalue !== null
+            ? `${prefix} ${value.newvalue} ${sufix}`
+            : ''}
         </Typography>
+        {/* <Typography color="grey" className="ml-1 font-semibold">
+          {value.description}
+        </Typography> */}
       </CardFooter>
     </Card>
   );
@@ -36,6 +41,9 @@ export const CardStatistik = ({ color, title, value }) => {
 
 CardStatistik.propTypes = {
   color: PropTypes.string,
+  value: PropTypes.object,
   title: PropTypes.string,
-  value: PropTypes.number,
+  loading: PropTypes.bool,
+  prefix: PropTypes.string,
+  sufix: PropTypes.string,
 };

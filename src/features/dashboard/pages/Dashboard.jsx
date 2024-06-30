@@ -1,13 +1,11 @@
 import { ContentLayout } from '@/components/Layout';
-import { DashboardKandidat, DashboardRelawan } from '../container';
+import { DashboardAdminPartai, DashboardKandidat, DashboardRelawan } from '../container';
 import { useCurrentUser } from '@/features/auth/api/get-current-user';
+import localStorageHandler from '@/utils/localStorage';
 
 export const Dashboard = () => {
-  const { role } = JSON.parse(localStorage.getItem('currentUser'));
-  console.log(role);
+  const { role } = localStorageHandler.getItem('currentUser');
   const { data: currentUser, isLoading } = useCurrentUser();
-
-  console.log(currentUser);
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -20,6 +18,7 @@ export const Dashboard = () => {
         {role === 'relawan' ? (
           <DashboardRelawan kandidatId={currentUser.relawan_kandidat_id} />
         ) : null}
+        {role === 'admin-partai' ? <DashboardAdminPartai /> : null}
       </div>
     </ContentLayout>
   );

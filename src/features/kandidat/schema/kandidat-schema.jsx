@@ -31,8 +31,8 @@ const kandidatUpdateSchema = z
   .object({
     kandidat_nama: z.string().min(1, { message: 'Nama Kandidat harus di isi' }),
     kandidat_email: z.string().email({ message: 'Email tidak valid' }),
-    kandidat_password: z.string(),
-    konfirmasi_password: z.string(),
+    kandidat_password: z.string().optional(),
+    konfirmasi_password: z.string().optional(),
     kandidat_no_telp: z
       .string()
       .min(1, { message: 'No HP harus di isi' })

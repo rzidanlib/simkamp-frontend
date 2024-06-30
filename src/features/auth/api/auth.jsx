@@ -1,5 +1,4 @@
 import { useMutation } from '@tanstack/react-query';
-import { useNavigate, useLocation } from 'react-router-dom';
 
 import { queryClient } from '@/config/react-query-config';
 import { postRequest } from '@/lib/apiHelper';
@@ -7,10 +6,6 @@ import { postRequest } from '@/lib/apiHelper';
 import localStorageHandler from '@/utils/localStorage';
 
 export const useLogin = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || '/dashboard';
-
   return useMutation({
     mutationFn: (credentials) =>
       postRequest({
@@ -22,7 +17,6 @@ export const useLogin = () => {
       localStorageHandler.setItem('currentUser', data.user);
       // Invalidate user query to refetch data
       queryClient.invalidateQueries('current-user');
-      navigate(from, { replace: true });
     },
     onError: (error) => {
       console.error(error);

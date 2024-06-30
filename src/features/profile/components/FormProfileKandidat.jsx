@@ -11,8 +11,8 @@ import { Input, InputImage, Select } from '@/components/Form';
 import { LoadingSpinner } from '@/components/Elements/Spinner';
 import { EditButton } from './EditButton';
 
-import { kandidatSchema, kandidatUpdateSchema } from '@/features/kandidat/schema/kandidat-schema';
-import { useCreateKandidat, useUpdateKandidat } from '@/features/kandidat/api/manage-kandidat';
+import { kandidatUpdateSchema } from '@/features/kandidat/schema/kandidat-schema';
+import { useUpdateKandidat } from '@/features/kandidat/api/manage-kandidat';
 import { useJenisPemilihan } from '@/features/admin/api/data_master/jenis_pemilihan/get-pemilihan';
 import { usePosisiCalon } from '@/features/admin/api/data_master/posisi_calon_tetap/get-posisi-calon';
 import { useAgama } from '@/features/admin/api/data_master/agama/get-agama';

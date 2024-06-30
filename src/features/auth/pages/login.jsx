@@ -1,5 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useNavigate, useLocation } from 'react-router-dom';
+
 import { useLogin } from '../api/auth';
 import { loginSchema } from '../schema/login-schema';
 
@@ -7,6 +9,10 @@ import { Card, Typography } from '@material-tailwind/react';
 import { FormLogin } from '../components/FormLogin';
 
 export const Login = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || '/dashboard';
+
   const {
     control,
     handleSubmit,
@@ -22,8 +28,9 @@ export const Login = () => {
   const loginMutation = useLogin();
 
   const onSubmit = (data) => {
-    // console.log(data);
     loginMutation.mutate(data);
+
+    navigate(from, { replace: true });
   };
 
   return (

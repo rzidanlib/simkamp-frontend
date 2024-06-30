@@ -43,15 +43,13 @@ export const ManageArusKas = () => {
         aruskas_foto_kuitansi: arusKasData.aruskas_foto_kuitansi,
         aruskas_detail: arusKasData.aruskas_detail,
         aruskas_catatan: arusKasData.aruskas_catatan,
-        aruskas_jumlah: arusKasData.aruskas_jumlah,
+        aruskas_jumlah: String(arusKasData.aruskas_jumlah),
         aruskas_tanggal: arusKasData.aruskas_tanggal,
       });
     }
   }, [arusKasData, reset, isEdit]);
 
   const onSubmit = (data) => {
-    console.log(data);
-
     const formData = new FormData();
     formData.append('aruskas_kategori', data.aruskas_kategori);
     formData.append('aruskas_foto_kuitansi', data.aruskas_foto_kuitansi);

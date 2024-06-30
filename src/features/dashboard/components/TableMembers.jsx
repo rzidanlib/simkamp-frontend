@@ -1,9 +1,11 @@
-import { Card, CardHeader, Avatar, Typography, CardBody } from '@material-tailwind/react';
 import PropTypes from 'prop-types';
 
-const TABLE_HEAD = ['Member', 'Tanggal'];
+import { env } from '@/config/env';
+import { Card, CardHeader, Avatar, Typography, CardBody } from '@material-tailwind/react';
 
-export const TableMembers = ({ title, icon, data }) => {
+const baseURL = env.BASE_URL;
+
+export const TableMembers = ({ title, icon, TABLE_ROW, TABLE_HEAD, loading }) => {
   return (
     <Card>
       <CardHeader
@@ -46,30 +48,44 @@ export const TableMembers = ({ title, icon, data }) => {
             </tr>
           </thead>
           <tbody>
-            {data.map(({ img, name, date }, index) => {
-              const isLast = index === data.length - 1;
-              const classes = isLast ? 'p-4' : 'p-4 border-b border-blue-gray-50';
+            {loading ? (
+              <tr>
+                <td colSpan={TABLE_HEAD.length} className="p-4 text-center">
+                  Loading...
+                </td>
+              </tr>
+            ) : TABLE_ROW.length === 0 ? (
+              <tr>
+                <td colSpan={TABLE_HEAD.length} className="p-4 text-center">
+                  Data tidak ditemukan
+                </td>
+              </tr>
+            ) : (
+              TABLE_ROW.map(({ img, name, status }, index) => {
+                const isLast = index === TABLE_ROW.length - 1;
+                const classes = isLast ? 'p-4' : 'p-4 border-b border-blue-gray-50';
 
-              return (
-                <tr key={name}>
-                  <td className={classes}>
-                    <div className="flex items-center gap-3">
-                      <Avatar src={img} alt={name} size="sm" />
-                      <Typography variant="small" color="blue-gray" className="font-normal">
-                        {name}
-                      </Typography>
-                    </div>
-                  </td>
-                  <td className={classes}>
-                    <div className="w-max">
-                      <Typography variant="small" color="blue-gray" className="font-normal">
-                        {date}
-                      </Typography>
-                    </div>
-                  </td>
-                </tr>
-              );
-            })}
+                return (
+                  <tr key={name}>
+                    <td className={classes}>
+                      <div className="flex items-center gap-3">
+                        <Avatar src={`${baseURL}/${img}`} alt={name} size="sm" />
+                        <Typography color="blue-gray" className="font-normal">
+                          {name}
+                        </Typography>
+                      </div>
+                    </td>
+                    <td className={classes}>
+                      <div className="w-max">
+                        <Typography color="blue-gray" className="font-normal capitalize">
+                          {status}
+                        </Typography>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })
+            )}
           </tbody>
         </table>
       </CardBody>
@@ -80,5 +96,6 @@ export const TableMembers = ({ title, icon, data }) => {
 TableMembers.propTypes = {
   title: PropTypes.string,
   icon: PropTypes.node,
-  data: PropTypes.array,
+  TABLE_ROW: PropTypes.array,
+  TABLE_HEAD: PropTypes.array,
 };

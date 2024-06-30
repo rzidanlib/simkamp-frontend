@@ -85,8 +85,6 @@ export const ManageCalonPemilihPage = () => {
   }, [calonPemilih, reset, isEdit]);
 
   const onSubmit = (data) => {
-    console.log(data);
-
     const formData = new FormData();
     formData.append('calon_pemilih_nama', data.calon_pemilih_nama);
     formData.append('calon_pemilih_no_telp', data.calon_pemilih_no_telp);
