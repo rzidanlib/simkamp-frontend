@@ -4,11 +4,16 @@ import { CardStatistik, TableMembers } from '../components';
 import PropTypes from 'prop-types';
 import { useArusKasStatisticsAdmin } from '../api/get-aruskas-statistics';
 import { useRelawanStatisticsAdmin, useTableRelawanAdmin } from '../api/get-relawan';
+import { usePemilihStatisticsAdmin, useTablePemilihAdmin } from '../api/get-pemilih';
+import { useTotalLogistikAdmin } from '../api/get-logistik';
 
 export const DashboardAdminPartai = () => {
   const { data: aruskas, isLoading: loadingArusKas } = useArusKasStatisticsAdmin();
   const { data: totalRelawan, isLoading: loadingTotalRelawan } = useRelawanStatisticsAdmin();
   const { data: relawan, isLoading: loadingRelawan } = useTableRelawanAdmin();
+  const { data: totalPemilih, isLoading: loadingTotalPemilih } = usePemilihStatisticsAdmin();
+  const { data: pemilih, isLoading: loadingPemilih } = useTablePemilihAdmin();
+  const { data: totalLogistik, isLoading: loadingTotalLogistik } = useTotalLogistikAdmin();
 
   return (
     <>
@@ -31,15 +36,23 @@ export const DashboardAdminPartai = () => {
           prefix="+"
           color="red"
         />
-
-        {/* <CardStatistik title="Jumlah Anggota" value={data.dashboard.members.length} color="green" />
-
-
         <CardStatistik
           title="Jumlah Calon Pemilih"
-          value={data.dashboard.members.length}
+          value={{
+            currentvalue: totalPemilih?.currentvalue,
+            newvalue: 'Calon Pemilih Baru',
+          }}
+          loading={loadingTotalPemilih}
+          prefix="+"
+          color="green"
+        />
+        <CardStatistik
+          title="Total Logistik"
+          value={totalLogistik}
+          loading={loadingTotalLogistik}
+          prefix="+"
           color="yellow"
-        /> */}
+        />
       </div>
 
       <div className="grid grid-cols-2 gap-6 mb-6">
@@ -50,77 +63,14 @@ export const DashboardAdminPartai = () => {
           loading={loadingRelawan}
           icon={<UserIcon className="h-5 w-5" />}
         />
-        {/* <TableMembers
-          data={data.dashboard.members}
+        <TableMembers
+          TABLE_ROW={pemilih}
+          TABLE_HEAD={['Calon', 'Status']}
           title="Data Calon Pemilih"
+          loading={loadingPemilih}
           icon={<UserIcon className="h-5 w-5" />}
-        /> */}
+        />
       </div>
-
-      {/* Chart Statistik Pendukung */}
-      {/* <div className="mb-6 space-y-6">
-        <Tabs value={activeTab}>
-          <TabsHeader className="z-0 xl:w-1/2 mb-4 bg-blue-gray-200">
-            <Tab value={'relawan'} onClick={() => setActiveTab('relawan')}>
-              Relawan
-            </Tab>
-            <Tab value={'calon-pemilih'} onClick={() => setActiveTab('calon-pemilih')}>
-              Calon Pemilih
-            </Tab>
-          </TabsHeader>
-          <TabsBody
-            animate={{
-              initial: { y: 250 },
-              mount: { y: 0 },
-              unmount: { y: 250 },
-            }}
-          >
-            <TabPanel value={'relawan'} className="p-0">
-              <div className="mb-6 grid xl:grid-cols-2 gap-4">
-                <div className="flex flex-col gap-4 items-stretch">
-                  <CardStatistik
-                    title="Jumlah Relawan"
-                    value={data.dashboard.members.length}
-                    color="green"
-                  />
-
-                  <CardCharts title="Statistik Relawan" color="green">
-                    <LineChart settings={{ color: '#4caf50' }} />
-                  </CardCharts>
-                </div>
-
-                <TableMembers
-                  data={data.dashboard.members}
-                  title="Data Relawan"
-                  icon={<UserIcon className="h-5 w-5" />}
-                />
-              </div>
-            </TabPanel>
-
-            <TabPanel value={'calon-pemilih'} className="p-0">
-              <div className="mb-6 grid xl:grid-cols-2 gap-4">
-                <div className="flex flex-col gap-4 items-stretch">
-                  <CardStatistik
-                    title="Jumlah Calon Pemilih"
-                    value={data.dashboard.members.length}
-                    color="red"
-                  />
-
-                  <CardCharts title="Statistik Calon Pemilih" color="red">
-                    <LineChart settings={{ color: '#f44336' }} />
-                  </CardCharts>
-                </div>
-
-                <TableMembers
-                  data={data.dashboard.members}
-                  title="Data Statistik"
-                  icon={<UserIcon className="h-5 w-5" />}
-                />
-              </div>
-            </TabPanel>
-          </TabsBody>
-        </Tabs>
-      </div> */}
     </>
   );
 };

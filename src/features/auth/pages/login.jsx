@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -9,9 +10,11 @@ import { Card, Typography } from '@material-tailwind/react';
 import { FormLogin } from '../components/FormLogin';
 
 export const Login = () => {
+  const loginMutation = useLogin();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || '/dashboard';
+  const [isLoginSuccessful, setIsLoginSuccessful] = React.useState(false);
 
   const {
     control,
@@ -25,13 +28,20 @@ export const Login = () => {
     },
     resolver: zodResolver(loginSchema),
   });
-  const loginMutation = useLogin();
 
   const onSubmit = (data) => {
-    loginMutation.mutate(data);
-
-    navigate(from, { replace: true });
+    loginMutation.mutate(data, {
+      onSuccess: () => {
+        setIsLoginSuccessful(true);
+      },
+    });
   };
+
+  React.useEffect(() => {
+    if (isLoginSuccessful) {
+      navigate(from, { replace: true });
+    }
+  }, [isLoginSuccessful, navigate, from]);
 
   return (
     <div className="h-screen flex justify-center items-center">

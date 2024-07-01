@@ -98,4 +98,5 @@ TableMembers.propTypes = {
   icon: PropTypes.node,
   TABLE_ROW: PropTypes.array,
   TABLE_HEAD: PropTypes.array,
+  loading: PropTypes.bool,
 };

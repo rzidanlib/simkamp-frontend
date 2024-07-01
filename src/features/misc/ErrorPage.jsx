@@ -1,13 +1,11 @@
 import { Typography, Button } from '@material-tailwind/react';
 import { FlagIcon } from '@heroicons/react/24/solid';
 import { Link } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 export const NotFound = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || '/dashboard';
+  const from = '/dashboard';
 
   return (
     <div className="h-screen mx-auto grid place-items-center text-center px-8">
@@ -24,7 +22,7 @@ export const NotFound = () => {
           Don&apos;t worry, our team is already on it.Please try refreshing the page or come back
           later.
         </Typography>
-        <Link to={navigate(from, { replace: true })}>
+        <Link to={navigate(from)}>
           <Button color="gray" className="w-full px-4 md:w-[8rem]">
             back
           </Button>

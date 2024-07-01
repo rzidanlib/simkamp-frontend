@@ -1,15 +1,18 @@
-import { CardKandidatBio, CardKandidatProfile, CardStatistik } from '../components';
+import { CardKandidatBio, CardKandidatProfile, CardStatistik, TableMembers } from '../components';
 
 import PropTypes from 'prop-types';
 import { useKandidat } from '@/features/kandidat/api/get-kandidat';
-import { data } from '@/data/data-example';
 import { useArusKasStatisticsRelawan } from '../api/get-aruskas-statistics';
+import { UserIcon } from '@heroicons/react/24/outline';
+import { usePemilihStatisticsRelawan, useTablePemilihRelawan } from '../api/get-pemilih';
+import { useTotalLogistikRelawan } from '../api/get-logistik';
 
 export const DashboardRelawan = ({ kandidatId }) => {
   const { data: currentKandidat, isLoading } = useKandidat(kandidatId);
   const { data: aruskas, isLoading: loadingArusKas } = useArusKasStatisticsRelawan();
-
-  console.log(aruskas);
+  const { data: totalPemilih, isLoading: loadingTotalPemilih } = usePemilihStatisticsRelawan();
+  const { data: pemilih, isLoading: loadingPemilih } = useTablePemilihRelawan();
+  const { data: totalLogistik, isLoading: loadingTotalLogistik } = useTotalLogistikRelawan();
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -25,7 +28,7 @@ export const DashboardRelawan = ({ kandidatId }) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-4 gap-6 mb-6">
+      <div className="grid grid-cols-3 gap-6 mb-6">
         <CardStatistik
           title="Total Arus Kas"
           value={aruskas}
@@ -33,16 +36,33 @@ export const DashboardRelawan = ({ kandidatId }) => {
           loading={loadingArusKas}
           prefix="Rp"
         />
-
-        {/* <CardStatistik title="Jumlah Anggota" value={data.dashboard.members.length} color="green" />
-
-        <CardStatistik title="Jumlah Relawan" value={data.dashboard.members.length} color="red" />
-
         <CardStatistik
           title="Jumlah Calon Pemilih"
-          value={data.dashboard.members.length}
+          value={{
+            currentvalue: totalPemilih?.currentvalue,
+            newvalue: 'Calon Pemilih Baru',
+          }}
+          loading={loadingTotalPemilih}
+          prefix="+"
+          color="green"
+        />
+        <CardStatistik
+          title="Total Logistik"
+          value={totalLogistik}
+          loading={loadingTotalLogistik}
+          prefix="+"
           color="yellow"
-        /> */}
+        />
+      </div>
+
+      <div className=" mb-6">
+        <TableMembers
+          TABLE_ROW={pemilih}
+          TABLE_HEAD={['Calon', 'Status']}
+          title="Data Calon Pemilih"
+          loading={loadingPemilih}
+          icon={<UserIcon className="h-5 w-5" />}
+        />
       </div>
     </>
   );
