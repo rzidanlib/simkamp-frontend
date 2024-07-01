@@ -18,11 +18,16 @@ import {
   useKelurahan,
   useProvinsi,
 } from '@/features/wilayah-administrasi/api/get-wilayah';
+import { useLocation } from 'react-router-dom';
 
 export const ManageCalonPemilihPage = () => {
   const { pemilihId } = useParams();
   const isEdit = Boolean(pemilihId);
   const { data: calonPemilih, isLoading, isError } = usePemilih(pemilihId);
+
+  const location = useLocation();
+  const detailPath = location.pathname.split('/')[2];
+  const disabled = isEdit && Boolean(detailPath);
 
   const { mutate: createPemilih } = useCreatePemilih();
   const { mutate: updatePemilih } = useUpdatePemilih();
@@ -112,7 +117,7 @@ export const ManageCalonPemilihPage = () => {
             handleSubmit={handleSubmit}
             onSubmit={onSubmit}
             errors={errors}
-            // disabled={isEdit}
+            disabled={disabled}
             data={{
               provinsiData: { provinsi, isLoadingProvinsi, isErrorProvinsi },
               kabKotaData: { kabKota, isLoadingKabKota, isErrorKabKota },

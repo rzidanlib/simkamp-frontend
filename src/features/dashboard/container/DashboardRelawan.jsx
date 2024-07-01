@@ -6,6 +6,7 @@ import { useArusKasStatisticsRelawan } from '../api/get-aruskas-statistics';
 import { UserIcon } from '@heroicons/react/24/outline';
 import { usePemilihStatisticsRelawan, useTablePemilihRelawan } from '../api/get-pemilih';
 import { useTotalLogistikRelawan } from '../api/get-logistik';
+import { ArchiveBoxIcon, BanknotesIcon, UserGroupIcon, UsersIcon } from '@heroicons/react/24/solid';
 
 export const DashboardRelawan = ({ kandidatId }) => {
   const { data: currentKandidat, isLoading } = useKandidat(kandidatId);
@@ -32,9 +33,10 @@ export const DashboardRelawan = ({ kandidatId }) => {
         <CardStatistik
           title="Total Arus Kas"
           value={aruskas}
+          icon={<BanknotesIcon width={24} />}
           color="blue"
           loading={loadingArusKas}
-          prefix="Rp"
+          prefix="+ Rp"
         />
         <CardStatistik
           title="Jumlah Calon Pemilih"
@@ -42,12 +44,14 @@ export const DashboardRelawan = ({ kandidatId }) => {
             currentvalue: totalPemilih?.currentvalue,
             newvalue: 'Calon Pemilih Baru',
           }}
+          icon={<UsersIcon width={24} />}
           loading={loadingTotalPemilih}
           prefix="+"
           color="green"
         />
         <CardStatistik
           title="Total Logistik"
+          icon={<ArchiveBoxIcon width={24} color="white" />}
           value={totalLogistik}
           loading={loadingTotalLogistik}
           prefix="+"
@@ -61,7 +65,7 @@ export const DashboardRelawan = ({ kandidatId }) => {
           TABLE_HEAD={['Calon', 'Status']}
           title="Data Calon Pemilih"
           loading={loadingPemilih}
-          icon={<UserIcon className="h-5 w-5" />}
+          icon={<UsersIcon width={24} />}
         />
       </div>
     </>

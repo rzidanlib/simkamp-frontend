@@ -97,7 +97,7 @@ export const InputImage = React.forwardRef(
           ) : null}
           <div className={`${error ? 'hidden' : ''}`}>
             {selectedImage || imageURL ? (
-              <img src={imageURL} className="object-cover h-full w-full" />
+              <img src={imageURL} className="object-cover w-80" />
             ) : (
               <div className="flex flex-col items-center justify-center pt-5 pb-6">
                 <CloudArrowUpIcon className="w-10 h-10 mb-3 text-gray-400" />

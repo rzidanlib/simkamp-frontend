@@ -8,6 +8,7 @@ import { useDeleteRelawan } from '../api/manage-relawan';
 import { Card, CardBody, CardHeader, Typography, Button } from '@material-tailwind/react';
 import { ContentLayout } from '@/components/Layout';
 import { TableRelawan } from '../components/TableRelawan';
+import Authorization, { userRoles } from '@/lib/authorization';
 
 export const RelawanPage = () => {
   // Mengurai currentUser dari localStorage
@@ -50,11 +51,13 @@ export const RelawanPage = () => {
           <Typography variant="h4" color="blue-gray">
             Table Relawan
           </Typography>
-          <Link to={'/relawan/tambah'}>
-            <Button color="blue" size="md">
-              Tambah Relawan
-            </Button>
-          </Link>
+          <Authorization allowedRoles={userRoles.kandidat}>
+            <Link to={'/relawan/tambah'}>
+              <Button color="blue" size="md">
+                Tambah Relawan
+              </Button>
+            </Link>
+          </Authorization>
         </CardHeader>
         <CardBody className="p-0">
           {!isError ? (

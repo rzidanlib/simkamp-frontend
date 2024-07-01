@@ -11,10 +11,12 @@ export const LogistikRoutes = () => {
       <Route path="/stok" element={<LogistikPage />} />
       <Route path="/stok/tambah" element={<ManageLogistik />} />
       <Route path="/stok/edit/:logistikId" element={<ManageLogistik />} />
+      <Route path="/stok/detail/:logistikId" element={<ManageLogistik />} />
 
       <Route path="/pemakaian" element={<PemakaianPage />} />
       <Route path="/pemakaian/tambah" element={<ManagePemakaian />} />
       <Route path="/pemakaian/edit/:pemakaianId" element={<ManagePemakaian />} />
+      <Route path="/pemakaian/detail/:pemakaianId" element={<ManagePemakaian />} />
 
       <Route path="*" element={<Navigate to="/session/404" />} />
     </Routes>

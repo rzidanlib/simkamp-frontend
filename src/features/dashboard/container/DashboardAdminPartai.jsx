@@ -1,4 +1,10 @@
-import { UserIcon } from '@heroicons/react/24/solid';
+import {
+  ArchiveBoxIcon,
+  BanknotesIcon,
+  UserGroupIcon,
+  UserIcon,
+  UsersIcon,
+} from '@heroicons/react/24/solid';
 import { CardStatistik, TableMembers } from '../components';
 
 import PropTypes from 'prop-types';
@@ -20,24 +26,27 @@ export const DashboardAdminPartai = () => {
       <div className="grid grid-cols-4 gap-6 mb-6">
         <CardStatistik
           title="Total Arus Kas"
+          icon={<BanknotesIcon width={24} />}
           value={aruskas}
           color="blue"
           loading={loadingArusKas}
-          prefix="Rp"
+          prefix="+ Rp"
         />
 
         <CardStatistik
           title="Jumlah Relawan"
+          color="red"
+          icon={<UsersIcon width={24} />}
           value={{
             currentvalue: totalRelawan?.currentvalue,
             newvalue: 'Relawan Baru',
           }}
-          loading={loadingTotalRelawan}
           prefix="+"
-          color="red"
+          loading={loadingTotalRelawan}
         />
         <CardStatistik
           title="Jumlah Calon Pemilih"
+          icon={<UserGroupIcon width={24} />}
           value={{
             currentvalue: totalPemilih?.currentvalue,
             newvalue: 'Calon Pemilih Baru',
@@ -48,6 +57,7 @@ export const DashboardAdminPartai = () => {
         />
         <CardStatistik
           title="Total Logistik"
+          icon={<ArchiveBoxIcon width={24} color="white" />}
           value={totalLogistik}
           loading={loadingTotalLogistik}
           prefix="+"
@@ -61,14 +71,14 @@ export const DashboardAdminPartai = () => {
           TABLE_HEAD={['Relawan', 'Status']}
           title="Data Relawan"
           loading={loadingRelawan}
-          icon={<UserIcon className="h-5 w-5" />}
+          icon={<UsersIcon width={24} />}
         />
         <TableMembers
           TABLE_ROW={pemilih}
           TABLE_HEAD={['Calon', 'Status']}
           title="Data Calon Pemilih"
           loading={loadingPemilih}
-          icon={<UserIcon className="h-5 w-5" />}
+          icon={<UserGroupIcon width={24} />}
         />
       </div>
     </>

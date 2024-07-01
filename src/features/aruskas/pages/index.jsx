@@ -9,6 +9,7 @@ export const ArusKasRoutes = () => {
       <Route path="" element={<ArusKasPage />} />
       <Route path="/tambah" element={<ManageArusKas />} />
       <Route path="/edit/:arusKasId" element={<ManageArusKas />} />
+      <Route path="/detail/:arusKasId" element={<ManageArusKas />} />
 
       <Route path="*" element={<Navigate to="/session/404" />} />
     </Routes>

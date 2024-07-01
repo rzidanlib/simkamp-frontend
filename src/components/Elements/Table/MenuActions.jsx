@@ -31,7 +31,7 @@ const styles = {
   },
 };
 
-export const MenuActions = ({ detailPath, editPath, onDelete }) => {
+export const MenuActions = ({ detailPath, editPath, onDelete, authRoles }) => {
   const navigate = useNavigate();
 
   return (
@@ -57,29 +57,33 @@ export const MenuActions = ({ detailPath, editPath, onDelete }) => {
         )}
 
         {editPath && (
-          <MenuItem
-            className={`${styles.default} ${styles.edit.bgColor} ${styles.edit.color}`}
-            onClick={() => {
-              navigate(editPath);
-            }}
-          >
-            <PencilIcon strokeWidth={2} className="h-5 w-5 " />
-            <Typography variant="small" className={styles.edit.color}>
-              Edit
-            </Typography>
-          </MenuItem>
+          <Authorization allowedRoles={authRoles.edit}>
+            <MenuItem
+              className={`${styles.default} ${styles.edit.bgColor} ${styles.edit.color}`}
+              onClick={() => {
+                navigate(editPath);
+              }}
+            >
+              <PencilIcon strokeWidth={2} className="h-5 w-5 " />
+              <Typography variant="small" className={styles.edit.color}>
+                Edit
+              </Typography>
+            </MenuItem>
+          </Authorization>
         )}
 
         {onDelete && (
-          <MenuItem
-            className={`${styles.default} ${styles.delete.bgColor} ${styles.delete.color}`}
-            onClick={onDelete}
-          >
-            <TrashIcon strokeWidth={2} className="h-5 w-5 " />
-            <Typography variant="small" className={styles.delete.color}>
-              Delete
-            </Typography>
-          </MenuItem>
+          <Authorization allowedRoles={authRoles.delete}>
+            <MenuItem
+              className={`${styles.default} ${styles.delete.bgColor} ${styles.delete.color}`}
+              onClick={onDelete}
+            >
+              <TrashIcon strokeWidth={2} className="h-5 w-5 " />
+              <Typography variant="small" className={styles.delete.color}>
+                Delete
+              </Typography>
+            </MenuItem>
+          </Authorization>
         )}
       </MenuList>
     </Menu>
@@ -90,4 +94,5 @@ MenuActions.propTypes = {
   detailPath: PropTypes.string,
   editPath: PropTypes.string,
   onDelete: PropTypes.func,
+  authRoles: PropTypes.object,
 };

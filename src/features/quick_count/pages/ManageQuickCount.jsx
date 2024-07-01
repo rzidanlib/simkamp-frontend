@@ -17,11 +17,16 @@ import {
 import { ContentLayout } from '@/components/Layout';
 import { Card, CardBody } from '@material-tailwind/react';
 import { FormQuickCount } from '../components/FormQuickCount';
+import { useLocation } from 'react-router-dom';
 
 export const ManageQuickCount = () => {
   const { quickCountId } = useParams();
   const isEdit = Boolean(quickCountId);
   const { data: quickCount, isLoading, isError } = useQuickCount(quickCountId);
+
+  const location = useLocation();
+  const detailPath = location.pathname.split('/')[2];
+  const disabled = isEdit && Boolean(detailPath);
 
   const { mutate: createQuickCount } = useCreateQuickCount();
   const { mutate: updateQuickCount } = useUpdateQuickCount();
@@ -105,6 +110,7 @@ export const ManageQuickCount = () => {
             handleSubmit={handleSubmit}
             onSubmit={onSubmit}
             errors={errors}
+            disabled={disabled}
             data={{
               provinsiData: { provinsi, isLoadingProvinsi, isErrorProvinsi },
               kabKotaData: { kabKota, isLoadingKabKota, isErrorKabKota },

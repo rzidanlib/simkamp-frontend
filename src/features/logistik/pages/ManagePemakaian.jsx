@@ -13,6 +13,7 @@ import { ContentLayout } from '@/components/Layout';
 import { Card, CardBody } from '@material-tailwind/react';
 import { FormPemakaian } from '../components/FormPemakaian';
 import { useLogistikRelawan } from '../api/get-logistik';
+import { useLocation } from 'react-router-dom';
 
 export const ManagePemakaian = () => {
   const { pemakaianId } = useParams();
@@ -23,6 +24,10 @@ export const ManagePemakaian = () => {
     isLoading: isLoadingLogistik,
     isError: isErrorLogistik,
   } = useLogistikRelawan();
+
+  const location = useLocation();
+  const detailPath = location.pathname.split('/')[2];
+  const disabled = isEdit && Boolean(detailPath);
 
   const { mutate: createPemakaian } = useCreatePemakaian();
   const { mutate: updatePemakaian } = useUpdatePemakaian();
@@ -67,6 +72,7 @@ export const ManagePemakaian = () => {
             handleSubmit={handleSubmit}
             onSubmit={onSubmit}
             errors={errors}
+            disabled={disabled}
             data={{ logistikData, isLoadingLogistik, isErrorLogistik }}
           />
         </CardBody>

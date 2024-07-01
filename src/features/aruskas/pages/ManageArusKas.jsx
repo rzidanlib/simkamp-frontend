@@ -11,11 +11,16 @@ import { arusKasSchema } from '../schema/arus-kas-schema';
 import { ContentLayout } from '@/components/Layout';
 import { Card, CardBody } from '@material-tailwind/react';
 import { FormArusKas } from '../components/FormArusKas';
+import { useLocation } from 'react-router-dom';
 
 export const ManageArusKas = () => {
   const { arusKasId } = useParams();
   const isEdit = Boolean(arusKasId);
   const { data: arusKasData, isLoading, isError } = useArusKas(arusKasId);
+
+  const location = useLocation();
+  const detailPath = location.pathname.split('/')[2];
+  const disabled = isEdit && Boolean(detailPath);
 
   const { mutate: createArusKas } = useCreateArusKas();
   const { mutate: updateArusKas } = useUpdateArusKas();
@@ -74,7 +79,7 @@ export const ManageArusKas = () => {
             handleSubmit={handleSubmit}
             onSubmit={onSubmit}
             errors={errors}
-            // disabled={isEdit}
+            disabled={disabled}
           />
         </CardBody>
       </Card>

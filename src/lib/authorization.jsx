@@ -27,24 +27,27 @@ const useAuthorization = () => {
     [user]
   );
 
-  return { checkAccess, role: user.role };
+  return { checkAccess, role: user?.role };
 };
 
-const Authorization = ({ policyCheck, allowedRoles, forbiddenFallback = null, children }) => {
-  const { checkAccess } = useAuthorization();
+const Authorization = React.forwardRef(
+  ({ policyCheck, allowedRoles, forbiddenFallback = null, children }, ref) => {
+    const { checkAccess } = useAuthorization();
 
-  let canAccess = false;
+    let canAccess = false;
 
-  if (allowedRoles) {
-    canAccess = checkAccess({ allowedRoles });
+    if (allowedRoles) {
+      canAccess = checkAccess({ allowedRoles });
+    }
+
+    if (typeof policyCheck !== 'undefined') {
+      canAccess = policyCheck;
+    }
+
+    return <>{canAccess ? children : forbiddenFallback}</>;
   }
-
-  if (typeof policyCheck !== 'undefined') {
-    canAccess = policyCheck;
-  }
-
-  return <>{canAccess ? children : forbiddenFallback}</>;
-};
+);
+Authorization.displayName = 'Authorization';
 
 Authorization.propTypes = {
   forbiddenFallback: PropTypes.node,

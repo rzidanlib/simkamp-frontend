@@ -6,6 +6,7 @@ import { UserIcon } from '@heroicons/react/24/outline';
 import { useRelawanStatisticsKandidat, useTableRelawanKandidat } from '../api/get-relawan';
 import { usePemilihStatisticsKandidat, useTablePemilihKandidat } from '../api/get-pemilih';
 import { useTotalLogistikKandidat } from '../api/get-logistik';
+import { ArchiveBoxIcon, BanknotesIcon, UserGroupIcon, UsersIcon } from '@heroicons/react/24/solid';
 
 export const DashboardKandidat = ({ currentKandidat }) => {
   const { data: aruskas, isLoading: loadingArusKas } = useArusKasStatisticsKandidat();
@@ -28,9 +29,10 @@ export const DashboardKandidat = ({ currentKandidat }) => {
         <CardStatistik
           title="Total Arus Kas"
           value={aruskas}
+          icon={<BanknotesIcon width={24} />}
           color="blue"
           loading={loadingArusKas}
-          prefix="Rp"
+          prefix="+ Rp"
         />
 
         <CardStatistik
@@ -39,6 +41,7 @@ export const DashboardKandidat = ({ currentKandidat }) => {
             currentvalue: totalRelawan?.currentvalue,
             newvalue: 'Relawan Baru',
           }}
+          icon={<UsersIcon width={24} />}
           loading={loadingTotalRelawan}
           prefix="+"
           color="red"
@@ -50,12 +53,14 @@ export const DashboardKandidat = ({ currentKandidat }) => {
             newvalue: 'Calon Pemilih Baru',
           }}
           loading={loadingTotalPemilih}
+          icon={<UserGroupIcon width={24} />}
           prefix="+"
           color="green"
         />
         <CardStatistik
           title="Total Logistik"
           value={totalLogistik}
+          icon={<ArchiveBoxIcon width={24} color="white" />}
           loading={loadingTotalLogistik}
           prefix="+"
           color="yellow"
@@ -68,14 +73,14 @@ export const DashboardKandidat = ({ currentKandidat }) => {
           TABLE_HEAD={['Relawan', 'Status']}
           title="Data Relawan"
           loading={loadingRelawan}
-          icon={<UserIcon className="h-5 w-5" />}
+          icon={<UsersIcon width={24} />}
         />
         <TableMembers
           TABLE_ROW={pemilih}
           TABLE_HEAD={['Calon', 'Status']}
           title="Data Calon Pemilih"
           loading={loadingPemilih}
-          icon={<UserIcon className="h-5 w-5" />}
+          icon={<UserGroupIcon width={24} />}
         />
       </div>
     </>

@@ -3,7 +3,7 @@ import { Card, CardHeader, CardBody, CardFooter, Typography } from '@material-ta
 
 import PropTypes from 'prop-types';
 
-export const CardStatistik = ({ color, value, title, loading, prefix = '', sufix = '' }) => {
+export const CardStatistik = ({ icon, color, value, title, loading, prefix = '', sufix = '' }) => {
   return (
     <Card>
       <CardHeader
@@ -13,7 +13,7 @@ export const CardStatistik = ({ color, value, title, loading, prefix = '', sufix
         shadow={false}
         className="absolute grid h-12 w-12 place-items-center"
       >
-        <UserIcon className="h-6 w-6" />
+        {icon}
       </CardHeader>
       <CardBody className="p-4 text-right">
         <Typography variant="small" className="font-normal text-blue-gray-600">
@@ -46,4 +46,5 @@ CardStatistik.propTypes = {
   loading: PropTypes.bool,
   prefix: PropTypes.string,
   sufix: PropTypes.string,
+  icon: PropTypes.node,
 };

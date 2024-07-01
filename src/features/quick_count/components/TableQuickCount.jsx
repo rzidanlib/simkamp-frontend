@@ -1,6 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { MenuActions, Table } from '@/components/Elements/Table';
+import { userRoles } from '@/lib/authorization';
 
 export const TableQuickCount = ({ tableData, handleDelete, isLoading }) => {
   const columns = React.useMemo(
@@ -26,8 +27,14 @@ export const TableQuickCount = ({ tableData, handleDelete, isLoading }) => {
         id: 'action',
         cell: ({ row }) => (
           <MenuActions
-            editPath={`/quick-count/edit/${row.original.quick_count_id}`} // Assuming `id` is the identifier
+            detailPath={`/quick-count/detail/${row.original.quick_count_id}`}
+            editPath={`/quick-count/edit/${row.original.quick_count_id}`}
             onDelete={() => handleDelete(row.original.quick_count_id)}
+            authRoles={{
+              detail: userRoles.allUserSimkamp,
+              edit: userRoles.relawan,
+              delete: userRoles.relawan,
+            }}
           />
         ),
       },

@@ -15,7 +15,7 @@ export const ProfilePage = () => {
   const user = localStorageHandler.getItem('currentUser');
 
   return (
-    <ContentLayout title="Profile Admin">
+    <ContentLayout title="Profile">
       <Card className="mt-12">
         <CardBody>
           {user.role === 'admin-partai' || user.role === 'administrator' ? (

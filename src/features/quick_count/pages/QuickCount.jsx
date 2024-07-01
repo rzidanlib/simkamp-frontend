@@ -13,6 +13,7 @@ import { Card, CardBody, CardHeader, Typography, Button } from '@material-tailwi
 import { ContentLayout } from '@/components/Layout';
 import { TableQuickCount } from '../components/TableQuickCount';
 import localStorageHandler from '@/utils/localStorage';
+import Authorization, { userRoles } from '@/lib/authorization';
 
 export const QuickCountPage = () => {
   const { role } = localStorageHandler.getItem('currentUser');
@@ -75,11 +76,13 @@ export const QuickCountPage = () => {
           <Typography variant="h4" color="blue-gray">
             Table Quick Count
           </Typography>
-          <Link to={'/quick-count/tambah'}>
-            <Button color="blue" size="md">
-              Tambah Quick Count
-            </Button>
-          </Link>
+          <Authorization allowedRoles={userRoles.relawan}>
+            <Link to={'/quick-count/tambah'}>
+              <Button color="blue" size="md">
+                Tambah Quick Count
+              </Button>
+            </Link>
+          </Authorization>
         </CardHeader>
         <CardBody className="p-0">
           {!isError ? (

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { MenuActions, Table } from '@/components/Elements/Table';
+import { userRoles } from '@/lib/authorization';
 
 export const TableRelawan = ({ tableData, handleDelete, isLoading }) => {
   const columns = React.useMemo(
@@ -40,6 +41,9 @@ export const TableRelawan = ({ tableData, handleDelete, isLoading }) => {
           <MenuActions
             detailPath={`/relawan/detail/${row.original.relawan_id}`}
             onDelete={() => handleDelete(row.original.relawan_id)}
+            authRoles={{
+              delete: userRoles.kandidat,
+            }}
           />
         ),
       },

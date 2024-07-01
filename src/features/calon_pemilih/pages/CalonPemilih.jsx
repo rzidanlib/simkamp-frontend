@@ -10,6 +10,7 @@ import { ContentLayout } from '@/components/Layout';
 import { TablePemilih } from '../components/TablePemilih';
 import { useProvinsi } from '@/features/wilayah-administrasi/api/get-wilayah';
 import localStorageHandler from '@/utils/localStorage';
+import Authorization, { userRoles } from '@/lib/authorization';
 
 export const CalonPemilihPage = () => {
   const { role } = localStorageHandler.getItem('currentUser');
@@ -81,11 +82,13 @@ export const CalonPemilihPage = () => {
           <Typography variant="h4" color="blue-gray">
             Table Calon Pemilih
           </Typography>
-          <Link to={'/calon-pemilih/tambah'}>
-            <Button color="blue" size="md">
-              Tambah Calon Pemilih
-            </Button>
-          </Link>
+          <Authorization allowedRoles={userRoles.relawan}>
+            <Link to={'/calon-pemilih/tambah'}>
+              <Button color="blue" size="md">
+                Tambah Calon Pemilih
+              </Button>
+            </Link>
+          </Authorization>
         </CardHeader>
         <CardBody className="p-0">
           {!isError ? (

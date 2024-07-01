@@ -1,6 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { MenuActions, Table } from '@/components/Elements/Table';
+import { userRoles } from '@/lib/authorization';
 
 export const TableLogistik = ({ tableData, handleDelete, isLoading }) => {
   const columns = React.useMemo(
@@ -38,8 +39,14 @@ export const TableLogistik = ({ tableData, handleDelete, isLoading }) => {
         id: 'action',
         cell: ({ row }) => (
           <MenuActions
+            detailPath={`/logistik/stok/detail/${row.original.logistik_id}`}
             editPath={`/logistik/stok/edit/${row.original.logistik_id}`}
             onDelete={() => handleDelete(row.original.logistik_id)}
+            authRoles={{
+              detail: userRoles.allUserSimkamp,
+              edit: userRoles.relawan,
+              delete: userRoles.relawan,
+            }}
           />
         ),
       },

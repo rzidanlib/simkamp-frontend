@@ -1,6 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { MenuActions, Table } from '@/components/Elements/Table';
+import { userRoles } from '@/lib/authorization';
 
 export const TablePemilih = ({ tableData, handleDelete, isLoading, lookup }) => {
   const columns = React.useMemo(
@@ -38,8 +39,13 @@ export const TablePemilih = ({ tableData, handleDelete, isLoading, lookup }) => 
         id: 'action',
         cell: ({ row }) => (
           <MenuActions
+            detailPath={`/calon-pemilih/detail/${row.original.calon_pemilih_id}`}
             editPath={`/calon-pemilih/edit/${row.original.calon_pemilih_id}`}
             onDelete={() => handleDelete(row.original.calon_pemilih_id)}
+            authRoles={{
+              edit: userRoles.relawan,
+              delete: userRoles.relawan,
+            }}
           />
         ),
       },

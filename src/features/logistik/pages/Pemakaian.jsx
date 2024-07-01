@@ -9,6 +9,7 @@ import { Card, CardBody, CardHeader, Typography, Button } from '@material-tailwi
 import { ContentLayout } from '@/components/Layout';
 import { TablePemakaian } from '../components/TablePemakaian';
 import localStorageHandler from '@/utils/localStorage';
+import Authorization, { userRoles } from '@/lib/authorization';
 
 export const PemakaianPage = () => {
   const { role } = localStorageHandler.getItem('currentUser');
@@ -72,11 +73,13 @@ export const PemakaianPage = () => {
           <Typography variant="h4" color="blue-gray">
             Table Pemakaian Logistik
           </Typography>
-          <Link to={'/logistik/pemakaian/tambah'}>
-            <Button color="blue" size="md">
-              Tambah Pemakaian Logistik
-            </Button>
-          </Link>
+          <Authorization allowedRoles={userRoles.relawan}>
+            <Link to={'/logistik/pemakaian/tambah'}>
+              <Button color="blue" size="md">
+                Tambah Pemakaian Logistik
+              </Button>
+            </Link>
+          </Authorization>
         </CardHeader>
         <CardBody className="p-0">
           {!isError ? (

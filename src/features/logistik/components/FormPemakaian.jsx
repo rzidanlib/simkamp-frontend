@@ -29,6 +29,7 @@ export const FormPemakaian = ({ handleSubmit, onSubmit, control, errors, disable
               label="Tanggal"
               placeholder="Pilih tanggal pemakaian"
               error={errors.pemakaian_tanggal?.message}
+              disabled={disabled}
               {...field}
             />
           )}
@@ -58,6 +59,7 @@ export const FormPemakaian = ({ handleSubmit, onSubmit, control, errors, disable
               value={isLoadingLogistik ? undefined : String(field.value)}
               onChange={(val) => field.onChange(val)}
               error={errors.pemakaian_logistik_id?.message}
+              disabled={disabled}
               options={
                 isLoadingLogistik
                   ? []

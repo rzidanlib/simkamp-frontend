@@ -112,6 +112,7 @@ export const FormArusKas = ({ handleSubmit, onSubmit, control, errors, disabled 
               label="Tanggal"
               placeholder="Pilih tanggal"
               error={errors.aruskas_tanggal?.message}
+              disabled={disabled}
               {...field}
             />
           )}
