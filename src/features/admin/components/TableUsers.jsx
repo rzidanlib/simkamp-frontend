@@ -5,6 +5,7 @@ import { usePartai } from '../api/data_master/partai/get-partai';
 import { useRoles } from '../api/data_master/roles/get-roles';
 
 import { MenuActions, Table } from '@/components/Elements/Table';
+import { userRoles } from '@/lib/authorization';
 
 const getCustomLabel = (label) => {
   const customLabels = {
@@ -72,6 +73,10 @@ export const TableUsers = ({ tableData, handleDelete, isLoading }) => {
             <MenuActions
               onDelete={() => handleDelete(row.original.user_id)}
               detailPath={`/manage-users/users/detail/${row.original.user_id}`}
+              authRoles={{
+                delete: userRoles.adminSistem,
+                detail: userRoles.adminSistem,
+              }}
             />
           );
         },

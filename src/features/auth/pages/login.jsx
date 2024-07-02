@@ -8,12 +8,14 @@ import { loginSchema } from '../schema/login-schema';
 
 import { Card, Typography } from '@material-tailwind/react';
 import { FormLogin } from '../components/FormLogin';
+import { FormLoginAdmin } from '../components/FormLoginAdmin';
 
 export const Login = () => {
   const loginMutation = useLogin();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || '/dashboard';
+  const adminLoginPage = location.pathname === '/auth/login/admin';
   const [isLoginSuccessful, setIsLoginSuccessful] = React.useState(false);
 
   const {
@@ -24,7 +26,7 @@ export const Login = () => {
     defaultValues: {
       email: '',
       password: '',
-      role: '',
+      role: adminLoginPage ? 'administrator' : '',
     },
     resolver: zodResolver(loginSchema),
   });
@@ -53,12 +55,21 @@ export const Login = () => {
           Selamat Datang! Silahkan masukan Email dan Password
         </Typography>
 
-        <FormLogin
-          control={control}
-          errors={errors}
-          handleSubmit={handleSubmit}
-          onSubmit={onSubmit}
-        />
+        {adminLoginPage ? (
+          <FormLoginAdmin
+            control={control}
+            errors={errors}
+            handleSubmit={handleSubmit}
+            onSubmit={onSubmit}
+          />
+        ) : (
+          <FormLogin
+            control={control}
+            errors={errors}
+            handleSubmit={handleSubmit}
+            onSubmit={onSubmit}
+          />
+        )}
       </Card>
     </div>
   );

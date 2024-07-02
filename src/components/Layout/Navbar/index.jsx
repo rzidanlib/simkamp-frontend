@@ -19,13 +19,15 @@ const MainNavbar = () => {
   const { openSidenav } = controller;
   const { data: user, isLoading } = useCurrentUser();
 
-  let name;
+  let name, img;
   switch (user.role) {
     case 'kandidat':
       name = user.kandidat_nama;
+      img = user.kandidat_foto;
       break;
     case 'relawan':
       name = user.relawan_nama;
+      img = user.relawan_foto;
       break;
     default:
       name = user.user_nama;

@@ -2,6 +2,7 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { MenuActions, Table } from '@/components/Elements/Table';
 import { Img } from '@/components/Elements/Image';
+import { userRoles } from '@/lib/authorization';
 
 export const TablePartai = ({ tableData, handleDelete, isLoading }) => {
   const columns = React.useMemo(
@@ -44,6 +45,10 @@ export const TablePartai = ({ tableData, handleDelete, isLoading }) => {
             <MenuActions
               editPath={`/data-master/partai/edit/${row.original.partai_id}`}
               onDelete={() => handleDelete(row.original.partai_id)}
+              authRoles={{
+                edit: userRoles.adminSistem,
+                detail: userRoles.adminSistem,
+              }}
             />
           );
         },

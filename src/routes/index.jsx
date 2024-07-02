@@ -40,6 +40,7 @@ const routes = createRoutesFromElements(
 
     <Route element={<AuthGuard guardType="unauthenticated" />}>
       <Route path="/auth/login" element={<Login />} />
+      <Route path="/auth/login/admin" element={<Login />} />
     </Route>
   </React.Fragment>
 );

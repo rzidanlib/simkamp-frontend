@@ -1,6 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { MenuActions, Table } from '@/components/Elements/Table';
+import { userRoles } from '@/lib/authorization';
 
 export const TableRoles = ({ tableData, handleDelete, isLoading }) => {
   const columns = React.useMemo(
@@ -29,6 +30,10 @@ export const TableRoles = ({ tableData, handleDelete, isLoading }) => {
             <MenuActions
               editPath={`/data-master/roles/edit/${row.original.role_id}`}
               onDelete={() => handleDelete(row.original.role_id)}
+              authRoles={{
+                edit: userRoles.adminSistem,
+                detail: userRoles.adminSistem,
+              }}
             />
           );
         },
