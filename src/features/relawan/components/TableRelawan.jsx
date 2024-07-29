@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { MenuActions, Table } from '@/components/Elements/Table';
 import { userRoles } from '@/lib/authorization';
 
-export const TableRelawan = ({ tableData, handleDelete, isLoading }) => {
+export const TableRelawan = ({ tableData, handleDelete, isLoading, actions }) => {
   const columns = React.useMemo(
     () => [
       {
@@ -39,7 +39,7 @@ export const TableRelawan = ({ tableData, handleDelete, isLoading }) => {
         id: 'action',
         cell: ({ row }) => (
           <MenuActions
-            detailPath={`/relawan/detail/${row.original.relawan_id}`}
+            detailPath={`${actions.detailPath}/detail/${row.original.relawan_id}`}
             onDelete={() => handleDelete(row.original.relawan_id)}
             authRoles={{
               delete: userRoles.kandidat,
@@ -48,7 +48,7 @@ export const TableRelawan = ({ tableData, handleDelete, isLoading }) => {
         ),
       },
     ],
-    [handleDelete]
+    [handleDelete, actions.detailPath]
   );
 
   return <Table columns={columns} data={tableData} loading={isLoading} />;
@@ -59,4 +59,5 @@ TableRelawan.propTypes = {
   handleDelete: PropTypes.func,
   isLoading: PropTypes.bool,
   lookup: PropTypes.object,
+  actions: PropTypes.object,
 };

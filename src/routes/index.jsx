@@ -7,7 +7,8 @@ import { lazyImport } from '@/utils/lazyImport';
 import { MainLayout } from '@/components/Layout';
 import { LoadingSpinner } from '@/components/Elements/Spinner';
 
-import { NotFound } from '@/features/misc/ErrorPage';
+import { NotFound } from '@/features/misc/NotFoundPage';
+import { Unauthorized } from '@/features/misc/UnauthorizedPage';
 import { Login } from '@/features/auth/pages/Login';
 import { MainRoutes } from './Routes';
 
@@ -33,6 +34,7 @@ const routes = createRoutesFromElements(
   <React.Fragment>
     <Route index element={<Landing />} />
     <Route path="/session/404" element={<NotFound />} />
+    <Route path="/session/403" element={<Unauthorized />} />
 
     <Route element={<AuthGuard />}>
       <Route element={<App />}>{MainRoutes}</Route>

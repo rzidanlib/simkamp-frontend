@@ -37,9 +37,14 @@ export const KandidatPage = () => {
             </Button>
           </Link>
         </CardHeader>
-        <CardBody className="p-0">
+        <CardBody className="p-0 overflow-x-scroll">
           {!isError ? (
-            <TableKandidat tableData={kandidat} handleDelete={handleDelete} isLoading={isLoading} />
+            <TableKandidat
+              tableData={kandidat}
+              handleDelete={handleDelete}
+              isLoading={isLoading}
+              actions={{ detailPath: `/kandidat` }}
+            />
           ) : (
             <div className="h-10 flex justify-center items-center">{isError}</div>
           )}

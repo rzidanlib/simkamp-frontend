@@ -1,7 +1,7 @@
 import {
   ArchiveBoxIcon,
   ArrowsRightLeftIcon,
-  BanknotesIcon,
+  ChevronDoubleRightIcon,
   HomeIcon,
   InboxArrowDownIcon,
   InboxStackIcon,
@@ -9,7 +9,6 @@ import {
   SwatchIcon,
   UserGroupIcon,
   UserIcon,
-  UserPlusIcon,
   UsersIcon,
 } from '@heroicons/react/24/solid';
 
@@ -36,8 +35,27 @@ export const navigations = [
     id: 2,
     icon: UserGroupIcon,
     title: 'Manage Users',
-    path: './manage-users/users',
     roles: userRoles.adminSistem,
+    subNav: [
+      {
+        id: 21,
+        title: 'Users Admin',
+        icon: UserIcon,
+        path: './manage-users/users',
+      },
+      {
+        id: 22,
+        title: 'Users Kandidat',
+        icon: UserIcon,
+        path: './manage-users/kandidat',
+      },
+      {
+        id: 23,
+        title: 'Users Relawan',
+        icon: UserIcon,
+        path: './manage-users/relawan',
+      },
+    ],
   },
   {
     id: 3,
@@ -48,37 +66,37 @@ export const navigations = [
       {
         id: 31,
         title: 'Role User',
-        icon: UserPlusIcon,
+        icon: ChevronDoubleRightIcon,
         path: './data-master/roles',
       },
       {
         id: 32,
         title: 'Partai Politik',
-        icon: UserIcon,
+        icon: ChevronDoubleRightIcon,
         path: './data-master/partai',
       },
       {
         id: 33,
         title: 'Jenis Pemilihan',
-        icon: UsersIcon,
+        icon: ChevronDoubleRightIcon,
         path: './data-master/jenis-pemilihan',
       },
       {
         id: 34,
         title: 'Posisi Calon Tetap',
-        icon: UsersIcon,
+        icon: ChevronDoubleRightIcon,
         path: './data-master/posisi-calon',
       },
       {
         id: 35,
         title: 'Daerah Pemilihan',
-        icon: UsersIcon,
+        icon: ChevronDoubleRightIcon,
         path: './data-master/dapil',
       },
       {
         id: 36,
         title: 'Agama',
-        icon: UsersIcon,
+        icon: ChevronDoubleRightIcon,
         path: './data-master/agama',
       },
     ],

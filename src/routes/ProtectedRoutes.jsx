@@ -19,7 +19,7 @@ export const ProtectedRoute = ({
   }
 
   if (requiredRoles && !requiredRoles.some((role) => userRole.includes(role))) {
-    return <Navigate to="/session/404" replace />;
+    return <Navigate to="/session/403" replace />;
   }
 
   return children ?? <Outlet />;

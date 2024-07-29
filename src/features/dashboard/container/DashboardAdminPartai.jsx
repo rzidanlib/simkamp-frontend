@@ -1,10 +1,4 @@
-import {
-  ArchiveBoxIcon,
-  BanknotesIcon,
-  UserGroupIcon,
-  UserIcon,
-  UsersIcon,
-} from '@heroicons/react/24/solid';
+import { ArchiveBoxIcon, BanknotesIcon, UserGroupIcon, UsersIcon } from '@heroicons/react/24/solid';
 import { CardStatistik, TableMembers } from '../components';
 
 import PropTypes from 'prop-types';
@@ -39,7 +33,7 @@ export const DashboardAdminPartai = () => {
           icon={<UsersIcon width={24} />}
           value={{
             currentvalue: totalRelawan?.currentvalue,
-            newvalue: 'Relawan Baru',
+            newvalue: totalRelawan?.currentvalue === 0 ? 'Kosong' : 'Relawan Baru',
           }}
           prefix="+"
           loading={loadingTotalRelawan}
@@ -49,7 +43,7 @@ export const DashboardAdminPartai = () => {
           icon={<UserGroupIcon width={24} />}
           value={{
             currentvalue: totalPemilih?.currentvalue,
-            newvalue: 'Calon Pemilih Baru',
+            newvalue: totalPemilih?.currentvalue === 0 ? 'Kosong' : 'Calon Pemilih Baru',
           }}
           loading={loadingTotalPemilih}
           prefix="+"

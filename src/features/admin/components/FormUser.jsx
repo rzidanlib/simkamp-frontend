@@ -127,7 +127,7 @@ export const FormUser = ({ handleSubmit, onSubmit, control, errors, data }) => {
           render={({ field }) => (
             <Select
               id="user_role_id"
-              label="Partai"
+              label="Role"
               value={loading.rolesLoading ? undefined : String(field.value)}
               onChange={(val) => field.onChange(Number(val))}
               error={errors.user_role_id?.message}
@@ -140,7 +140,7 @@ export const FormUser = ({ handleSubmit, onSubmit, control, errors, data }) => {
                       label: getRoleLabel(item.role),
                     }))
               }
-              placeholder={loading.rolesLoading ? 'Loading...' : 'Pilih partai'}
+              placeholder={loading.rolesLoading ? 'Loading...' : 'Pilih Role'}
             />
           )}
         />

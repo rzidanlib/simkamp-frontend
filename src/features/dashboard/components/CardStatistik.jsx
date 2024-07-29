@@ -20,7 +20,11 @@ export const CardStatistik = ({ icon, color, value, title, loading, prefix = '',
           {title}
         </Typography>
         <Typography variant="h4" color={color}>
-          {loading ? 'Loading...' : value.currentvalue}
+          {loading
+            ? 'Loading...'
+            : value && value.currentvalue !== undefined
+            ? value.currentvalue
+            : 0}
         </Typography>
       </CardBody>
       <CardFooter className="flex border-t border-blue-gray-50 p-4 capitalize">

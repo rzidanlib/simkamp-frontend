@@ -65,6 +65,7 @@ export const RelawanPage = () => {
               tableData={relawanData}
               handleDelete={handleDelete}
               isLoading={isLoading}
+              actions={{ detailPath: `/relawan` }}
             />
           ) : (
             <div className="h-10 flex justify-center items-center">{isError}</div>

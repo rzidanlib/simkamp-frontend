@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { MenuActions, Table } from '@/components/Elements/Table';
 import { userRoles } from '@/lib/authorization';
 
-export const TableKandidat = ({ tableData, handleDelete, isLoading }) => {
+export const TableKandidat = ({ tableData, handleDelete, isLoading, actions }) => {
   const columns = React.useMemo(
     () => [
       {
@@ -16,12 +16,6 @@ export const TableKandidat = ({ tableData, handleDelete, isLoading }) => {
         id: 'kandidat_nama',
         cell: (info) => info.getValue(),
         header: () => 'Nama',
-      },
-      {
-        accessorFn: (row) => row.dapil_nama,
-        id: 'dapil_nama',
-        cell: (info) => info.getValue(),
-        header: () => 'Dapil',
       },
       {
         accessorFn: (row) => row.jenis_pemilihan,
@@ -46,10 +40,10 @@ export const TableKandidat = ({ tableData, handleDelete, isLoading }) => {
         cell: ({ row }) => {
           return (
             <MenuActions
-              detailPath={`/kandidat/detail/${row.original.kandidat_id}`}
+              detailPath={`${actions.detailPath}/detail/${row.original.kandidat_id}`}
               onDelete={() => handleDelete(row.original.kandidat_id)}
               authRoles={{
-                detail: userRoles.adminPartai,
+                detail: userRoles.admin,
                 delete: userRoles.adminPartai,
               }}
             />
@@ -57,7 +51,7 @@ export const TableKandidat = ({ tableData, handleDelete, isLoading }) => {
         },
       },
     ],
-    [handleDelete]
+    [handleDelete, actions.detailPath]
   );
 
   return <Table columns={columns} data={tableData} loading={isLoading} />;
@@ -68,4 +62,5 @@ TableKandidat.propTypes = {
   handleDelete: PropTypes.func,
   isLoading: PropTypes.bool,
   lookup: PropTypes.object,
+  actions: PropTypes.object,
 };
