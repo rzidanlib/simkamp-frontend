@@ -3,10 +3,9 @@ import { CardKandidatBio, CardKandidatProfile, CardStatistik, TableMembers } fro
 import PropTypes from 'prop-types';
 import { useKandidat } from '@/features/kandidat/api/get-kandidat';
 import { useArusKasStatisticsRelawan } from '../api/get-aruskas-statistics';
-import { UserIcon } from '@heroicons/react/24/outline';
 import { usePemilihStatisticsRelawan, useTablePemilihRelawan } from '../api/get-pemilih';
 import { useTotalLogistikRelawan } from '../api/get-logistik';
-import { ArchiveBoxIcon, BanknotesIcon, UserGroupIcon, UsersIcon } from '@heroicons/react/24/solid';
+import { ArchiveBoxIcon, BanknotesIcon, UsersIcon } from '@heroicons/react/24/solid';
 
 export const DashboardRelawan = ({ kandidatId }) => {
   const { data: currentKandidat, isLoading } = useKandidat(kandidatId);
@@ -66,6 +65,7 @@ export const DashboardRelawan = ({ kandidatId }) => {
           title="Data Calon Pemilih"
           loading={loadingPemilih}
           icon={<UsersIcon width={24} />}
+          color="green"
         />
       </div>
     </>

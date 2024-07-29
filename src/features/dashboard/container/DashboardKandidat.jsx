@@ -2,7 +2,6 @@ import PropTypes from 'prop-types';
 
 import { CardKandidatBio, CardKandidatProfile, CardStatistik, TableMembers } from '../components';
 import { useArusKasStatisticsKandidat } from '../api/get-aruskas-statistics';
-import { UserIcon } from '@heroicons/react/24/outline';
 import { useRelawanStatisticsKandidat, useTableRelawanKandidat } from '../api/get-relawan';
 import { usePemilihStatisticsKandidat, useTablePemilihKandidat } from '../api/get-pemilih';
 import { useTotalLogistikKandidat } from '../api/get-logistik';
@@ -74,6 +73,7 @@ export const DashboardKandidat = ({ currentKandidat }) => {
           title="Data Relawan"
           loading={loadingRelawan}
           icon={<UsersIcon width={24} />}
+          color="red"
         />
         <TableMembers
           TABLE_ROW={pemilih}
@@ -81,6 +81,7 @@ export const DashboardKandidat = ({ currentKandidat }) => {
           title="Data Calon Pemilih"
           loading={loadingPemilih}
           icon={<UserGroupIcon width={24} />}
+          color="green"
         />
       </div>
     </>

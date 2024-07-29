@@ -66,6 +66,7 @@ export const DashboardAdminPartai = () => {
           title="Data Relawan"
           loading={loadingRelawan}
           icon={<UsersIcon width={24} />}
+          color="red"
         />
         <TableMembers
           TABLE_ROW={pemilih}
@@ -73,6 +74,7 @@ export const DashboardAdminPartai = () => {
           title="Data Calon Pemilih"
           loading={loadingPemilih}
           icon={<UserGroupIcon width={24} />}
+          color="green"
         />
       </div>
     </>

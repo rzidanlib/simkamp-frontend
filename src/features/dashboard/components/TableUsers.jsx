@@ -1,9 +1,6 @@
 import PropTypes from 'prop-types';
 
-import { env } from '@/config/env';
-import { Card, CardHeader, Avatar, Typography, CardBody } from '@material-tailwind/react';
-
-const baseURL = env.BASE_URL;
+import { Card, CardHeader, Typography, CardBody } from '@material-tailwind/react';
 
 const iconColor = {
   green: 'bg-green-500',
@@ -11,7 +8,7 @@ const iconColor = {
   yellow: 'bg-yellow-500',
 };
 
-export const TableMembers = ({ title, icon, color, TABLE_ROW, TABLE_HEAD, loading }) => {
+export const TableUsers = ({ title, icon, color, TABLE_ROW, TABLE_HEAD, loading }) => {
   return (
     <Card>
       <CardHeader
@@ -65,7 +62,7 @@ export const TableMembers = ({ title, icon, color, TABLE_ROW, TABLE_HEAD, loadin
                 </td>
               </tr>
             ) : (
-              TABLE_ROW.map(({ img, name, status }, index) => {
+              TABLE_ROW.map(({ name, email, partai }, index) => {
                 const isLast = index === TABLE_ROW.length - 1;
                 const classes = isLast ? 'p-4' : 'p-4 border-b border-blue-gray-50';
 
@@ -73,7 +70,6 @@ export const TableMembers = ({ title, icon, color, TABLE_ROW, TABLE_HEAD, loadin
                   <tr key={name}>
                     <td className={classes}>
                       <div className="flex items-center gap-3">
-                        <Avatar src={`${baseURL}/${img}`} alt={name} size="sm" />
                         <Typography color="blue-gray" className="font-normal">
                           {name}
                         </Typography>
@@ -82,7 +78,14 @@ export const TableMembers = ({ title, icon, color, TABLE_ROW, TABLE_HEAD, loadin
                     <td className={classes}>
                       <div className="w-max">
                         <Typography color="blue-gray" className="font-normal capitalize">
-                          {status}
+                          {email}
+                        </Typography>
+                      </div>
+                    </td>
+                    <td className={classes}>
+                      <div className="w-max">
+                        <Typography color="blue-gray" className="font-normal capitalize">
+                          {partai}
                         </Typography>
                       </div>
                     </td>
@@ -97,7 +100,7 @@ export const TableMembers = ({ title, icon, color, TABLE_ROW, TABLE_HEAD, loadin
   );
 };
 
-TableMembers.propTypes = {
+TableUsers.propTypes = {
   title: PropTypes.string,
   icon: PropTypes.node,
   TABLE_ROW: PropTypes.array,

@@ -1,4 +1,3 @@
-import { UserIcon } from '@heroicons/react/24/outline';
 import { Card, CardHeader, CardBody, CardFooter, Typography } from '@material-tailwind/react';
 
 import PropTypes from 'prop-types';
