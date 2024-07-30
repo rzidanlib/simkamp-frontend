@@ -1,1 +1,1 @@
-export * from './lib/protected-routes';
+export * from './pages/Login';

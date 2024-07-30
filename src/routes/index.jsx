@@ -9,7 +9,7 @@ import { LoadingSpinner } from '@/components/Elements/Spinner';
 
 import { NotFound } from '@/features/misc/NotFoundPage';
 import { Unauthorized } from '@/features/misc/UnauthorizedPage';
-import { Login } from '@/features/auth/pages/Login';
+import { Login } from '@/features/auth';
 import { MainRoutes } from './Routes';
 
 const { Landing } = lazyImport(() => import('@/features/misc/Landing'), 'Landing');
