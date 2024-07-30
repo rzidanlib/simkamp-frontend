@@ -41,7 +41,7 @@ export const DashboardRelawan = ({ kandidatId }) => {
           title="Jumlah Calon Pemilih"
           value={{
             currentvalue: totalPemilih?.currentvalue,
-            newvalue: 'Calon Pemilih Baru',
+            newvalue: totalPemilih?.currentvalue === 0 ? 'Kosong' : 'Calon Pemilih Baru',
           }}
           icon={<UsersIcon width={24} />}
           loading={loadingTotalPemilih}

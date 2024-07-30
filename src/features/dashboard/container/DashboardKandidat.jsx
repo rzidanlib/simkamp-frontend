@@ -38,7 +38,7 @@ export const DashboardKandidat = ({ currentKandidat }) => {
           title="Jumlah Relawan"
           value={{
             currentvalue: totalRelawan?.currentvalue,
-            newvalue: 'Relawan Baru',
+            newvalue: totalRelawan?.currentvalue === 0 ? 'Kosong' : 'Relawan Baru',
           }}
           icon={<UsersIcon width={24} />}
           loading={loadingTotalRelawan}
@@ -49,7 +49,7 @@ export const DashboardKandidat = ({ currentKandidat }) => {
           title="Jumlah Calon Pemilih"
           value={{
             currentvalue: totalPemilih?.currentvalue,
-            newvalue: 'Calon Pemilih Baru',
+            newvalue: totalPemilih?.currentvalue === 0 ? 'Kosong' : 'Calon Pemilih Baru',
           }}
           loading={loadingTotalPemilih}
           icon={<UserGroupIcon width={24} />}
